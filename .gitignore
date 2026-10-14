@@ -1,0 +1,37 @@
+# Local runtime, GUI packages and personal configuration
+config/
+logs/
+debug/
+backup/
+temp/
+libs/
+runtimes/
+plugins/
+resource/model/
+resource/mfa_layout.json
+resource/image/_ref_*.png
+resource/image/游戏开始界面.png
+appsettings.json
+MFAAvalonia.*
+DependencySetup_*
+*.dll
+*.exe
+*.node
+*.lnk
+
+# Generated Python/cache data and development captures
+__pycache__/
+*.py[cod]
+dev/runtime/
+dev/screenshots/
+dev/backups/
+dev/20*/
+dev/*.log
+dev/*results.json
+dev/cli-exit-input.txt
+dev/validation_report.md
+
+# Superseded image experiments
+logo.ico
+assets/princess-smile.png
+assets/icon-generation.md

@@ -1,0 +1,875 @@
+{
+  "interface_version": 2,
+  "languages": {
+    "zh_cn": "assets/interface_zh.json"
+  },
+  "name": "GuardianTalesAuto",
+  "label": "坎公骑冠剑助手",
+  "title": "坎公骑冠剑助手 v0.3.0",
+  "version": "0.3.0",
+  "license": "MIT",
+  "controller": [
+    {
+      "name": "Android",
+      "label": "安卓端 (ADB)",
+      "description": "通过 ADB 连接安卓真机或模拟器（MuMu/雷电/夜神等）",
+      "type": "Adb",
+      "display_short_side": 720,
+      "display_raw": false
+    }
+  ],
+  "resource": [
+    {
+      "name": "Main",
+      "label": "主资源",
+      "path": [
+        "resource"
+      ],
+      "option": [
+        "RecognitionInterval"
+      ]
+    }
+  ],
+  "task": [
+    {
+      "name": "启动并返回大厅",
+      "entry": "GT_EnsureHub",
+      "label": "启动并返回大厅",
+      "default_check": true,
+      "description": "启动游戏、关闭已识别的公告和推广弹窗，从已支持的页面返回大厅。保留当前游戏进程。"
+    },
+    {
+      "name": "签到检查与领取",
+      "entry": "GT_SignIn",
+      "label": "签到检查与领取",
+      "default_check": true,
+      "description": "检查普通签到和已适配的活动签到，尝试领取高亮格；已签到时关闭奖励预览并返回大厅。"
+    },
+    {
+      "name": "公会签到",
+      "entry": "GT_GuildSignIn",
+      "label": "公会签到",
+      "default_check": true,
+      "description": "进入公会并领取签到奖励；已签到则直接返回大厅。进入公会可能自动结算赛季排名奖励。"
+    },
+    {
+      "name": "商店每日福利",
+      "entry": "GT_ShopBenefits",
+      "label": "商店每日福利",
+      "default_check": true,
+      "description": "领取已订阅签到礼包的日礼及每日免费2000金币。只处理明确的领取或免费按钮。"
+    },
+    {
+      "name": "收取浮游城灵魂点",
+      "entry": "GT_CollectSoulPoints",
+      "label": "收取浮游城灵魂点",
+      "default_check": true,
+      "description": "点击可见的灵魂点收取标记，最多30次；已无标记则结束。不会升级建筑。"
+    },
+    {
+      "name": "领取已完成的日常奖励",
+      "entry": "GT_DailyRewards",
+      "label": "领取已完成的日常奖励",
+      "default_check": true,
+      "description": "进入日常任务，点击可用的全部领取按钮，关闭奖励弹窗并返回大厅。不会执行战斗。"
+    },
+    {
+      "name": "邮箱自动领取",
+      "entry": "GT_MailCollect",
+      "label": "邮箱自动领取",
+      "default_check": true,
+      "description": "领取系统邮件与通知邮件，确认全部领取弹窗并返回大厅。已验证体力和钻石邮件。"
+    },
+    {
+      "name": "好友一键领取与送礼",
+      "entry": "GT_FriendGifts",
+      "label": "好友一键领取与送礼",
+      "default_check": true,
+      "description": "领取好友礼物并向现有好友一键送礼。不会添加陌生好友。"
+    },
+    {
+      "name": "觉醒副本免费扫荡",
+      "entry": "GT_AwakeningFreeSweep",
+      "label": "觉醒副本免费扫荡",
+      "default_check": true,
+      "description": "最多扫荡剩余3次免费进入机会；免费次数为零时跳过。提交前要求钻石和挑战券消耗都为0。"
+    },
+    {
+      "name": "进化石副本扫荡",
+      "entry": "GT_EvolutionSweep",
+      "label": "进化石副本扫荡",
+      "default_check": false,
+      "description": "按设置次数扫荡，支持备用体力。四类副本共用每日10次焕发额度，默认只使用剩余额度；任务顺序决定分配优先级。 自动模式每次扫荡后重新检查已持有英雄，累计1160个或已满星则换目标；无目标则换属性。",
+      "option": [
+        "EvolutionCount",
+        "EvolutionBoost",
+        "EvolutionAttribute",
+        "EvolutionMode"
+      ]
+    },
+    {
+      "name": "金币副本扫荡",
+      "entry": "GT_GoldSweep",
+      "label": "金币副本扫荡",
+      "default_check": false,
+      "description": "按设置次数扫荡，支持备用体力。四类副本共用每日10次焕发额度，默认只使用剩余额度；任务顺序决定分配优先级。",
+      "option": [
+        "GoldCount",
+        "GoldBoost"
+      ]
+    },
+    {
+      "name": "经验副本扫荡",
+      "entry": "GT_ExperienceSweep",
+      "label": "经验副本扫荡",
+      "default_check": false,
+      "description": "按设置次数扫荡，支持备用体力。四类副本共用每日10次焕发额度，默认只使用剩余额度；任务顺序决定分配优先级。",
+      "option": [
+        "ExperienceCount",
+        "ExperienceBoost"
+      ]
+    },
+    {
+      "name": "道具副本扫荡",
+      "entry": "GT_ItemsSweep",
+      "label": "道具副本扫荡",
+      "default_check": false,
+      "description": "按设置次数扫荡，支持备用体力。四类副本共用每日10次焕发额度，默认只使用剩余额度；任务顺序决定分配优先级。",
+      "option": [
+        "ItemsCount",
+        "ItemsBoost"
+      ]
+    },
+    {
+      "name": "打开邮箱（人工）",
+      "entry": "GT_OpenMail",
+      "label": "打开邮箱（人工）",
+      "default_check": false,
+      "description": "只打开邮箱并停留，邮件领取请人工操作。"
+    },
+    {
+      "name": "资源与觉醒副本（人工）",
+      "entry": "GT_OpenResourceRift",
+      "label": "资源与觉醒副本（人工）",
+      "default_check": false,
+      "description": "打开资源/觉醒副本列表并停留；不点击进入或扫荡，请人工选择副本和次数。"
+    },
+    {
+      "name": "进化石副本（人工）",
+      "entry": "GT_OpenEvolutionRift",
+      "label": "进化石副本（人工）",
+      "default_check": false,
+      "description": "打开进化石副本列表并停留；不消耗体力，请人工选择属性、英雄及扫荡次数。"
+    },
+    {
+      "name": "活动页面（人工）",
+      "entry": "GT_OpenActivity",
+      "label": "活动页面（人工）",
+      "default_check": false,
+      "description": "只打开活动列表并停留，活动挑战和兑换请人工操作。"
+    },
+    {
+      "name": "日常任务页面（人工）",
+      "entry": "GT_OpenDailyTasks",
+      "label": "日常任务页面（人工）",
+      "default_check": false,
+      "description": "只打开日常任务指南并停留，供查看进度或人工执行任务。"
+    },
+    {
+      "name": "冷启动游戏（维护）",
+      "entry": "GT_StartUp",
+      "label": "冷启动游戏（维护）",
+      "default_check": false,
+      "description": "停止并重新启动游戏，处理已适配的启动页和弹窗。仅在需要重启时选择。"
+    },
+    {
+      "name": "全屏OCR探测（调试）",
+      "entry": "GT_Test_OCRFull",
+      "label": "全屏OCR探测（调试）",
+      "default_check": false,
+      "description": "只识别当前画面文字，不点击游戏界面。结果见框架日志。"
+    }
+  ],
+  "icon": "logo-v2.ico",
+  "agent": [
+    {
+      "child_exec": "C:/Python314/python.exe",
+      "child_args": [
+        "-u",
+        "agent/main.py"
+      ]
+    }
+  ],
+  "option": {
+    "EvolutionCount": {
+      "type": "input",
+      "label": "进化石扫荡次数",
+      "inputs": [
+        {
+          "name": "count",
+          "label": "次数（0为跳过）",
+          "default": "10",
+          "pipeline_type": "int",
+          "verify": "^(?:[0-9]|[1-9][0-9]|100)$",
+          "pattern_msg": "请输入0到100的整数"
+        }
+      ],
+      "pipeline_override": {
+        "GT_Sweep_Evolution": {
+          "custom_action_param": {
+            "count": "{count}"
+          }
+        }
+      }
+    },
+    "EvolutionBoost": {
+      "type": "switch",
+      "label": "只扫荡每日焕发次数",
+      "default_case": "Yes",
+      "cases": [
+        {
+          "name": "Yes",
+          "label": "是",
+          "pipeline_override": {
+            "GT_Sweep_Evolution": {
+              "custom_action_param": {
+                "boost_only": true
+              }
+            }
+          }
+        },
+        {
+          "name": "No",
+          "label": "否（会继续消耗体力）",
+          "pipeline_override": {
+            "GT_Sweep_Evolution": {
+              "custom_action_param": {
+                "boost_only": false
+              }
+            }
+          }
+        }
+      ]
+    },
+    "GoldCount": {
+      "type": "input",
+      "label": "金币扫荡次数",
+      "inputs": [
+        {
+          "name": "count",
+          "label": "次数（0为跳过）",
+          "default": "10",
+          "pipeline_type": "int",
+          "verify": "^(?:[0-9]|[1-9][0-9]|100)$",
+          "pattern_msg": "请输入0到100的整数"
+        }
+      ],
+      "pipeline_override": {
+        "GT_Sweep_Gold": {
+          "custom_action_param": {
+            "count": "{count}"
+          }
+        }
+      }
+    },
+    "GoldBoost": {
+      "type": "switch",
+      "label": "只扫荡每日焕发次数",
+      "default_case": "Yes",
+      "cases": [
+        {
+          "name": "Yes",
+          "label": "是",
+          "pipeline_override": {
+            "GT_Sweep_Gold": {
+              "custom_action_param": {
+                "boost_only": true
+              }
+            }
+          }
+        },
+        {
+          "name": "No",
+          "label": "否（会继续消耗体力）",
+          "pipeline_override": {
+            "GT_Sweep_Gold": {
+              "custom_action_param": {
+                "boost_only": false
+              }
+            }
+          }
+        }
+      ]
+    },
+    "ExperienceCount": {
+      "type": "input",
+      "label": "经验扫荡次数",
+      "inputs": [
+        {
+          "name": "count",
+          "label": "次数（0为跳过）",
+          "default": "10",
+          "pipeline_type": "int",
+          "verify": "^(?:[0-9]|[1-9][0-9]|100)$",
+          "pattern_msg": "请输入0到100的整数"
+        }
+      ],
+      "pipeline_override": {
+        "GT_Sweep_Experience": {
+          "custom_action_param": {
+            "count": "{count}"
+          }
+        }
+      }
+    },
+    "ExperienceBoost": {
+      "type": "switch",
+      "label": "只扫荡每日焕发次数",
+      "default_case": "Yes",
+      "cases": [
+        {
+          "name": "Yes",
+          "label": "是",
+          "pipeline_override": {
+            "GT_Sweep_Experience": {
+              "custom_action_param": {
+                "boost_only": true
+              }
+            }
+          }
+        },
+        {
+          "name": "No",
+          "label": "否（会继续消耗体力）",
+          "pipeline_override": {
+            "GT_Sweep_Experience": {
+              "custom_action_param": {
+                "boost_only": false
+              }
+            }
+          }
+        }
+      ]
+    },
+    "ItemsCount": {
+      "type": "input",
+      "label": "道具扫荡次数",
+      "inputs": [
+        {
+          "name": "count",
+          "label": "次数（0为跳过）",
+          "default": "10",
+          "pipeline_type": "int",
+          "verify": "^(?:[0-9]|[1-9][0-9]|100)$",
+          "pattern_msg": "请输入0到100的整数"
+        }
+      ],
+      "pipeline_override": {
+        "GT_Sweep_Items": {
+          "custom_action_param": {
+            "count": "{count}"
+          }
+        }
+      }
+    },
+    "ItemsBoost": {
+      "type": "switch",
+      "label": "只扫荡每日焕发次数",
+      "default_case": "Yes",
+      "cases": [
+        {
+          "name": "Yes",
+          "label": "是",
+          "pipeline_override": {
+            "GT_Sweep_Items": {
+              "custom_action_param": {
+                "boost_only": true
+              }
+            }
+          }
+        },
+        {
+          "name": "No",
+          "label": "否（会继续消耗体力）",
+          "pipeline_override": {
+            "GT_Sweep_Items": {
+              "custom_action_param": {
+                "boost_only": false
+              }
+            }
+          }
+        }
+      ]
+    },
+    "EvolutionAttribute": {
+      "type": "select",
+      "label": "起始属性（手动模式为指定属性）",
+      "default_case": "neutral",
+      "cases": [
+        {
+          "name": "neutral",
+          "label": "虚",
+          "pipeline_override": {
+            "GT_Sweep_Evolution": {
+              "custom_action_param": {
+                "attribute": "neutral"
+              }
+            }
+          }
+        },
+        {
+          "name": "light",
+          "label": "光",
+          "pipeline_override": {
+            "GT_Sweep_Evolution": {
+              "custom_action_param": {
+                "attribute": "light"
+              }
+            }
+          }
+        },
+        {
+          "name": "dark",
+          "label": "暗",
+          "pipeline_override": {
+            "GT_Sweep_Evolution": {
+              "custom_action_param": {
+                "attribute": "dark"
+              }
+            }
+          }
+        },
+        {
+          "name": "earth",
+          "label": "土",
+          "pipeline_override": {
+            "GT_Sweep_Evolution": {
+              "custom_action_param": {
+                "attribute": "earth"
+              }
+            }
+          }
+        },
+        {
+          "name": "fire",
+          "label": "火",
+          "pipeline_override": {
+            "GT_Sweep_Evolution": {
+              "custom_action_param": {
+                "attribute": "fire"
+              }
+            }
+          }
+        },
+        {
+          "name": "water",
+          "label": "水",
+          "pipeline_override": {
+            "GT_Sweep_Evolution": {
+              "custom_action_param": {
+                "attribute": "water"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "EvolutionMode": {
+      "type": "select",
+      "label": "英雄选择方式",
+      "default_case": "auto",
+      "cases": [
+        {
+          "name": "auto",
+          "label": "自动选择未刷满的已持有英雄",
+          "pipeline_override": {
+            "GT_Sweep_Evolution": {
+              "custom_action_param": {
+                "mode": "auto"
+              }
+            }
+          }
+        },
+        {
+          "name": "selected",
+          "label": "使用游戏奖励设置中所选英雄",
+          "description": "先在游戏相应属性副本的齿轮中选择英雄，再运行此任务。按设置次数刷取，不自动换英雄。",
+          "pipeline_override": {
+            "GT_Sweep_Evolution": {
+              "custom_action_param": {
+                "mode": "selected"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "RecognitionInterval": {
+      "type": "input",
+      "label": "识别轮询间隔",
+      "description": "单位毫秒；默认100ms，最多约10轮/秒。截图耗时、OCR耗时与动作等待会降低实际频率。GUI画面刷新率在设置→实时画面单独调整。",
+      "inputs": [
+        {
+          "name": "ms",
+          "label": "间隔（50～2000ms）",
+          "default": "100",
+          "pipeline_type": "int",
+          "verify": "^(?:[5-9][0-9]|[1-9][0-9]{2}|1[0-9]{3}|2000)$"
+        }
+      ],
+      "pipeline_override": {
+        "GT_EnsureHub": {
+          "rate_limit": "{ms}"
+        },
+        "GT_ClearPopups": {
+          "rate_limit": "{ms}"
+        },
+        "GT_Common_Prepare": {
+          "rate_limit": "{ms}"
+        },
+        "GT_Common_HubRoute": {
+          "rate_limit": "{ms}"
+        },
+        "GT_Common_CloseNotice": {
+          "rate_limit": "{ms}"
+        },
+        "GT_Common_DismissReward": {
+          "rate_limit": "{ms}"
+        },
+        "GT_Common_CloseSignin": {
+          "rate_limit": "{ms}"
+        },
+        "GT_Common_CloseEventSignin": {
+          "rate_limit": "{ms}"
+        },
+        "GT_Common_CloseMenu": {
+          "rate_limit": "{ms}"
+        },
+        "GT_Common_CloseGuildRanking": {
+          "rate_limit": "{ms}"
+        },
+        "GT_Common_PageHeaderBright": {
+          "rate_limit": "{ms}"
+        },
+        "GT_Common_CancelPurchase": {
+          "rate_limit": "{ms}"
+        },
+        "GT_Common_BackKnownPage": {
+          "rate_limit": "{ms}"
+        },
+        "GT_Common_KnownPage": {
+          "rate_limit": "{ms}"
+        },
+        "GT_Common_ClosePromo": {
+          "rate_limit": "{ms}"
+        },
+        "GT_Common_AckSweepResult": {
+          "rate_limit": "{ms}"
+        },
+        "GT_Common_CancelSweepDialog": {
+          "rate_limit": "{ms}"
+        },
+        "GT_Common_PromoOptOut": {
+          "rate_limit": "{ms}"
+        },
+        "GT_Common_CancelHeroSettings": {
+          "rate_limit": "{ms}"
+        },
+        "GT_Common_CloseSigninAfterTooltip": {
+          "rate_limit": "{ms}"
+        },
+        "GT_Common_CloseEventSigninAfterTooltip": {
+          "rate_limit": "{ms}"
+        },
+        "GT_DailyRewards": {
+          "rate_limit": "{ms}"
+        },
+        "GT_Daily_Open": {
+          "rate_limit": "{ms}"
+        },
+        "GT_Daily_SelectDaily": {
+          "rate_limit": "{ms}"
+        },
+        "GT_Daily_Route": {
+          "rate_limit": "{ms}"
+        },
+        "GT_Daily_ClaimAll": {
+          "rate_limit": "{ms}"
+        },
+        "GT_Daily_Done": {
+          "rate_limit": "{ms}"
+        },
+        "GT_FriendGifts": {
+          "rate_limit": "{ms}"
+        },
+        "GT_Friends_OpenMenu": {
+          "rate_limit": "{ms}"
+        },
+        "GT_Friends_Open": {
+          "rate_limit": "{ms}"
+        },
+        "GT_Friends_Route": {
+          "rate_limit": "{ms}"
+        },
+        "GT_Friends_GiftAll": {
+          "rate_limit": "{ms}"
+        },
+        "GT_Friends_AckSent": {
+          "rate_limit": "{ms}"
+        },
+        "GT_Friends_Return": {
+          "rate_limit": "{ms}"
+        },
+        "GT_GuildSignIn": {
+          "rate_limit": "{ms}"
+        },
+        "GT_Guild_Open": {
+          "rate_limit": "{ms}"
+        },
+        "GT_Guild_Route": {
+          "rate_limit": "{ms}"
+        },
+        "GT_Guild_Sign": {
+          "rate_limit": "{ms}"
+        },
+        "GT_Guild_AfterClaim": {
+          "rate_limit": "{ms}"
+        },
+        "GT_Guild_AlreadySigned": {
+          "rate_limit": "{ms}"
+        },
+        "GT_CollectSoulPoints": {
+          "rate_limit": "{ms}"
+        },
+        "GT_CollectSoulPoints_Route": {
+          "rate_limit": "{ms}"
+        },
+        "GT_CollectSoulPoints_Click": {
+          "rate_limit": "{ms}"
+        },
+        "GT_MailCollect": {
+          "rate_limit": "{ms}"
+        },
+        "GT_OpenMail": {
+          "rate_limit": "{ms}"
+        },
+        "GT_Mail_OpenForManual": {
+          "rate_limit": "{ms}"
+        },
+        "GT_Mail_PageReady": {
+          "rate_limit": "{ms}"
+        },
+        "GT_Mail_OpenForCollect": {
+          "rate_limit": "{ms}"
+        },
+        "GT_Mail_SelectSystem": {
+          "rate_limit": "{ms}"
+        },
+        "GT_Mail_SystemRoute": {
+          "rate_limit": "{ms}"
+        },
+        "GT_Mail_ClaimAll": {
+          "rate_limit": "{ms}"
+        },
+        "GT_Mail_ConfirmClaim": {
+          "rate_limit": "{ms}"
+        },
+        "GT_Mail_Empty": {
+          "rate_limit": "{ms}"
+        },
+        "GT_Mail_SystemEmpty": {
+          "rate_limit": "{ms}"
+        },
+        "GT_Mail_NotificationRoute": {
+          "rate_limit": "{ms}"
+        },
+        "GT_Mail_NotificationEmpty": {
+          "rate_limit": "{ms}"
+        },
+        "GT_OpenActivity": {
+          "rate_limit": "{ms}"
+        },
+        "GT_Manual_ActivityClick": {
+          "rate_limit": "{ms}"
+        },
+        "GT_Manual_ActivityReady": {
+          "rate_limit": "{ms}"
+        },
+        "GT_OpenEvolutionRift": {
+          "rate_limit": "{ms}"
+        },
+        "GT_OpenResourceRift": {
+          "rate_limit": "{ms}"
+        },
+        "GT_Manual_PlayForEvolution": {
+          "rate_limit": "{ms}"
+        },
+        "GT_Manual_PlayForResource": {
+          "rate_limit": "{ms}"
+        },
+        "GT_Manual_EvolutionTab": {
+          "rate_limit": "{ms}"
+        },
+        "GT_Manual_ResourceTab": {
+          "rate_limit": "{ms}"
+        },
+        "GT_Manual_EvolutionCategory": {
+          "rate_limit": "{ms}"
+        },
+        "GT_Manual_EvolutionReady": {
+          "rate_limit": "{ms}"
+        },
+        "GT_Manual_ResourceCategory": {
+          "rate_limit": "{ms}"
+        },
+        "GT_Manual_ResourceReady": {
+          "rate_limit": "{ms}"
+        },
+        "GT_OpenDailyTasks": {
+          "rate_limit": "{ms}"
+        },
+        "GT_Manual_DailyClick": {
+          "rate_limit": "{ms}"
+        },
+        "GT_Manual_DailySelect": {
+          "rate_limit": "{ms}"
+        },
+        "GT_Manual_DailyReady": {
+          "rate_limit": "{ms}"
+        },
+        "GT_ShopBenefits": {
+          "rate_limit": "{ms}"
+        },
+        "GT_Shop_Open": {
+          "rate_limit": "{ms}"
+        },
+        "GT_Shop_SelectSubscription": {
+          "rate_limit": "{ms}"
+        },
+        "GT_Shop_Route": {
+          "rate_limit": "{ms}"
+        },
+        "GT_Shop_ClaimSubscription": {
+          "rate_limit": "{ms}"
+        },
+        "GT_Shop_SelectResources": {
+          "rate_limit": "{ms}"
+        },
+        "GT_Shop_FreeRoute": {
+          "rate_limit": "{ms}"
+        },
+        "GT_Shop_ClaimFreeDaily": {
+          "rate_limit": "{ms}"
+        },
+        "GT_Shop_ConfirmFree": {
+          "rate_limit": "{ms}"
+        },
+        "GT_Shop_Return": {
+          "rate_limit": "{ms}"
+        },
+        "GT_SignIn": {
+          "rate_limit": "{ms}"
+        },
+        "GT_SignIn_OpenMenu": {
+          "rate_limit": "{ms}"
+        },
+        "GT_SignIn_OpenCalendar": {
+          "rate_limit": "{ms}"
+        },
+        "GT_SignIn_Route": {
+          "rate_limit": "{ms}"
+        },
+        "GT_SignIn_ClaimRegular": {
+          "rate_limit": "{ms}"
+        },
+        "GT_SignIn_ClaimEvent": {
+          "rate_limit": "{ms}"
+        },
+        "GT_SignIn_DismissRegularTooltip": {
+          "rate_limit": "{ms}"
+        },
+        "GT_SignIn_DismissEventTooltip": {
+          "rate_limit": "{ms}"
+        },
+        "GT_StartUp": {
+          "rate_limit": "{ms}"
+        },
+        "GT_StartUp_Launch": {
+          "rate_limit": "{ms}"
+        },
+        "GT_StartUp_Route": {
+          "rate_limit": "{ms}"
+        },
+        "GT_StartUp_ConfirmDownload": {
+          "rate_limit": "{ms}"
+        },
+        "GT_StartUp_HubReady": {
+          "rate_limit": "{ms}"
+        },
+        "GT_StartUp_TapStart": {
+          "rate_limit": "{ms}"
+        },
+        "GT_StartUp_TapStartByVersion": {
+          "rate_limit": "{ms}"
+        },
+        "GT_StartUp_TapStartBlind": {
+          "rate_limit": "{ms}"
+        },
+        "GT_AwakeningFreeSweep": {
+          "rate_limit": "{ms}"
+        },
+        "GT_Sweep_OpenResourcesOnce": {
+          "rate_limit": "{ms}"
+        },
+        "GT_Sweep_Awakening": {
+          "rate_limit": "{ms}"
+        },
+        "GT_GoldSweep": {
+          "rate_limit": "{ms}"
+        },
+        "GT_Sweep_Gold": {
+          "rate_limit": "{ms}"
+        },
+        "GT_ExperienceSweep": {
+          "rate_limit": "{ms}"
+        },
+        "GT_Sweep_Experience": {
+          "rate_limit": "{ms}"
+        },
+        "GT_ItemsSweep": {
+          "rate_limit": "{ms}"
+        },
+        "GT_Sweep_Items": {
+          "rate_limit": "{ms}"
+        },
+        "GT_EvolutionSweep": {
+          "rate_limit": "{ms}"
+        },
+        "GT_Sweep_OpenEvolutionOnce": {
+          "rate_limit": "{ms}"
+        },
+        "GT_Sweep_Evolution": {
+          "rate_limit": "{ms}"
+        },
+        "GT_AgentProbe": {
+          "rate_limit": "{ms}"
+        },
+        "GT_Test_OCRFull": {
+          "rate_limit": "{ms}"
+        },
+        "GT_Test_OCRStartText": {
+          "rate_limit": "{ms}"
+        },
+        "GT_Test_OCRVersion": {
+          "rate_limit": "{ms}"
+        },
+        "GT_Test_OCRHubNav": {
+          "rate_limit": "{ms}"
+        },
+        "GT_Test_DailyBoostSelected": {
+          "rate_limit": "{ms}"
+        }
+      }
+    }
+  }
+}

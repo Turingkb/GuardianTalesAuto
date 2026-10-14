@@ -1,0 +1,94 @@
+{
+    "GT_OpenActivity": {
+        "next": ["[JumpBack]GT_Common_Prepare", "GT_Manual_ActivityClick"], "timeout": 30000
+    },
+    "GT_Manual_ActivityClick": {
+        "recognition": "And", "all_of": ["GT_StartUp_HubReady"],
+        "action": "Click", "target": [1202, 148, 30, 30], "post_delay": 1000,
+        "next": ["GT_Manual_ActivityReady"]
+    },
+    "GT_Manual_ActivityReady": {
+        "recognition": "And", "all_of": [
+            {"recognition": "TemplateMatch", "template": "activity_title.png", "roi": [20, 5, 170, 65], "threshold": 0.9},
+            "GT_Common_PageHeaderBright"
+        ],
+        "focus": {"Node.Action.Succeeded": "活动入口已打开；活动选择、挑战及奖励兑换请人工操作。"}
+    },
+    "GT_OpenEvolutionRift": {
+        "next": ["[JumpBack]GT_Common_Prepare", "GT_Manual_PlayForEvolution"], "timeout": 30000
+    },
+    "GT_OpenResourceRift": {
+        "next": ["[JumpBack]GT_Common_Prepare", "GT_Manual_PlayForResource"], "timeout": 30000
+    },
+    "GT_Manual_PlayForEvolution": {
+        "recognition": "And", "all_of": ["GT_StartUp_HubReady"],
+        "action": "Click", "target": [1076, 617, 28, 30], "post_delay": 1000,
+        "next": ["GT_Manual_EvolutionTab"]
+    },
+    "GT_Manual_PlayForResource": {
+        "recognition": "And", "all_of": ["GT_StartUp_HubReady"],
+        "action": "Click", "target": [1076, 617, 28, 30], "post_delay": 1000,
+        "next": ["GT_Manual_ResourceTab"]
+    },
+    "GT_Manual_EvolutionTab": {
+        "recognition": "And", "all_of": [
+            {"recognition": "TemplateMatch", "template": "play_title.png", "roi": [20, 5, 190, 65], "threshold": 0.9},
+            "GT_Common_PageHeaderBright"
+        ],
+        "action": "Click", "target": [386, 107, 34, 24], "post_delay": 700,
+        "next": ["GT_Manual_EvolutionCategory"]
+    },
+    "GT_Manual_ResourceTab": {
+        "recognition": "And", "all_of": [
+            {"recognition": "TemplateMatch", "template": "play_title.png", "roi": [20, 5, 190, 65], "threshold": 0.9},
+            "GT_Common_PageHeaderBright"
+        ],
+        "action": "Click", "target": [386, 107, 34, 24], "post_delay": 700,
+        "next": ["GT_Manual_ResourceCategory"]
+    },
+    "GT_Manual_EvolutionCategory": {
+        "recognition": "OCR", "expected": ["进化石副本"], "roi": [150, 148, 215, 42], "threshold": 0.7,
+        "action": "Click", "target": [210, 159, 65, 22], "post_delay": 700,
+        "next": ["GT_Manual_EvolutionReady"]
+    },
+    "GT_Manual_EvolutionReady": {
+        "recognition": "And", "all_of": [
+            {"recognition": "OCR", "expected": ["虚属性进化石副本"], "roi": [45, 260, 350, 65], "threshold": 0.7},
+            "GT_Common_PageHeaderBright"
+        ],
+        "focus": {"Node.Action.Succeeded": "进化石副本入口已打开；请选择属性、英雄和次数，本任务不执行扫荡。"}
+    },
+    "GT_Manual_ResourceCategory": {
+        "recognition": "OCR", "expected": ["资源.*觉醒副本"], "roi": [840, 147, 340, 44], "threshold": 0.7,
+        "action": "Click", "target": [980, 158, 90, 22], "post_delay": 700,
+        "next": ["GT_Manual_ResourceReady"]
+    },
+    "GT_Manual_ResourceReady": {
+        "recognition": "And", "all_of": [
+            {"recognition": "OCR", "expected": ["金币副本"], "roi": [45, 265, 350, 58], "threshold": 0.7},
+            {"recognition": "OCR", "expected": ["觉醒副本"], "roi": [45, 505, 350, 68], "threshold": 0.7},
+            "GT_Common_PageHeaderBright"
+        ],
+        "focus": {"Node.Action.Succeeded": "资源/觉醒副本入口已打开；本任务不消耗体力或次数，请人工选择并执行。"}
+    },
+    "GT_OpenDailyTasks": {
+        "next": ["[JumpBack]GT_Common_Prepare", "GT_Manual_DailyClick"], "timeout": 30000
+    },
+    "GT_Manual_DailyClick": {
+        "recognition": "And", "all_of": ["GT_StartUp_HubReady"],
+        "action": "Click", "target": [395, 648, 1, 1], "post_delay": 700,
+        "next": ["GT_Manual_DailySelect"]
+    },
+    "GT_Manual_DailySelect": {
+        "recognition": "TemplateMatch", "template": "daily_title.png", "roi": [20, 5, 190, 65], "threshold": 0.9,
+        "action": "Click", "target": [220, 88, 25, 24], "post_delay": 600,
+        "next": ["GT_Manual_DailyReady"]
+    },
+    "GT_Manual_DailyReady": {
+        "recognition": "And", "all_of": [
+            {"recognition": "TemplateMatch", "template": "daily_title.png", "roi": [20, 5, 190, 65], "threshold": 0.9},
+            {"recognition": "OCR", "expected": ["今日活跃度"], "roi": [32, 395, 310, 55], "threshold": 0.7}
+        ],
+        "focus": {"Node.Action.Succeeded": "日常任务入口已打开；本入口不执行战斗。"}
+    }
+}

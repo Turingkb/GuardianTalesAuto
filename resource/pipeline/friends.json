@@ -1,0 +1,42 @@
+{
+    "GT_FriendGifts": {
+        "next": ["[JumpBack]GT_Common_Prepare", "GT_Friends_OpenMenu"], "timeout": 30000
+    },
+    "GT_Friends_OpenMenu": {
+        "recognition": "And", "all_of": ["GT_StartUp_HubReady"],
+        "action": "Click", "target": [65, 643], "post_delay": 500,
+        "next": ["GT_Friends_Open"]
+    },
+    "GT_Friends_Open": {
+        "recognition": "TemplateMatch", "template": "menu_panel.png", "roi": [5, 365, 415, 115], "threshold": 0.9,
+        "action": "Click", "target": [365, 527], "post_delay": 800,
+        "next": ["GT_Friends_Route"]
+    },
+    "GT_Friends_Route": {
+        "next": ["[JumpBack]GT_Friends_AckSent", "[JumpBack]GT_Common_DismissReward", "[JumpBack]GT_Friends_GiftAll", "[JumpBack]GT_Friends_Return", "GT_StartUp_HubReady"],
+        "timeout": 20000
+    },
+    "GT_Friends_GiftAll": {
+        "recognition": "And", "all_of": [
+            {"recognition": "TemplateMatch", "template": "friends_title.png", "roi": [20, 5, 160, 65], "threshold": 0.9},
+            {"recognition": "TemplateMatch", "template": "friends_gift_all.png", "roi": [355, 633, 223, 61], "threshold": 0.95},
+            "GT_Common_PageHeaderBright"
+        ],
+        "action": "Click", "target": [464, 661], "post_delay": 1600, "max_hit": 1
+    },
+    "GT_Friends_AckSent": {
+        "recognition": "And", "all_of": [
+            {"recognition": "TemplateMatch", "template": "friends_title.png", "roi": [20, 5, 160, 65], "threshold": 0.9},
+            {"recognition": "OCR", "expected": ["所有好友.*(发送|赠送)礼物"], "roi": [440, 298, 420, 84], "threshold": 0.7},
+            {"recognition": "OCR", "expected": ["^确认$"], "roi": [535, 555, 211, 53], "threshold": 0.7}
+        ],
+        "action": "Click", "target": [640, 581], "post_delay": 600, "max_hit": 2
+    },
+    "GT_Friends_Return": {
+        "recognition": "And", "all_of": [
+            {"recognition": "TemplateMatch", "template": "friends_title.png", "roi": [20, 5, 160, 65], "threshold": 0.9},
+            "GT_Common_PageHeaderBright"
+        ],
+        "action": "Click", "target": [45, 35], "post_delay": 700, "max_hit": 2
+    }
+}

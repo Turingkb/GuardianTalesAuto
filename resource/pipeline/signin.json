@@ -1,0 +1,202 @@
+{
+  "GT_SignIn": {
+    "next": [
+      "[JumpBack]GT_Common_Prepare",
+      "GT_SignIn_OpenMenu"
+    ],
+    "timeout": 30000
+  },
+  "GT_SignIn_OpenMenu": {
+    "recognition": "And",
+    "all_of": [
+      "GT_StartUp_HubReady"
+    ],
+    "action": "Click",
+    "target": [
+      55,
+      633,
+      20,
+      20
+    ],
+    "post_delay": 600,
+    "next": [
+      "GT_SignIn_OpenCalendar"
+    ]
+  },
+  "GT_SignIn_OpenCalendar": {
+    "recognition": "TemplateMatch",
+    "template": "menu_panel.png",
+    "roi": [
+      5,
+      365,
+      415,
+      115
+    ],
+    "threshold": 0.9,
+    "action": "Click",
+    "target": [
+      155,
+      400,
+      20,
+      20
+    ],
+    "post_delay": 700,
+    "next": [
+      "GT_SignIn_Route"
+    ]
+  },
+  "GT_SignIn_Route": {
+    "next": [
+      "[JumpBack]GT_Common_DismissReward",
+      "[JumpBack]GT_SignIn_ClaimRegular",
+      "[JumpBack]GT_SignIn_ClaimEvent",
+      "[JumpBack]GT_Common_CloseSignin",
+      "[JumpBack]GT_Common_CloseEventSignin",
+      "[JumpBack]GT_Common_PromoOptOut",
+      "[JumpBack]GT_Common_ClosePromo",
+      "[JumpBack]GT_Common_CloseMenu",
+      "GT_StartUp_HubReady"
+    ],
+    "timeout": 20000
+  },
+  "GT_SignIn_ClaimRegular": {
+    "recognition": "And",
+    "all_of": [
+      {
+        "recognition": "TemplateMatch",
+        "template": "signin_footer.png",
+        "roi": [
+          525,
+          563,
+          230,
+          44
+        ],
+        "threshold": 0.9
+      },
+      {
+        "recognition": "ColorMatch",
+        "roi": [
+          354,
+          175,
+          577,
+          376
+        ],
+        "method": 4,
+        "lower": [
+          25,
+          160,
+          245
+        ],
+        "upper": [
+          45,
+          185,
+          255
+        ],
+        "count": 1800,
+        "connected": true
+      }
+    ],
+    "box_index": 1,
+    "action": "LongPress",
+    "post_delay": 200,
+    "max_hit": 1,
+    "duration": 50,
+    "target_offset": [
+      25,
+      25,
+      -50,
+      -50
+    ],
+    "next": [
+      "GT_SignIn_DismissRegularTooltip"
+    ]
+  },
+  "GT_SignIn_ClaimEvent": {
+    "recognition": "And",
+    "all_of": [
+      {
+        "recognition": "TemplateMatch",
+        "template": "event_signin_footer.png",
+        "roi": [
+          730,
+          445,
+          340,
+          55
+        ],
+        "threshold": 0.9
+      },
+      {
+        "recognition": "ColorMatch",
+        "roi": [
+          490,
+          349,
+          565,
+          74
+        ],
+        "method": 4,
+        "lower": [
+          25,
+          160,
+          245
+        ],
+        "upper": [
+          45,
+          185,
+          255
+        ],
+        "count": 1800,
+        "connected": true
+      }
+    ],
+    "box_index": 1,
+    "action": "LongPress",
+    "post_delay": 200,
+    "max_hit": 1,
+    "duration": 50,
+    "target_offset": [
+      25,
+      25,
+      -50,
+      -50
+    ],
+    "next": [
+      "GT_SignIn_DismissEventTooltip"
+    ]
+  },
+  "GT_SignIn_DismissRegularTooltip": {
+    "recognition": "TemplateMatch",
+    "template": "signin_footer.png",
+    "roi": [
+      525,
+      563,
+      230,
+      44
+    ],
+    "threshold": 0.9,
+    "action": "LongPress",
+    "duration": 50,
+    "target": [
+      640,
+      585
+    ],
+    "post_delay": 450
+  },
+  "GT_SignIn_DismissEventTooltip": {
+    "recognition": "TemplateMatch",
+    "template": "event_signin_footer.png",
+    "roi": [
+      730,
+      445,
+      340,
+      55
+    ],
+    "threshold": 0.9,
+    "action": "LongPress",
+    "duration": 50,
+    "target": [
+      900,
+      470
+    ],
+    "post_delay": 450
+  }
+}

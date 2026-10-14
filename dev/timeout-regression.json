@@ -1,0 +1,4 @@
+{
+    "GT_Regression_Timeout": {"next": ["GT_Regression_Never"], "timeout": 1500},
+    "GT_Regression_Never": {"enabled": false}
+}

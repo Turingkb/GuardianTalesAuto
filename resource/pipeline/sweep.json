@@ -1,0 +1,117 @@
+{
+  "GT_AwakeningFreeSweep": {
+    "next": [
+      "[JumpBack]GT_Common_Prepare",
+      "[JumpBack]GT_Sweep_OpenResourcesOnce",
+      "GT_Sweep_Awakening"
+    ],
+    "timeout": 30000
+  },
+  "GT_Sweep_OpenResourcesOnce": {
+    "max_hit": 1,
+    "next": [
+      "GT_Manual_PlayForResource"
+    ]
+  },
+  "GT_Sweep_Awakening": {
+    "action": "Custom",
+    "custom_action": "GT_AwakeningFree",
+    "custom_action_param": {},
+    "post_delay": 1500,
+    "next": [
+      "GT_Common_HubRoute"
+    ]
+  },
+  "GT_GoldSweep": {
+    "next": [
+      "[JumpBack]GT_Common_Prepare",
+      "[JumpBack]GT_Sweep_OpenResourcesOnce",
+      "GT_Sweep_Gold"
+    ],
+    "timeout": 30000
+  },
+  "GT_Sweep_Gold": {
+    "action": "Custom",
+    "custom_action": "GT_GoldResourceSweep",
+    "custom_action_param": {
+      "count": 10,
+      "boost_only": true
+    },
+    "post_delay": 700,
+    "next": [
+      "GT_Common_HubRoute"
+    ]
+  },
+  "GT_ExperienceSweep": {
+    "next": [
+      "[JumpBack]GT_Common_Prepare",
+      "[JumpBack]GT_Sweep_OpenResourcesOnce",
+      "GT_Sweep_Experience"
+    ],
+    "timeout": 30000
+  },
+  "GT_Sweep_Experience": {
+    "action": "Custom",
+    "custom_action": "GT_ExperienceResourceSweep",
+    "custom_action_param": {
+      "count": 10,
+      "boost_only": true
+    },
+    "post_delay": 700,
+    "next": [
+      "GT_Common_HubRoute"
+    ]
+  },
+  "GT_ItemsSweep": {
+    "next": [
+      "[JumpBack]GT_Common_Prepare",
+      "[JumpBack]GT_Sweep_OpenResourcesOnce",
+      "GT_Sweep_Items"
+    ],
+    "timeout": 30000
+  },
+  "GT_Sweep_Items": {
+    "action": "Custom",
+    "custom_action": "GT_ItemsResourceSweep",
+    "custom_action_param": {
+      "count": 10,
+      "boost_only": true
+    },
+    "post_delay": 700,
+    "next": [
+      "GT_Common_HubRoute"
+    ]
+  },
+  "GT_EvolutionSweep": {
+    "next": [
+      "[JumpBack]GT_Common_Prepare",
+      "[JumpBack]GT_Sweep_OpenEvolutionOnce",
+      "GT_Sweep_Evolution"
+    ],
+    "timeout": 30000
+  },
+  "GT_Sweep_OpenEvolutionOnce": {
+    "max_hit": 1,
+    "next": [
+      "GT_Manual_PlayForEvolution"
+    ]
+  },
+  "GT_Sweep_Evolution": {
+    "action": "Custom",
+    "custom_action": "GT_EvolutionSweep",
+    "custom_action_param": {
+      "count": 10,
+      "boost_only": true,
+      "attribute": "neutral",
+      "mode": "auto"
+    },
+    "post_delay": 700,
+    "next": [
+      "GT_Common_HubRoute"
+    ]
+  },
+  "GT_AgentProbe": {
+    "action": "Custom",
+    "custom_action": "GT_AgentProbe"
+  }
+}

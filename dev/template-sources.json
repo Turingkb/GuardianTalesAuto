@@ -1,0 +1,380 @@
+[
+  {
+    "template": "notice_header.png",
+    "source": "dev/screenshots/06_after_download.png",
+    "box_xyxy": [
+      496,
+      69,
+      601,
+      98
+    ],
+    "size": [
+      105,
+      29
+    ]
+  },
+  {
+    "template": "promo_close.png",
+    "source": "dev/screenshots/07_after_notice.png",
+    "box_xyxy": [
+      1222,
+      28,
+      1252,
+      57
+    ],
+    "size": [
+      30,
+      29
+    ]
+  },
+  {
+    "template": "menu_panel.png",
+    "source": "dev/screenshots/20_menu.png",
+    "box_xyxy": [
+      20,
+      380,
+      409,
+      465
+    ],
+    "size": [
+      389,
+      85
+    ]
+  },
+  {
+    "template": "signin_header.png",
+    "source": "dev/screenshots/21_signin.png",
+    "box_xyxy": [
+      604,
+      106,
+      674,
+      139
+    ],
+    "size": [
+      70,
+      33
+    ]
+  },
+  {
+    "template": "signin_footer.png",
+    "source": "dev/screenshots/21_signin.png",
+    "box_xyxy": [
+      550,
+      575,
+      722,
+      596
+    ],
+    "size": [
+      172,
+      21
+    ]
+  },
+  {
+    "template": "mail_title.png",
+    "source": "dev/screenshots/18_mail.png",
+    "box_xyxy": [
+      29,
+      16,
+      125,
+      60
+    ],
+    "size": [
+      96,
+      44
+    ]
+  },
+  {
+    "template": "mail_empty.png",
+    "source": "dev/screenshots/19_mail_notice.png",
+    "box_xyxy": [
+      745,
+      393,
+      851,
+      413
+    ],
+    "size": [
+      106,
+      20
+    ]
+  },
+  {
+    "template": "event_signin_footer.png",
+    "source": "dev/screenshots/23_signin_claimed.png",
+    "box_xyxy": [
+      756,
+      460,
+      1046,
+      484
+    ],
+    "size": [
+      290,
+      24
+    ]
+  },
+  {
+    "template": "story_title.png",
+    "source": "dev/screenshots/28_missions.png",
+    "box_xyxy": [
+      30,
+      16,
+      122,
+      60
+    ],
+    "size": [
+      92,
+      44
+    ]
+  },
+  {
+    "template": "daily_title.png",
+    "source": "dev/screenshots/29_guardian_missions.png",
+    "box_xyxy": [
+      30,
+      16,
+      166,
+      60
+    ],
+    "size": [
+      136,
+      44
+    ]
+  },
+  {
+    "template": "guild_title.png",
+    "source": "dev/screenshots/32_guild_sign.png",
+    "box_xyxy": [
+      30,
+      16,
+      124,
+      60
+    ],
+    "size": [
+      94,
+      44
+    ]
+  },
+  {
+    "template": "guild_sign_enabled.png",
+    "source": "dev/screenshots/32_guild_sign.png",
+    "box_xyxy": [
+      36,
+      618,
+      250,
+      670
+    ],
+    "size": [
+      214,
+      52
+    ]
+  },
+  {
+    "template": "guild_sign_disabled.png",
+    "source": "dev/screenshots/34_guild_signed.png",
+    "box_xyxy": [
+      36,
+      618,
+      250,
+      670
+    ],
+    "size": [
+      214,
+      52
+    ]
+  },
+  {
+    "template": "guild_ranking_title.png",
+    "source": "dev/screenshots/31_guild.png",
+    "box_xyxy": [
+      588,
+      88,
+      690,
+      115
+    ],
+    "size": [
+      102,
+      27
+    ]
+  },
+  {
+    "template": "hub_heart.png",
+    "source": "dev/screenshots/17_clean_hub.png",
+    "box_xyxy": [
+      432,
+      442,
+      453,
+      465
+    ],
+    "size": [
+      21,
+      23
+    ]
+  },
+  {
+    "template": "daily_claim_all.png",
+    "source": "dev/screenshots/37_daily_claimable.png",
+    "box_xyxy": [
+      1048,
+      618,
+      1215,
+      668
+    ],
+    "size": [
+      167,
+      50
+    ]
+  },
+  {
+    "template": "daily_claim_disabled.png",
+    "source": "dev/screenshots/30_daily.png",
+    "box_xyxy": [
+      1048,
+      618,
+      1215,
+      668
+    ],
+    "size": [
+      167,
+      50
+    ]
+  },
+  {
+    "template": "shop_title.png",
+    "source": "dev/screenshots/40_shop_loaded.png",
+    "box_xyxy": [
+      30,
+      16,
+      123,
+      60
+    ],
+    "size": [
+      93,
+      44
+    ]
+  },
+  {
+    "template": "subscription_claim.png",
+    "source": "dev/screenshots/40_shop_loaded.png",
+    "box_xyxy": [
+      275,
+      630,
+      595,
+      679
+    ],
+    "size": [
+      320,
+      49
+    ]
+  },
+  {
+    "template": "activity_title.png",
+    "source": "dev/screenshots/43_activity.png",
+    "box_xyxy": [
+      30,
+      16,
+      123,
+      60
+    ],
+    "size": [
+      93,
+      44
+    ]
+  },
+  {
+    "template": "play_title.png",
+    "source": "dev/screenshots/46_play_loaded.png",
+    "box_xyxy": [
+      30,
+      16,
+      166,
+      60
+    ],
+    "size": [
+      136,
+      44
+    ]
+  },
+  {
+    "template": "shop_free_daily.png",
+    "source": "dev/screenshots/51_shop_resource.png",
+    "box_xyxy": [
+      772,
+      478,
+      1011,
+      526
+    ],
+    "size": [
+      239,
+      48
+    ]
+  },
+  {
+    "template": "confirm_free.png",
+    "source": "dev/screenshots/52_free_dialog.png",
+    "box_xyxy": [
+      646,
+      555,
+      858,
+      608
+    ],
+    "size": [
+      212,
+      53
+    ]
+  },
+  {
+    "template": "promo_optout_unchecked.png",
+    "source": "dev/screenshots/07_after_notice.png",
+    "box_xyxy": [
+      143,
+      598,
+      168,
+      625
+    ],
+    "size": [
+      25,
+      27
+    ]
+  },
+  {
+    "template": "mail_confirm_receive.png",
+    "source": "dev/2026-10-14/screenshots/04_mail_after_click.png",
+    "box_xyxy": [
+      646,
+      555,
+      858,
+      608
+    ],
+    "size": [
+      212,
+      53
+    ]
+  },
+  {
+    "template": "friends_title.png",
+    "source": "dev/2026-10-14/screenshots/01_current.png",
+    "box_xyxy": [
+      30,
+      16,
+      124,
+      60
+    ],
+    "size": [
+      94,
+      44
+    ]
+  },
+  {
+    "template": "friends_gift_all.png",
+    "source": "dev/2026-10-14/screenshots/01_current.png",
+    "box_xyxy": [
+      367,
+      642,
+      561,
+      681
+    ],
+    "size": [
+      194,
+      39
+    ]
+  }
+]

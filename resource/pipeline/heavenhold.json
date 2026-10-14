@@ -1,0 +1,19 @@
+{
+    "GT_CollectSoulPoints": {
+        "next": ["[JumpBack]GT_Common_Prepare", "GT_CollectSoulPoints_Route"],
+        "timeout": 30000
+    },
+    "GT_CollectSoulPoints_Route": {
+        "next": ["[JumpBack]GT_CollectSoulPoints_Click", "GT_StartUp_HubReady"],
+        "timeout": 10000
+    },
+    "GT_CollectSoulPoints_Click": {
+        "recognition": "And",
+        "all_of": [
+            "GT_StartUp_HubReady",
+            {"recognition": "TemplateMatch", "template": "hub_heart.png", "roi": [185, 120, 1060, 480], "threshold": 0.9, "order_by": "Score"}
+        ],
+        "box_index": 1,
+        "action": "Click", "post_delay": 500, "max_hit": 30
+    }
+}

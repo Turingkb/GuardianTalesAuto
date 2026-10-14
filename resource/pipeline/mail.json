@@ -1,0 +1,75 @@
+{
+    "GT_MailCollect": {
+        "next": ["[JumpBack]GT_Common_Prepare", "GT_Mail_OpenForCollect"],
+        "timeout": 30000
+    },
+    "GT_OpenMail": {
+        "next": ["[JumpBack]GT_Common_Prepare", "GT_Mail_OpenForManual"],
+        "timeout": 30000
+    },
+    "GT_Mail_OpenForManual": {
+        "recognition": "And", "all_of": ["GT_StartUp_HubReady"],
+        "action": "Click", "target": [1180, 26, 20, 20], "post_delay": 900,
+        "next": ["GT_Mail_PageReady"]
+    },
+    "GT_Mail_PageReady": {
+        "recognition": "And", "all_of": [
+            {"recognition": "TemplateMatch", "template": "mail_title.png", "roi": [20, 5, 160, 65], "threshold": 0.9},
+            "GT_Common_PageHeaderBright"
+        ],
+        "focus": {"Node.Action.Succeeded": "已打开邮箱；本入口不领取邮件，请人工操作。"}
+    },
+    "GT_Mail_OpenForCollect": {
+        "recognition": "And", "all_of": ["GT_StartUp_HubReady"],
+        "action": "Click", "target": [1180, 26, 20, 20], "post_delay": 900,
+        "next": ["GT_Mail_SelectSystem"]
+    },
+    "GT_Mail_SelectSystem": {
+        "recognition": "TemplateMatch", "template": "mail_title.png", "roi": [20, 5, 160, 65], "threshold": 0.9,
+        "action": "Click", "target": [226, 109, 45, 25], "post_delay": 600,
+        "next": ["GT_Mail_SystemRoute"]
+    },
+    "GT_Mail_SystemRoute": {
+        "next": ["[JumpBack]GT_Mail_ConfirmClaim", "[JumpBack]GT_Common_DismissReward", "[JumpBack]GT_Mail_ClaimAll", "GT_Mail_SystemEmpty"],
+        "timeout": 15000
+    },
+    "GT_Mail_ClaimAll": {
+        "recognition": "And",
+        "all_of": [
+            {"recognition": "TemplateMatch", "template": "mail_title.png", "roi": [20, 5, 160, 65], "threshold": 0.9},
+            {"recognition": "OCR", "expected": ["全部接收"], "roi": [1090, 632, 165, 52], "threshold": 0.7},
+            {"recognition": "ColorMatch", "method": 4, "lower": [240, 175, 0], "upper": [255, 225, 60], "roi": [1094, 638, 150, 36], "count": 2500}
+        ],
+        "box_index": 1,
+        "action": "Click", "target": [1172, 659], "post_delay": 800, "max_hit": 4
+    },
+    "GT_Mail_ConfirmClaim": {
+        "recognition": "And", "all_of": [
+            {"recognition": "TemplateMatch", "template": "mail_title.png", "roi": [20, 5, 160, 65], "threshold": 0.9},
+            {"recognition": "OCR", "expected": ["接收所有奖励.*删除邮件"], "roi": [425, 297, 430, 84], "threshold": 0.7},
+            {"recognition": "TemplateMatch", "template": "mail_confirm_receive.png", "roi": [636, 544, 235, 78], "threshold": 0.95}
+        ],
+        "action": "Click", "target": [752, 581], "post_delay": 1500, "max_hit": 4
+    },
+    "GT_Mail_Empty": {
+        "recognition": "And", "all_of": [
+            {"recognition": "TemplateMatch", "template": "mail_title.png", "roi": [20, 5, 160, 65], "threshold": 0.9},
+            {"recognition": "TemplateMatch", "template": "mail_empty.png", "roi": [715, 375, 160, 60], "threshold": 0.9},
+            "GT_Common_PageHeaderBright"
+        ]
+    },
+    "GT_Mail_SystemEmpty": {
+        "recognition": "And", "all_of": ["GT_Mail_Empty"],
+        "action": "Click", "target": [228, 166, 45, 25], "post_delay": 600,
+        "next": ["GT_Mail_NotificationRoute"]
+    },
+    "GT_Mail_NotificationRoute": {
+        "next": ["[JumpBack]GT_Mail_ConfirmClaim", "[JumpBack]GT_Common_DismissReward", "[JumpBack]GT_Mail_ClaimAll", "GT_Mail_NotificationEmpty"],
+        "timeout": 15000
+    },
+    "GT_Mail_NotificationEmpty": {
+        "recognition": "And", "all_of": ["GT_Mail_Empty"],
+        "action": "Click", "target": [35, 25, 20, 20], "post_delay": 700,
+        "next": ["GT_StartUp_HubReady"]
+    }
+}

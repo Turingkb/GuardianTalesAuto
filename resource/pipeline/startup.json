@@ -1,0 +1,150 @@
+{
+  "GT_StartUp": {
+    "action": "StopApp",
+    "package": "com.bilibili.snake",
+    "next": [
+      "GT_StartUp_Launch"
+    ]
+  },
+  "GT_StartUp_Launch": {
+    "action": "StartApp",
+    "package": "com.bilibili.snake",
+    "post_delay": 3000,
+    "next": [
+      "GT_StartUp_Route"
+    ]
+  },
+  "GT_StartUp_Route": {
+    "next": [
+      "[JumpBack]GT_Common_DismissReward",
+      "[JumpBack]GT_Common_CloseNotice",
+      "[JumpBack]GT_Common_CloseSignin",
+      "[JumpBack]GT_Common_CloseEventSignin",
+      "[JumpBack]GT_Common_PromoOptOut",
+      "[JumpBack]GT_Common_ClosePromo",
+      "[JumpBack]GT_StartUp_ConfirmDownload",
+      "GT_StartUp_HubReady",
+      "[JumpBack]GT_StartUp_TapStart",
+      "[JumpBack]GT_StartUp_TapStartByVersion",
+      "[JumpBack]GT_StartUp_TapStartBlind"
+    ],
+    "timeout": 300000,
+    "on_error": []
+  },
+  "GT_StartUp_ConfirmDownload": {
+    "recognition": "TemplateMatch",
+    "template": "btn_confirm_download.png",
+    "roi": [
+      280,
+      80,
+      730,
+      566
+    ],
+    "threshold": 0.85,
+    "action": "Click",
+    "post_delay": 2000,
+    "max_hit": 3,
+    "next": []
+  },
+  "GT_StartUp_HubReady": {
+    "recognition": "And",
+    "all_of": [
+      {
+        "recognition": "TemplateMatch",
+        "template": "hub_nav_left.png",
+        "roi": [
+          0,
+          600,
+          420,
+          120
+        ],
+        "threshold": 0.8
+      },
+      {
+        "recognition": "ColorMatch",
+        "method": 4,
+        "lower": [
+          0,
+          130,
+          200
+        ],
+        "upper": [
+          130,
+          255,
+          255
+        ],
+        "roi": [
+          0,
+          600,
+          420,
+          120
+        ],
+        "count": 1800
+      }
+    ],
+    "action": "DoNothing",
+    "post_delay": 1000,
+    "next": []
+  },
+  "GT_StartUp_TapStart": {
+    "recognition": "OCR",
+    "expected": [
+      "点击开始",
+      "点.*开始"
+    ],
+    "roi": [
+      500,
+      585,
+      280,
+      105
+    ],
+    "threshold": 0.3,
+    "action": "Click",
+    "target": [
+      585,
+      618,
+      110,
+      40
+    ],
+    "post_delay": 3000,
+    "max_hit": 6,
+    "next": []
+  },
+  "GT_StartUp_TapStartByVersion": {
+    "recognition": "OCR",
+    "expected": [
+      "版本"
+    ],
+    "roi": [
+      0,
+      0,
+      340,
+      60
+    ],
+    "threshold": 0.3,
+    "action": "Click",
+    "target": [
+      585,
+      618,
+      110,
+      40
+    ],
+    "post_delay": 3000,
+    "max_hit": 6,
+    "next": []
+  },
+  "GT_StartUp_TapStartBlind": {
+    "enabled": false,
+    "recognition": "DirectHit",
+    "action": "Click",
+    "target": [
+      585,
+      618,
+      110,
+      40
+    ],
+    "max_hit": 30,
+    "post_delay": 3000,
+    "next": []
+  }
+}

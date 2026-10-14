@@ -1,0 +1,69 @@
+{
+    "GT_ShopBenefits": {
+        "next": ["[JumpBack]GT_Common_Prepare", "GT_Shop_Open"],
+        "timeout": 30000
+    },
+    "GT_Shop_Open": {
+        "recognition": "And", "all_of": ["GT_StartUp_HubReady"],
+        "action": "Click", "target": [308, 630, 22, 24], "post_delay": 1200,
+        "next": ["GT_Shop_SelectSubscription"], "timeout": 30000
+    },
+    "GT_Shop_SelectSubscription": {
+        "recognition": "TemplateMatch", "template": "shop_title.png",
+        "roi": [20, 5, 160, 65], "threshold": 0.9,
+        "action": "Click", "target": [85, 152, 45, 25], "post_delay": 700,
+        "next": ["GT_Shop_Route"]
+    },
+    "GT_Shop_Route": {
+        "next": ["[JumpBack]GT_Common_DismissReward", "[JumpBack]GT_Shop_ClaimSubscription", "GT_Shop_SelectResources"],
+        "timeout": 20000
+    },
+    "GT_Shop_ClaimSubscription": {
+        "recognition": "And",
+        "all_of": [
+            {"recognition": "TemplateMatch", "template": "shop_title.png", "roi": [20, 5, 160, 65], "threshold": 0.9},
+            {"recognition": "OCR", "expected": ["签到礼包"], "roi": [278, 206, 312, 64], "threshold": 0.7},
+            {"recognition": "TemplateMatch", "template": "subscription_claim.png", "roi": [270, 623, 333, 65], "threshold": 0.95},
+            {"recognition": "ColorMatch", "method": 4, "lower": [240, 175, 0], "upper": [255, 225, 60], "roi": [290, 638, 285, 30], "count": 5000}
+        ],
+        "box_index": 2,
+        "action": "Click", "post_delay": 2500, "max_hit": 1
+    },
+    "GT_Shop_SelectResources": {
+        "recognition": "And", "all_of": [
+            {"recognition": "TemplateMatch", "template": "shop_title.png", "roi": [20, 5, 160, 65], "threshold": 0.9},
+            "GT_Common_PageHeaderBright"
+        ],
+        "action": "Click", "target": [86, 317, 45, 25], "post_delay": 700,
+        "next": ["GT_Shop_FreeRoute"]
+    },
+    "GT_Shop_FreeRoute": {
+        "next": ["[JumpBack]GT_Common_DismissReward", "[JumpBack]GT_Shop_ConfirmFree", "[JumpBack]GT_Shop_ClaimFreeDaily", "[JumpBack]GT_Shop_Return", "GT_StartUp_HubReady"],
+        "timeout": 20000
+    },
+    "GT_Shop_ClaimFreeDaily": {
+        "recognition": "And", "all_of": [
+            {"recognition": "TemplateMatch", "template": "shop_title.png", "roi": [20, 5, 160, 65], "threshold": 0.9},
+            {"recognition": "OCR", "expected": ["每日免费商品"], "roi": [805, 429, 180, 44], "threshold": 0.7},
+            {"recognition": "TemplateMatch", "template": "shop_free_daily.png", "roi": [766, 469, 250, 65], "threshold": 0.95}
+        ],
+        "box_index": 2, "action": "Click", "post_delay": 2000, "max_hit": 1
+    },
+    "GT_Shop_ConfirmFree": {
+        "recognition": "And", "all_of": [
+            {"recognition": "OCR", "expected": ["^购买$"], "roi": [576, 97, 130, 43], "threshold": 0.7},
+            {"recognition": "OCR", "expected": ["^金币$"], "roi": [555, 290, 174, 48], "threshold": 0.7},
+            {"recognition": "OCR", "expected": ["2.?000"], "roi": [590, 255, 108, 38], "threshold": 0.7},
+            {"recognition": "TemplateMatch", "template": "confirm_free.png", "roi": [637, 544, 234, 76], "threshold": 0.95}
+        ],
+        "box_index": 3, "action": "Click", "post_delay": 1800, "max_hit": 1
+    },
+    "GT_Shop_Return": {
+        "recognition": "And", "all_of": [
+            {"recognition": "TemplateMatch", "template": "shop_title.png", "roi": [20, 5, 160, 65], "threshold": 0.9},
+            "GT_Common_PageHeaderBright"
+        ],
+        "action": "Click", "target": [35, 25, 20, 20], "post_delay": 900,
+        "max_hit": 3
+    }
+}

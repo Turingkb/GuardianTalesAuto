@@ -1,0 +1,83 @@
+{
+  "GT_Test_OCRFull": {
+    "recognition": "OCR",
+    "roi": [
+      0,
+      0,
+      1280,
+      720
+    ],
+    "action": "DoNothing",
+    "next": []
+  },
+  "GT_Test_OCRStartText": {
+    "recognition": "OCR",
+    "expected": [
+      "点击开始",
+      "点.*开始"
+    ],
+    "roi": [
+      500,
+      585,
+      280,
+      105
+    ],
+    "threshold": 0.3,
+    "action": "DoNothing",
+    "next": []
+  },
+  "GT_Test_OCRVersion": {
+    "recognition": "OCR",
+    "expected": [
+      "版本"
+    ],
+    "roi": [
+      0,
+      0,
+      340,
+      60
+    ],
+    "threshold": 0.3,
+    "action": "DoNothing",
+    "next": []
+  },
+  "GT_Test_OCRHubNav": {
+    "recognition": "OCR",
+    "expected": [
+      "菜单",
+      "英雄",
+      "公会",
+      "商店"
+    ],
+    "roi": [
+      0,
+      600,
+      420,
+      120
+    ],
+    "threshold": 0.3,
+    "action": "DoNothing",
+    "next": []
+  },
+  "GT_Test_DailyBoostSelected": {
+    "recognition": "ColorMatch",
+    "roi": [
+      340,
+      546,
+      29,
+      27
+    ],
+    "method": 4,
+    "lower": [
+      70,
+      180,
+      0
+    ],
+    "upper": [
+      170,
+      255,
+      120
+    ],
+    "count": 20
+  }
+}

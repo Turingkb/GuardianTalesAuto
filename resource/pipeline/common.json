@@ -1,0 +1,577 @@
+{
+  "GT_EnsureHub": {
+    "action": "StartApp",
+    "package": "com.bilibili.snake",
+    "post_delay": 1500,
+    "next": [
+      "GT_Common_HubRoute"
+    ]
+  },
+  "GT_ClearPopups": {
+    "next": [
+      "GT_Common_HubRoute"
+    ]
+  },
+  "GT_Common_Prepare": {
+    "action": "StartApp",
+    "package": "com.bilibili.snake",
+    "post_delay": 1500,
+    "max_hit": 1,
+    "next": [
+      "GT_Common_HubRoute"
+    ]
+  },
+  "GT_Common_HubRoute": {
+    "next": [
+      "[JumpBack]GT_Common_AckSweepResult",
+      "[JumpBack]GT_Common_CancelSweepDialog",
+      "[JumpBack]GT_Common_CancelHeroSettings",
+      "[JumpBack]GT_Friends_AckSent",
+      "[JumpBack]GT_Common_DismissReward",
+      "[JumpBack]GT_Common_CloseGuildRanking",
+      "[JumpBack]GT_Common_CancelPurchase",
+      "[JumpBack]GT_Common_CloseNotice",
+      "[JumpBack]GT_Common_CloseSignin",
+      "[JumpBack]GT_Common_CloseEventSignin",
+      "[JumpBack]GT_Common_PromoOptOut",
+      "[JumpBack]GT_Common_ClosePromo",
+      "[JumpBack]GT_Common_BackKnownPage",
+      "[JumpBack]GT_Common_CloseMenu",
+      "[JumpBack]GT_StartUp_ConfirmDownload",
+      "GT_StartUp_HubReady",
+      "[JumpBack]GT_StartUp_TapStart",
+      "[JumpBack]GT_StartUp_TapStartByVersion"
+    ],
+    "timeout": 60000
+  },
+  "GT_Common_CloseNotice": {
+    "recognition": "TemplateMatch",
+    "template": "notice_header.png",
+    "roi": [
+      470,
+      50,
+      165,
+      65
+    ],
+    "threshold": 0.9,
+    "action": "Click",
+    "target": [
+      1225,
+      72,
+      20,
+      20
+    ],
+    "post_delay": 800,
+    "max_hit": 5
+  },
+  "GT_Common_DismissReward": {
+    "recognition": "And",
+    "all_of": [
+      {
+        "recognition": "OCR",
+        "expected": [
+          "领取奖励",
+          "公会签到奖励",
+          "获得活跃度",
+          "已购买",
+          "已接受"
+        ],
+        "roi": [
+          510,
+          245,
+          270,
+          70
+        ],
+        "threshold": 0.7
+      },
+      {
+        "recognition": "OCR",
+        "expected": [
+          "点击空白.*关闭弹窗"
+        ],
+        "roi": [
+          425,
+          635,
+          445,
+          68
+        ],
+        "threshold": 0.7
+      }
+    ],
+    "action": "Click",
+    "target": [
+      620,
+      653,
+      40,
+      30
+    ],
+    "post_delay": 750,
+    "max_hit": 20
+  },
+  "GT_Common_CloseSignin": {
+    "recognition": "TemplateMatch",
+    "template": "signin_footer.png",
+    "roi": [
+      525,
+      563,
+      230,
+      44
+    ],
+    "threshold": 0.9,
+    "action": "LongPress",
+    "target": [
+      640,
+      585
+    ],
+    "post_delay": 250,
+    "max_hit": 5,
+    "duration": 50,
+    "next": [
+      "GT_Common_CloseSigninAfterTooltip"
+    ]
+  },
+  "GT_Common_CloseEventSignin": {
+    "recognition": "TemplateMatch",
+    "template": "event_signin_footer.png",
+    "roi": [
+      730,
+      445,
+      340,
+      55
+    ],
+    "threshold": 0.9,
+    "action": "LongPress",
+    "target": [
+      900,
+      470
+    ],
+    "post_delay": 250,
+    "max_hit": 5,
+    "duration": 50,
+    "next": [
+      "GT_Common_CloseEventSigninAfterTooltip"
+    ]
+  },
+  "GT_Common_CloseMenu": {
+    "recognition": "TemplateMatch",
+    "template": "menu_panel.png",
+    "roi": [
+      5,
+      365,
+      415,
+      115
+    ],
+    "threshold": 0.9,
+    "action": "Click",
+    "target": [
+      55,
+      633,
+      20,
+      20
+    ],
+    "post_delay": 500,
+    "max_hit": 4
+  },
+  "GT_Common_CloseGuildRanking": {
+    "recognition": "TemplateMatch",
+    "template": "guild_ranking_title.png",
+    "roi": [
+      570,
+      78,
+      140,
+      48
+    ],
+    "threshold": 0.9,
+    "action": "Click",
+    "target": [
+      904,
+      92,
+      16,
+      16
+    ],
+    "post_delay": 600,
+    "max_hit": 3
+  },
+  "GT_Common_PageHeaderBright": {
+    "recognition": "ColorMatch",
+    "method": 4,
+    "lower": [
+      220,
+      220,
+      220
+    ],
+    "upper": [
+      255,
+      255,
+      255
+    ],
+    "roi": [
+      30,
+      16,
+      150,
+      44
+    ],
+    "count": 200
+  },
+  "GT_Common_CancelPurchase": {
+    "recognition": "And",
+    "all_of": [
+      {
+        "recognition": "OCR",
+        "expected": [
+          "^购买$"
+        ],
+        "roi": [
+          576,
+          97,
+          130,
+          43
+        ],
+        "threshold": 0.7
+      },
+      {
+        "recognition": "OCR",
+        "expected": [
+          "^取消$"
+        ],
+        "roi": [
+          435,
+          555,
+          185,
+          52
+        ],
+        "threshold": 0.7
+      }
+    ],
+    "action": "Click",
+    "target": [
+      500,
+      566,
+      55,
+      30
+    ],
+    "post_delay": 700,
+    "max_hit": 2
+  },
+  "GT_Common_BackKnownPage": {
+    "recognition": "And",
+    "all_of": [
+      "GT_Common_KnownPage",
+      "GT_Common_PageHeaderBright"
+    ],
+    "action": "Click",
+    "target": [
+      35,
+      25,
+      20,
+      20
+    ],
+    "post_delay": 700,
+    "max_hit": 8
+  },
+  "GT_Common_KnownPage": {
+    "recognition": "Or",
+    "any_of": [
+      {
+        "recognition": "TemplateMatch",
+        "template": "mail_title.png",
+        "roi": [
+          20,
+          5,
+          170,
+          65
+        ],
+        "threshold": 0.95
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "story_title.png",
+        "roi": [
+          20,
+          5,
+          170,
+          65
+        ],
+        "threshold": 0.95
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "daily_title.png",
+        "roi": [
+          20,
+          5,
+          190,
+          65
+        ],
+        "threshold": 0.9
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "guild_title.png",
+        "roi": [
+          20,
+          5,
+          170,
+          65
+        ],
+        "threshold": 0.95
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "shop_title.png",
+        "roi": [
+          20,
+          5,
+          170,
+          65
+        ],
+        "threshold": 0.9
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "activity_title.png",
+        "roi": [
+          20,
+          5,
+          170,
+          65
+        ],
+        "threshold": 0.9
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "play_title.png",
+        "roi": [
+          20,
+          5,
+          190,
+          65
+        ],
+        "threshold": 0.9
+      },
+      {
+        "threshold": 0.9,
+        "template": "friends_title.png",
+        "roi": [
+          20,
+          5,
+          160,
+          65
+        ],
+        "recognition": "TemplateMatch"
+      }
+    ],
+    "action": "DoNothing"
+  },
+  "GT_Common_ClosePromo": {
+    "recognition": "TemplateMatch",
+    "template": "promo_close.png",
+    "roi": [
+      1215,
+      18,
+      50,
+      50
+    ],
+    "threshold": 0.94,
+    "action": "Click",
+    "target": [
+      1227,
+      32,
+      18,
+      18
+    ],
+    "post_delay": 850,
+    "max_hit": 25
+  },
+  "GT_Common_AckSweepResult": {
+    "max_hit": 4,
+    "action": "Click",
+    "all_of": [
+      {
+        "expected": "^扫荡$",
+        "threshold": 0.7,
+        "roi": [
+          585,
+          84,
+          112,
+          39
+        ],
+        "recognition": "OCR"
+      },
+      {
+        "expected": "扫荡结束",
+        "threshold": 0.7,
+        "roi": [
+          240,
+          460,
+          270,
+          33
+        ],
+        "recognition": "OCR"
+      },
+      {
+        "expected": "^确认$",
+        "threshold": 0.7,
+        "roi": [
+          560,
+          573,
+          161,
+          51
+        ],
+        "recognition": "OCR"
+      }
+    ],
+    "recognition": "And",
+    "post_delay": 650,
+    "target": [
+      640,
+      597
+    ]
+  },
+  "GT_Common_CancelSweepDialog": {
+    "max_hit": 3,
+    "action": "Click",
+    "all_of": [
+      {
+        "expected": "自动战斗设置",
+        "threshold": 0.7,
+        "roi": [
+          500,
+          42,
+          275,
+          80
+        ],
+        "recognition": "OCR"
+      },
+      {
+        "expected": "^取消$",
+        "threshold": 0.7,
+        "roi": [
+          440,
+          580,
+          190,
+          82
+        ],
+        "recognition": "OCR"
+      }
+    ],
+    "recognition": "And",
+    "post_delay": 650,
+    "target": true,
+    "box_index": 1
+  },
+  "GT_Common_PromoOptOut": {
+    "all_of": [
+      {
+        "recognition": "TemplateMatch",
+        "roi": [
+          1215,
+          18,
+          50,
+          50
+        ],
+        "template": "promo_close.png",
+        "threshold": 0.94
+      },
+      {
+        "recognition": "OCR",
+        "expected": "2周内.*提示",
+        "roi": [
+          170,
+          587,
+          220,
+          48
+        ],
+        "threshold": 0.7
+      },
+      {
+        "recognition": "TemplateMatch",
+        "roi": [
+          135,
+          587,
+          46,
+          51
+        ],
+        "template": "promo_optout_unchecked.png",
+        "threshold": 0.95
+      }
+    ],
+    "duration": 50,
+    "recognition": "And",
+    "action": "LongPress",
+    "max_hit": 25,
+    "target": [
+      155,
+      611
+    ],
+    "post_delay": 250
+  },
+  "GT_Common_CancelHeroSettings": {
+    "recognition": "And",
+    "all_of": [
+      {
+        "recognition": "OCR",
+        "expected": "奖励设置",
+        "roi": [
+          526,
+          48,
+          230,
+          40
+        ],
+        "threshold": 0.7
+      },
+      {
+        "recognition": "OCR",
+        "expected": "^取消$",
+        "roi": [
+          440,
+          580,
+          190,
+          82
+        ],
+        "threshold": 0.7
+      }
+    ],
+    "box_index": 1,
+    "action": "Click",
+    "target": true,
+    "post_delay": 600,
+    "max_hit": 3
+  },
+  "GT_Common_CloseSigninAfterTooltip": {
+    "recognition": "TemplateMatch",
+    "template": "signin_footer.png",
+    "roi": [
+      525,
+      563,
+      230,
+      44
+    ],
+    "threshold": 0.9,
+    "action": "LongPress",
+    "duration": 50,
+    "target": [
+      915,
+      122
+    ],
+    "post_delay": 700
+  },
+  "GT_Common_CloseEventSigninAfterTooltip": {
+    "recognition": "TemplateMatch",
+    "template": "event_signin_footer.png",
+    "roi": [
+      730,
+      445,
+      340,
+      55
+    ],
+    "threshold": 0.9,
+    "action": "LongPress",
+    "duration": 50,
+    "target": [
+      1235,
+      40
+    ],
+    "post_delay": 700
+  }
+}
