@@ -359,6 +359,18 @@
           65
         ],
         "recognition": "TemplateMatch"
+      },
+      {
+        "recognition": "OCR",
+        "expected": [
+          "忒提斯英雄传"
+        ],
+        "roi": [
+          65,
+          5,
+          340,
+          60
+        ]
       }
     ],
     "action": "DoNothing"

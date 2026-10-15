@@ -37,6 +37,15 @@ def main():
     for task in interface["task"]:
         assert task["entry"] in nodes, task["entry"]
         for option in task.get("option", []): assert option in interface["option"], option
+    def validate_option(name, parents=()):
+        assert name in interface["option"], f"Unknown child option: {name}"
+        assert name not in parents, f"Option cycle: {parents + (name,)}"
+        option = interface["option"][name]
+        for case in option.get("cases", []):
+            for child in case.get("option", []): validate_option(child, parents + (name,))
+            for node in case.get("pipeline_override", {}): assert node in nodes, node
+        for node in option.get("pipeline_override", {}): assert node in nodes, node
+    for name in interface["option"]: validate_option(name)
     assert (ROOT / interface["icon"]).is_file()
     print(f"Validated {len(nodes)} nodes, {len(interface['task'])} tasks, {len(HANDLERS)} Agent actions")
     return 0

@@ -376,5 +376,61 @@
       194,
       39
     ]
+  },
+  {
+    "template": "shop_currency_diamond.png",
+    "source": "dev/2026-10-15/screenshots/02_stamina_detail.png",
+    "box_xyxy": [
+      722,
+      598,
+      750,
+      623
+    ],
+    "size": [
+      28,
+      25
+    ]
+  },
+  {
+    "template": "shop_currency_gold.png",
+    "source": "dev/2026-10-15/screenshots/11_hammer_confirm.png",
+    "box_xyxy": [
+      703,
+      568,
+      728,
+      594
+    ],
+    "size": [
+      25,
+      26
+    ]
+  },
+  {
+    "template": "shop_currency_hero_crystal.png",
+    "source": "dev/2026-10-15/screenshots/12_growth_confirm.png",
+    "box_xyxy": [
+      718,
+      598,
+      746,
+      625
+    ],
+    "size": [
+      28,
+      27
+    ]
+  },
+  {
+    "template": "shop_quantity_minus.png",
+    "source": "dev/2026-10-15/screenshots/02_stamina_detail.png",
+    "box_xyxy": [
+      371,
+      503,
+      410,
+      543
+    ],
+    "size": [
+      39,
+      40
+    ]
   }
 ]

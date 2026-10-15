@@ -6,6 +6,7 @@ import re
 import time
 
 from native import Screen
+from shop import shop_purchase
 
 
 def integer_text(text: str) -> int:
@@ -71,7 +72,8 @@ def resource_sweep(screen: Screen, params: dict, *, kind: str | None = None) -> 
     kind = kind or params.get("kind")
     categories = {"gold": ("金币副本", 337, 395, [45, 260, 250, 68]),
                   "experience": ("经验副本", 737, 395, [445, 260, 250, 68]),
-                  "items": ("道具副本", 1137, 395, [845, 260, 250, 68])}
+                  "items": ("道具副本", 1137, 395, [845, 260, 250, 68]),
+                  "red": ("红色碎片副本", 737, 642, [445, 505, 350, 68])}
     if kind not in categories:
         raise ValueError("Unknown resource dungeon")
     requested = int(params.get("count", 10))
@@ -96,8 +98,14 @@ def resource_sweep(screen: Screen, params: dict, *, kind: str | None = None) -> 
 
 def execute_stamina_sweep(screen: Screen, requested: int, boosted_only: bool, kind: str) -> int:
     """Validate the shared normal/evolution dialog and return the completed count."""
-    if not dialog_visible(screen) or not screen.has([365, 538, 170, 44], "每日焕发"):
+    if not dialog_visible(screen):
         raise RuntimeError("Expected stamina sweep settings are missing")
+    if not screen.has([365, 538, 170, 44], "每日焕发"):
+        if boosted_only:
+            screen.log("resource_skipped", kind=kind, reason="boost_not_available")
+            screen.tap(536, 637, 0.5)
+            return 0
+        return execute_plain_sweep(screen, requested, kind)
     allowance = screen.text([853, 539, 88, 39]).replace(" ", "")
     match = re.fullmatch(r"(\d{1,2})[/／]10", allowance)
     if not match or not 0 <= int(match.group(1)) <= 10:
@@ -134,6 +142,63 @@ def execute_stamina_sweep(screen: Screen, requested: int, boosted_only: bool, ki
     finish_sweep(screen, wanted, kind)
     screen.log("resource_verified", kind=kind, count=wanted)
     return wanted
+
+
+def execute_plain_sweep(screen: Screen, wanted: int, kind: str) -> int:
+    """The no-boost layout moves the counter and stamina row down by 47px."""
+    for _ in range(30):
+        screen.capture()
+        if not dialog_visible(screen):
+            raise RuntimeError("Plain sweep dialog disappeared")
+        current = integer_text(screen.text([330, 435, 620, 40]))
+        if current == wanted:
+            break
+        for _ in range(min(abs(wanted - current), 5)):
+            screen.tap(916 if current < wanted else 364, 501, 0.1)
+    else:
+        raise RuntimeError("Plain sweep count did not reach configured value")
+    available, spend = stamina_cost(screen.text([623, 539, 121, 38]))
+    reserve, reserve_spend = stamina_cost(screen.text([808, 539, 134, 38]))
+    if spend + reserve_spend != wanted * 10 or not screen.has([655, 612, 171, 54], "^扫荡$"):
+        raise RuntimeError("Plain sweep count/cost/button could not be verified")
+    screen.save(f"{kind}-before-confirm")
+    screen.log("resource_confirm", kind=kind, count=wanted, stamina=available, reserve=reserve,
+               spend=spend, reserve_spend=reserve_spend, boosted=False)
+    screen.tap(744, 637, 1.0)
+    finish_sweep(screen, wanted, kind)
+    return wanted
+
+
+def tethys_free(screen: Screen, params: dict) -> bool:
+    screen.capture()
+    if not screen.has([65, 5, 340, 60], "忒提斯英雄传"):
+        raise RuntimeError("Thetis page is not visible")
+    value = screen.text([1030, 564, 100, 44]).replace(" ", "")
+    match = re.fullmatch(r"([0-3])[/／]3", value)
+    if not match:
+        raise RuntimeError(f"Cannot determine Thetis free entries: {value!r}")
+    remaining = int(match.group(1))
+    if not remaining:
+        screen.log("tethys_skipped", reason="no_free_entries")
+        return True
+    if not dialog_visible(screen):
+        screen.tap(1065, 644, 0.6)
+        screen.capture()
+    if not dialog_visible(screen) or not screen.has([530, 325, 240, 44], "剩余免费进入次数"):
+        raise RuntimeError("Thetis free-entry setting is missing")
+    count = counter(screen)
+    diamonds = integer_text(screen.text([870, 492, 75, 40]))
+    vouchers = screen.text([870, 540, 75, 40]).replace(" ", "")
+    if count != remaining or diamonds != 0 or not re.fullmatch(r"0[/／]3", vouchers):
+        raise RuntimeError(f"Refusing non-free Thetis sweep: count={count}, diamonds={diamonds}, vouchers={vouchers!r}")
+    if not screen.has([680, 612, 140, 50], "^扫荡$"):
+        raise RuntimeError("Thetis sweep confirmation button is missing")
+    screen.save("tethys-before-confirm")
+    screen.log("tethys_confirm", count=count, diamonds=diamonds, vouchers=vouchers)
+    screen.tap(765, 637, 1.0)
+    finish_sweep(screen, count, "tethys")
+    screen.log("tethys_verified", count=count)
+    return True
 
 
 def awake_free(screen: Screen, params: dict) -> bool:
@@ -284,4 +349,6 @@ HANDLERS = {"GT_AwakeningFree": awake_free,
             "GT_GoldResourceSweep": partial(resource_sweep, kind="gold"),
             "GT_ExperienceResourceSweep": partial(resource_sweep, kind="experience"),
             "GT_ItemsResourceSweep": partial(resource_sweep, kind="items"),
+            "GT_RedResourceSweep": partial(resource_sweep, kind="red"),
+            "GT_ShopPurchase": shop_purchase, "GT_TethysFree": tethys_free,
             "GT_EvolutionSweep": evolution_sweep, "GT_AgentProbe": probe}

@@ -65,5 +65,40 @@
         ],
         "action": "Click", "target": [35, 25, 20, 20], "post_delay": 900,
         "max_hit": 3
+    },
+
+    "GT_ShopPurchase": {
+        "next": [
+            "[JumpBack]GT_Common_Prepare",
+            "GT_Shop_PurchaseOpen"
+        ],
+        "timeout": 30000
+    },
+    "GT_Shop_PurchaseOpen": {
+        "recognition": "And",
+        "all_of": [
+            "GT_StartUp_HubReady"
+        ],
+        "action": "Click",
+        "target": [
+            308,
+            630,
+            22,
+            24
+        ],
+        "post_delay": 1200,
+        "next": [
+            "GT_Shop_PurchaseRun"
+        ]
+    },
+    "GT_Shop_PurchaseRun": {
+        "action": "Custom",
+        "custom_action": "GT_ShopPurchase",
+        "custom_action_param": {
+            "free_coins": true
+        },
+        "next": [
+            "GT_Common_HubRoute"
+        ]
     }
 }

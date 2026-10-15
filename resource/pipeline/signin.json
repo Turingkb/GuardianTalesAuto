@@ -198,5 +198,17 @@
       470
     ],
     "post_delay": 450
+  },
+  "GT_SignInAndSoul": {
+    "next": [
+      "[JumpBack]GT_SignIn_Once",
+      "GT_CollectSoulPoints"
+    ]
+  },
+  "GT_SignIn_Once": {
+    "max_hit": 1,
+    "next": [
+      "GT_SignIn"
+    ]
   }
 }

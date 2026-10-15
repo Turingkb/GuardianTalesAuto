@@ -17,4 +17,10 @@ if not exist "%~dp0GTAssistant.exe" (
     pause
     exit /b 1
 )
+"C:\Python314\python.exe" "%~dp0dev\migrate_gui_tasks.py"
+if errorlevel 1 (
+    echo [坎公骑冠剑助手] 更新任务配置失败，请查看以上错误。
+    pause
+    exit /b 1
+)
 start "坎公骑冠剑助手" "%~dp0GTAssistant.exe"

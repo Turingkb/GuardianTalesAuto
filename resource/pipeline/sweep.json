@@ -113,5 +113,113 @@
   "GT_AgentProbe": {
     "action": "Custom",
     "custom_action": "GT_AgentProbe"
+  },
+  "GT_RedSweep": {
+    "next": [
+      "[JumpBack]GT_Common_Prepare",
+      "[JumpBack]GT_Sweep_OpenResourcesOnce",
+      "GT_Sweep_Red"
+    ],
+    "timeout": 30000
+  },
+  "GT_Sweep_Red": {
+    "action": "Custom",
+    "custom_action": "GT_RedResourceSweep",
+    "custom_action_param": {
+      "count": 10,
+      "boost_only": true
+    },
+    "next": [
+      "GT_Common_HubRoute"
+    ]
+  },
+  "GT_GeneralDailySweep": {
+    "next": [
+      "[JumpBack]GT_Daily_AwakeningOnce",
+      "GT_TethysEntry"
+    ]
+  },
+  "GT_Daily_AwakeningOnce": {
+    "max_hit": 1,
+    "next": [
+      "GT_AwakeningFreeSweep"
+    ]
+  },
+  "GT_TethysEntry": {
+    "recognition": "And",
+    "all_of": [
+      "GT_StartUp_HubReady"
+    ],
+    "action": "Click",
+    "target": [
+      1076,
+      617,
+      28,
+      30
+    ],
+    "post_delay": 1000,
+    "next": [
+      "GT_Tethys_Recommended"
+    ]
+  },
+  "GT_Tethys_Recommended": {
+    "recognition": "TemplateMatch",
+    "template": "play_title.png",
+    "roi": [
+      20,
+      5,
+      190,
+      65
+    ],
+    "threshold": 0.9,
+    "action": "Click",
+    "target": [
+      170,
+      120
+    ],
+    "post_delay": 700,
+    "next": [
+      "GT_Tethys_Open"
+    ]
+  },
+  "GT_Tethys_Open": {
+    "recognition": "OCR",
+    "expected": [
+      "忒提斯英雄传"
+    ],
+    "roi": [
+      420,
+      320,
+      450,
+      85
+    ],
+    "action": "Click",
+    "target": [
+      640,
+      304
+    ],
+    "post_delay": 2000,
+    "next": [
+      "GT_Tethys_Check"
+    ]
+  },
+  "GT_Tethys_Check": {
+    "recognition": "OCR",
+    "expected": [
+      "忒提斯英雄传"
+    ],
+    "roi": [
+      65,
+      5,
+      340,
+      60
+    ],
+    "action": "Custom",
+    "custom_action": "GT_TethysFree",
+    "custom_action_param": {},
+    "next": [
+      "GT_Common_HubRoute"
+    ],
+    "timeout": 60000
   }
 }

@@ -1,0 +1,58 @@
+{
+  "GT_Test_Shop_diamond": {
+    "recognition": "TemplateMatch",
+    "template": "shop_currency_diamond.png",
+    "roi": [
+      686,
+      544,
+      72,
+      105
+    ],
+    "threshold": 0.94
+  },
+  "GT_Test_Shop_gold": {
+    "recognition": "TemplateMatch",
+    "template": "shop_currency_gold.png",
+    "roi": [
+      686,
+      544,
+      72,
+      105
+    ],
+    "threshold": 0.94
+  },
+  "GT_Test_Shop_hero_crystal": {
+    "recognition": "TemplateMatch",
+    "template": "shop_currency_hero_crystal.png",
+    "roi": [
+      686,
+      544,
+      72,
+      105
+    ],
+    "threshold": 0.94
+  },
+  "GT_Test_ShopPaid": {
+    "recognition": "OCR",
+    "expected": [
+      "付费"
+    ],
+    "roi": [
+      660,
+      544,
+      200,
+      105
+    ]
+  },
+  "GT_Test_ShopQuantity": {
+    "recognition": "TemplateMatch",
+    "template": "shop_quantity_minus.png",
+    "roi": [
+      350,
+      475,
+      95,
+      90
+    ],
+    "threshold": 0.94
+  }
+}
