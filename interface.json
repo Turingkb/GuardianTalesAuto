@@ -192,6 +192,13 @@
       "label": "全屏OCR探测（调试）",
       "default_check": false,
       "description": "只识别当前画面文字，不点击游戏界面。结果见框架日志。"
+    },
+    {
+      "name": "关闭游戏",
+      "label": "关闭游戏",
+      "entry": "GT_CloseGame",
+      "default_check": false,
+      "description": "关闭坎公游戏，保留助手和MuMu模拟器运行。勾选后请放在所有游戏任务之后；需要继续在游戏中操作时不要勾选。"
     }
   ],
   "icon": "logo-v2.ico",

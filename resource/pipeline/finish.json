@@ -1,0 +1,10 @@
+{
+  "GT_CloseGame": {
+    "action": "StopApp",
+    "package": "com.bilibili.snake",
+    "post_delay": 500,
+    "focus": {
+      "Node.Action.Succeeded": "坎公游戏已关闭，助手与模拟器保留运行。"
+    }
+  }
+}

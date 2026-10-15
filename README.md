@@ -28,9 +28,14 @@ Agent使用本机 `C:/Python314/python.exe` 和标准库；换电脑需修改 `i
 | 开花石副本扫荡 | 关 | 设置属性、次数，沿用游戏奖励英雄，每次10体力 |
 | 活动页面（查看） | 关 | 尚未统一适配的活动挑战和兑换供人工查看 |
 | 冷启动／全屏OCR | 关 | 维护和调试 |
+| 关闭游戏 | 关 | 放在游戏任务最后执行，只关闭坎公；助手与MuMu继续运行 |
 
-共18项任务，其中默认8项。灵魂点合并在签到后，没有召唤/抽卡功能。签到高亮可能代表下一天，点击成功不等于新增奖励。
+共19项任务，其中默认8项。灵魂点合并在签到后，没有召唤/抽卡功能。签到高亮可能代表下一天，点击成功不等于新增奖励。
 推广页识别未勾选的“2周内不再提示”时先勾选再关闭；截图识别已通过，点击效果待下一次弹出验证。
+
+## 结束后行为
+
+任务列表末尾可勾选“关闭游戏”。退出助手在 **设置 → 启动设置 → 结束后操作 → 关闭本程序** 中选择；当前默认保留程序，不自动启用退出。无需使用无人值守入口才能关闭游戏。
 
 ## 扫荡
 
@@ -65,7 +70,7 @@ EmulatorExtras是MaaFramework的模拟器增强截图通道，MuMu通过原生�
 ## 文件与验证
 
 `interface.json`：GUI/CLI任务与选项；`resource/pipeline`：流水线；`agent`：数字、费用和英雄判断。
-`logo-v2.ico` / `assets/princess-smile-v2.png`：小公主笑脸像素图标。
+`logo-v2.ico` / `assets/princess-smile-v2.png`：小公主笑脸像素图标。EXE内嵌图标已逐尺寸核验；文件管理器仍显示框架图标时运行 `python dev/refresh_icon_cache.py` 刷新Windows缓存，再按F5。
 本次验证见 `dev/validation_report.md` 和 `dev/2026-10-14`，Agent证据见 `debug/agent`，错误图见 `dev/runtime/debug/on_error`。
 
 ```powershell
