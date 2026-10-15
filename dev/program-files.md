@@ -1,0 +1,13 @@
+# 坎公助手的程序文件
+
+主程序名为 `GTAssistant.exe`（Guardian Tales Assistant），中文界面名仍为“坎公骑冠剑助手”。
+双击 `GTAssistant.bat` 或原有 `run_gui.bat` 均可启动同一程序。首次导入原版运行包后，启动器会将 `MFAAvalonia.exe` 改名为 `GTAssistant.exe`。
+
+只重命名 .NET apphost EXE。`MFAAvalonia.dll`、`MFAAvalonia.deps.json` 和 `MFAAvalonia.runtimeconfig.json` 以及 `libs/`、`runtimes/` 是加载依赖，保留其原名。`MaaPiCli.exe` 保留框架命令行工具原名，仍由 `run_cli.bat` 启动。
+
+工作目录中的独立 `MaaFramework-win-x86_64-v5.12.3/` 和 `MFAAvalonia-v2.16.2-win-x64/` 为导入来源和开发参考，不是当前程序的运行路径，日常运行可以将它们移走或归档。离线查看框架头文件、文档或恢复原始运行包时仍可能用到。
+
+项目内的 `resource/pipeline/`、`resource/image/`、`resource/model/` 是实际任务、识别模板和OCR模型，必须保留。`agent/`、`config/`、`libs/`、`runtimes/` 同样是当前运行所需。
+`dev/screenshots/` 等开发截图不是运行依赖，但截图回归测试会使用它们，因此继续完善脚本时建议保留。
+
+本次不删除目录。自带 GUI 更新器可能恢复上游 EXE 文件名；此时继续用 `GTAssistant.bat` 启动即可重新统一文件名。
