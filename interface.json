@@ -57,14 +57,23 @@
       "entry": "GT_ShopPurchase",
       "label": "商店购买",
       "default_check": true,
-      "description": "默认只领取免费金币。开启分类后再设置商品数量与本次预算；缺货、货币或价格不明时停止购买。活动商店按是否开放自动识别。",
+      "description": "默认领取免费金币。资源、钻石、英雄成长与装备分组设置；商品可直接勾选，数量和预算任一为0时跳过。",
       "option": [
         "ShopFree",
         "ShopResources",
         "ShopDiamonds",
         "ShopGrowth",
-        "ShopEquipment",
-        "ShopEvent"
+        "ShopEquipment"
+      ]
+    },
+    {
+      "name": "活动商店购买",
+      "label": "活动商店购买",
+      "entry": "GT_EventShopPurchase",
+      "default_check": false,
+      "description": "直接勾选活动商品，分别设置次数与本次预算；商店未开放或商品缺货时跳过。默认不购买，拒绝付费钻石与现金商品。",
+      "option": [
+        "EventShopProducts"
       ]
     },
     {
@@ -153,39 +162,22 @@
       ]
     },
     {
-      "name": "打开邮箱（人工）",
-      "entry": "GT_OpenMail",
-      "label": "打开邮箱（人工）",
+      "name": "开花石副本扫荡",
+      "label": "开花石副本扫荡",
+      "entry": "GT_FlowerSweep",
       "default_check": false,
-      "description": "只打开邮箱并停留，邮件领取请人工操作。"
+      "description": "按属性与次数扫荡，每次10体力；沿用游戏齿轮中选择的奖励英雄，不自动切换英雄。0次跳过。",
+      "option": [
+        "FlowerCount",
+        "FlowerAttribute"
+      ]
     },
     {
-      "name": "资源与觉醒副本（人工）",
-      "entry": "GT_OpenResourceRift",
-      "label": "资源与觉醒副本（人工）",
-      "default_check": false,
-      "description": "打开资源/觉醒副本列表并停留；不点击进入或扫荡，请人工选择副本和次数。"
-    },
-    {
-      "name": "进化石副本（人工）",
-      "entry": "GT_OpenEvolutionRift",
-      "label": "进化石副本（人工）",
-      "default_check": false,
-      "description": "打开进化石副本列表并停留；不消耗体力，请人工选择属性、英雄及扫荡次数。"
-    },
-    {
-      "name": "活动页面（人工）",
+      "name": "活动页面（查看）",
       "entry": "GT_OpenActivity",
-      "label": "活动页面（人工）",
+      "label": "活动页面（查看）",
       "default_check": false,
-      "description": "只打开活动列表并停留，活动挑战和兑换请人工操作。"
-    },
-    {
-      "name": "日常任务页面（人工）",
-      "entry": "GT_OpenDailyTasks",
-      "label": "日常任务页面（人工）",
-      "default_check": false,
-      "description": "只打开日常任务指南并停留，供查看进度或人工执行任务。"
+      "description": "打开游戏活动列表供查看。不同活动的挑战与兑换尚未统一适配，此入口不执行购买或战斗。"
     },
     {
       "name": "冷启动游戏（维护）",
@@ -1010,7 +1002,7 @@
     },
     "ShopItem_green": {
       "type": "input",
-      "label": "超凡突破锤（绿锤）",
+      "label": "绿锤（超凡突破锤）",
       "inputs": [
         {
           "name": "count",
@@ -1021,7 +1013,7 @@
         },
         {
           "name": "budget",
-          "label": "本次总预算（0为跳过）",
+          "label": "本次总预算（钻石，0为跳过）",
           "default": "0",
           "pipeline_type": "int",
           "verify": "^(?:0|[1-9][0-9]{0,7}|100000000)$"
@@ -1038,7 +1030,7 @@
     },
     "ShopItem_yellow": {
       "type": "input",
-      "label": "史诗突破锤（黄锤）",
+      "label": "黄锤（史诗突破锤）",
       "inputs": [
         {
           "name": "count",
@@ -1049,7 +1041,7 @@
         },
         {
           "name": "budget",
-          "label": "本次总预算（0为跳过）",
+          "label": "本次总预算（钻石，0为跳过）",
           "default": "0",
           "pipeline_type": "int",
           "verify": "^(?:0|[1-9][0-9]{0,7}|100000000)$"
@@ -1066,7 +1058,7 @@
     },
     "ShopItem_diamond_other": {
       "type": "input",
-      "label": "更多钻石商品",
+      "label": "未收录的钻石商品",
       "inputs": [
         {
           "name": "name",
@@ -1101,26 +1093,75 @@
     },
     "ShopDiamondProducts": {
       "type": "checkbox",
-      "label": "选择商品",
+      "label": "勾选要购买的商品",
       "default_case": [],
       "cases": [
         {
           "name": "green",
-          "label": "超凡突破锤（绿锤）",
+          "label": "绿锤（超凡突破锤）",
           "option": [
             "ShopItem_green"
           ]
         },
         {
           "name": "yellow",
-          "label": "史诗突破锤（黄锤）",
+          "label": "黄锤（史诗突破锤）",
           "option": [
             "ShopItem_yellow"
           ]
         },
         {
+          "name": "diamond_refine",
+          "label": "洗炼灵石",
+          "option": [
+            "ShopItem_diamond_refine"
+          ]
+        },
+        {
+          "name": "diamond_crystal",
+          "label": "英雄水晶",
+          "option": [
+            "ShopItem_diamond_crystal"
+          ]
+        },
+        {
+          "name": "diamond_star",
+          "label": "星片",
+          "option": [
+            "ShopItem_diamond_star"
+          ]
+        },
+        {
+          "name": "diamond_dream",
+          "label": "梦幻进化石",
+          "option": [
+            "ShopItem_diamond_dream"
+          ]
+        },
+        {
+          "name": "diamond_hammer",
+          "label": "强化锤",
+          "option": [
+            "ShopItem_diamond_hammer"
+          ]
+        },
+        {
+          "name": "diamond_experience",
+          "label": "经验结晶",
+          "option": [
+            "ShopItem_diamond_experience"
+          ]
+        },
+        {
+          "name": "diamond_awakening_box",
+          "label": "觉醒副本宝箱（70级）",
+          "option": [
+            "ShopItem_diamond_awakening_box"
+          ]
+        },
+        {
           "name": "diamond_other",
-          "label": "更多钻石商品",
+          "label": "未收录商品（高级）",
           "option": [
             "ShopItem_diamond_other"
           ]
@@ -1280,7 +1321,7 @@
     },
     "ShopItem_event": {
       "type": "input",
-      "label": "自选活动商品",
+      "label": "未收录的活动商品",
       "inputs": [
         {
           "name": "name",
@@ -1304,14 +1345,15 @@
         }
       ],
       "pipeline_override": {
-        "GT_Shop_PurchaseRun": {
+        "GT_EventShop_Run": {
           "custom_action_param": {
             "event_count": "{count}",
             "event_budget": "{budget}",
             "event_name": "{name}"
           }
         }
-      }
+      },
+      "description": "仅未收录商品需要填写游戏中的完整名称；常见商品直接勾选即可。"
     },
     "ShopItem_eventCurrency": {
       "type": "select",
@@ -1322,7 +1364,7 @@
           "name": "gold",
           "label": "金币",
           "pipeline_override": {
-            "GT_Shop_PurchaseRun": {
+            "GT_EventShop_Run": {
               "custom_action_param": {
                 "event_currency": "gold"
               }
@@ -1333,7 +1375,7 @@
           "name": "diamond",
           "label": "钻石（不含付费钻石）",
           "pipeline_override": {
-            "GT_Shop_PurchaseRun": {
+            "GT_EventShop_Run": {
               "custom_action_param": {
                 "event_currency": "diamond"
               }
@@ -1344,7 +1386,7 @@
           "name": "hero_crystal",
           "label": "英雄水晶",
           "pipeline_override": {
-            "GT_Shop_PurchaseRun": {
+            "GT_EventShop_Run": {
               "custom_action_param": {
                 "event_currency": "hero_crystal"
               }
@@ -1353,24 +1395,625 @@
         }
       ]
     },
-    "ShopEvent": {
-      "type": "switch",
-      "label": "活动商店购买",
-      "default_case": "No",
+    "FlowerCount": {
+      "type": "input",
+      "label": "开花石扫荡次数",
+      "inputs": [
+        {
+          "name": "count",
+          "label": "次数（0为跳过）",
+          "default": "10",
+          "pipeline_type": "int",
+          "verify": "^(?:[0-9]|[1-9][0-9]|100)$",
+          "pattern_msg": "请输入0到100的整数"
+        }
+      ],
+      "pipeline_override": {
+        "GT_Sweep_Flower": {
+          "custom_action_param": {
+            "count": "{count}"
+          }
+        }
+      }
+    },
+    "FlowerAttribute": {
+      "type": "select",
+      "label": "开花石副本属性",
+      "default_case": "neutral",
       "cases": [
         {
-          "name": "No",
-          "label": "关闭"
+          "name": "neutral",
+          "label": "虚",
+          "pipeline_override": {
+            "GT_Sweep_Flower": {
+              "custom_action_param": {
+                "attribute": "neutral"
+              }
+            }
+          }
         },
         {
-          "name": "Yes",
-          "label": "开启",
+          "name": "light",
+          "label": "光",
+          "pipeline_override": {
+            "GT_Sweep_Flower": {
+              "custom_action_param": {
+                "attribute": "light"
+              }
+            }
+          }
+        },
+        {
+          "name": "dark",
+          "label": "暗",
+          "pipeline_override": {
+            "GT_Sweep_Flower": {
+              "custom_action_param": {
+                "attribute": "dark"
+              }
+            }
+          }
+        },
+        {
+          "name": "earth",
+          "label": "土",
+          "pipeline_override": {
+            "GT_Sweep_Flower": {
+              "custom_action_param": {
+                "attribute": "earth"
+              }
+            }
+          }
+        },
+        {
+          "name": "fire",
+          "label": "火",
+          "pipeline_override": {
+            "GT_Sweep_Flower": {
+              "custom_action_param": {
+                "attribute": "fire"
+              }
+            }
+          }
+        },
+        {
+          "name": "water",
+          "label": "水",
+          "pipeline_override": {
+            "GT_Sweep_Flower": {
+              "custom_action_param": {
+                "attribute": "water"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "ShopItem_diamond_refine": {
+      "type": "input",
+      "label": "洗炼灵石",
+      "inputs": [
+        {
+          "name": "count",
+          "label": "购买次数（0为跳过）",
+          "default": "0",
+          "pipeline_type": "int",
+          "verify": "^(?:[0-9]|[1-9][0-9]|100)$"
+        },
+        {
+          "name": "budget",
+          "label": "本次总预算（钻石，0为跳过）",
+          "default": "0",
+          "pipeline_type": "int",
+          "verify": "^(?:0|[1-9][0-9]{0,7}|100000000)$"
+        }
+      ],
+      "pipeline_override": {
+        "GT_Shop_PurchaseRun": {
+          "custom_action_param": {
+            "diamond_refine_count": "{count}",
+            "diamond_refine_budget": "{budget}"
+          }
+        }
+      }
+    },
+    "ShopItem_diamond_crystal": {
+      "type": "input",
+      "label": "英雄水晶",
+      "inputs": [
+        {
+          "name": "count",
+          "label": "购买次数（0为跳过）",
+          "default": "0",
+          "pipeline_type": "int",
+          "verify": "^(?:[0-9]|[1-9][0-9]|100)$"
+        },
+        {
+          "name": "budget",
+          "label": "本次总预算（钻石，0为跳过）",
+          "default": "0",
+          "pipeline_type": "int",
+          "verify": "^(?:0|[1-9][0-9]{0,7}|100000000)$"
+        }
+      ],
+      "pipeline_override": {
+        "GT_Shop_PurchaseRun": {
+          "custom_action_param": {
+            "diamond_crystal_count": "{count}",
+            "diamond_crystal_budget": "{budget}"
+          }
+        }
+      }
+    },
+    "ShopItem_diamond_star": {
+      "type": "input",
+      "label": "星片",
+      "inputs": [
+        {
+          "name": "count",
+          "label": "购买次数（0为跳过）",
+          "default": "0",
+          "pipeline_type": "int",
+          "verify": "^(?:[0-9]|[1-9][0-9]|100)$"
+        },
+        {
+          "name": "budget",
+          "label": "本次总预算（钻石，0为跳过）",
+          "default": "0",
+          "pipeline_type": "int",
+          "verify": "^(?:0|[1-9][0-9]{0,7}|100000000)$"
+        }
+      ],
+      "pipeline_override": {
+        "GT_Shop_PurchaseRun": {
+          "custom_action_param": {
+            "diamond_star_count": "{count}",
+            "diamond_star_budget": "{budget}"
+          }
+        }
+      }
+    },
+    "ShopItem_diamond_dream": {
+      "type": "input",
+      "label": "梦幻进化石",
+      "inputs": [
+        {
+          "name": "count",
+          "label": "购买次数（0为跳过）",
+          "default": "0",
+          "pipeline_type": "int",
+          "verify": "^(?:[0-9]|[1-9][0-9]|100)$"
+        },
+        {
+          "name": "budget",
+          "label": "本次总预算（钻石，0为跳过）",
+          "default": "0",
+          "pipeline_type": "int",
+          "verify": "^(?:0|[1-9][0-9]{0,7}|100000000)$"
+        }
+      ],
+      "pipeline_override": {
+        "GT_Shop_PurchaseRun": {
+          "custom_action_param": {
+            "diamond_dream_count": "{count}",
+            "diamond_dream_budget": "{budget}"
+          }
+        }
+      }
+    },
+    "ShopItem_diamond_hammer": {
+      "type": "input",
+      "label": "强化锤",
+      "inputs": [
+        {
+          "name": "count",
+          "label": "购买次数（0为跳过）",
+          "default": "0",
+          "pipeline_type": "int",
+          "verify": "^(?:[0-9]|[1-9][0-9]|100)$"
+        },
+        {
+          "name": "budget",
+          "label": "本次总预算（钻石，0为跳过）",
+          "default": "0",
+          "pipeline_type": "int",
+          "verify": "^(?:0|[1-9][0-9]{0,7}|100000000)$"
+        }
+      ],
+      "pipeline_override": {
+        "GT_Shop_PurchaseRun": {
+          "custom_action_param": {
+            "diamond_hammer_count": "{count}",
+            "diamond_hammer_budget": "{budget}"
+          }
+        }
+      }
+    },
+    "ShopItem_diamond_experience": {
+      "type": "input",
+      "label": "经验结晶",
+      "inputs": [
+        {
+          "name": "count",
+          "label": "购买次数（0为跳过）",
+          "default": "0",
+          "pipeline_type": "int",
+          "verify": "^(?:[0-9]|[1-9][0-9]|100)$"
+        },
+        {
+          "name": "budget",
+          "label": "本次总预算（钻石，0为跳过）",
+          "default": "0",
+          "pipeline_type": "int",
+          "verify": "^(?:0|[1-9][0-9]{0,7}|100000000)$"
+        }
+      ],
+      "pipeline_override": {
+        "GT_Shop_PurchaseRun": {
+          "custom_action_param": {
+            "diamond_experience_count": "{count}",
+            "diamond_experience_budget": "{budget}"
+          }
+        }
+      }
+    },
+    "ShopItem_diamond_awakening_box": {
+      "type": "input",
+      "label": "觉醒副本宝箱（70级）",
+      "inputs": [
+        {
+          "name": "count",
+          "label": "购买次数（0为跳过）",
+          "default": "0",
+          "pipeline_type": "int",
+          "verify": "^(?:[0-9]|[1-9][0-9]|100)$"
+        },
+        {
+          "name": "budget",
+          "label": "本次总预算（钻石，0为跳过）",
+          "default": "0",
+          "pipeline_type": "int",
+          "verify": "^(?:0|[1-9][0-9]{0,7}|100000000)$"
+        }
+      ],
+      "pipeline_override": {
+        "GT_Shop_PurchaseRun": {
+          "custom_action_param": {
+            "diamond_awakening_box_count": "{count}",
+            "diamond_awakening_box_budget": "{budget}"
+          }
+        }
+      }
+    },
+    "ShopItem_event_coins": {
+      "type": "input",
+      "label": "金币福袋",
+      "inputs": [
+        {
+          "name": "count",
+          "label": "购买次数（0为跳过）",
+          "default": "0",
+          "pipeline_type": "int",
+          "verify": "^(?:[0-9]|[1-9][0-9]|100)$"
+        },
+        {
+          "name": "budget",
+          "label": "本次总预算（钻石，0为跳过）",
+          "default": "0",
+          "pipeline_type": "int",
+          "verify": "^(?:0|[1-9][0-9]{0,7}|100000000)$"
+        }
+      ],
+      "pipeline_override": {
+        "GT_EventShop_Run": {
+          "custom_action_param": {
+            "event_coins_count": "{count}",
+            "event_coins_budget": "{budget}"
+          }
+        }
+      }
+    },
+    "ShopItem_event_coffee": {
+      "type": "input",
+      "label": "咖啡机（随机体力）",
+      "inputs": [
+        {
+          "name": "count",
+          "label": "购买次数（0为跳过）",
+          "default": "0",
+          "pipeline_type": "int",
+          "verify": "^(?:[0-9]|[1-9][0-9]|100)$"
+        },
+        {
+          "name": "budget",
+          "label": "本次总预算（钻石，0为跳过）",
+          "default": "0",
+          "pipeline_type": "int",
+          "verify": "^(?:0|[1-9][0-9]{0,7}|100000000)$"
+        }
+      ],
+      "pipeline_override": {
+        "GT_EventShop_Run": {
+          "custom_action_param": {
+            "event_coffee_count": "{count}",
+            "event_coffee_budget": "{budget}"
+          }
+        }
+      }
+    },
+    "ShopItem_event_yellow": {
+      "type": "input",
+      "label": "黄锤（史诗突破锤）",
+      "inputs": [
+        {
+          "name": "count",
+          "label": "购买次数（0为跳过）",
+          "default": "0",
+          "pipeline_type": "int",
+          "verify": "^(?:[0-9]|[1-9][0-9]|100)$"
+        },
+        {
+          "name": "budget",
+          "label": "本次总预算（钻石，0为跳过）",
+          "default": "0",
+          "pipeline_type": "int",
+          "verify": "^(?:0|[1-9][0-9]{0,7}|100000000)$"
+        }
+      ],
+      "pipeline_override": {
+        "GT_EventShop_Run": {
+          "custom_action_param": {
+            "event_yellow_count": "{count}",
+            "event_yellow_budget": "{budget}"
+          }
+        }
+      }
+    },
+    "EventShopProducts": {
+      "type": "checkbox",
+      "label": "勾选活动商品",
+      "default_case": [],
+      "cases": [
+        {
+          "name": "event_coins",
+          "label": "金币福袋",
+          "option": [
+            "ShopItem_event_coins"
+          ]
+        },
+        {
+          "name": "event_coffee",
+          "label": "咖啡机（随机体力）",
+          "option": [
+            "ShopItem_event_coffee"
+          ]
+        },
+        {
+          "name": "event_yellow",
+          "label": "黄锤（史诗突破锤）",
+          "option": [
+            "ShopItem_event_yellow"
+          ]
+        },
+        {
+          "name": "event_hero_box",
+          "label": "英雄水晶礼盒",
+          "option": [
+            "ShopItem_event_hero_box"
+          ]
+        },
+        {
+          "name": "event_magic_box",
+          "label": "魔法水晶礼盒",
+          "option": [
+            "ShopItem_event_magic_box"
+          ]
+        },
+        {
+          "name": "event_blessing",
+          "label": "祝福之书",
+          "option": [
+            "ShopItem_event_blessing"
+          ]
+        },
+        {
+          "name": "event_awakening_box",
+          "label": "珍贵觉醒石箱子",
+          "option": [
+            "ShopItem_event_awakening_box"
+          ]
+        },
+        {
+          "name": "event_refine",
+          "label": "词条洗炼灵石",
+          "option": [
+            "ShopItem_event_refine"
+          ]
+        },
+        {
+          "name": "event_lock",
+          "label": "词条锁定灵石",
+          "option": [
+            "ShopItem_event_lock"
+          ]
+        },
+        {
+          "name": "event",
+          "label": "未收录商品（高级）",
           "option": [
             "ShopItem_event",
             "ShopItem_eventCurrency"
           ]
         }
       ]
+    },
+    "ShopItem_event_hero_box": {
+      "type": "input",
+      "label": "英雄水晶礼盒",
+      "inputs": [
+        {
+          "name": "count",
+          "label": "购买次数（0为跳过）",
+          "default": "0",
+          "pipeline_type": "int",
+          "verify": "^(?:[0-9]|[1-9][0-9]|100)$"
+        },
+        {
+          "name": "budget",
+          "label": "本次总预算（钻石，0为跳过）",
+          "default": "0",
+          "pipeline_type": "int",
+          "verify": "^(?:0|[1-9][0-9]{0,7}|100000000)$"
+        }
+      ],
+      "pipeline_override": {
+        "GT_EventShop_Run": {
+          "custom_action_param": {
+            "event_hero_box_count": "{count}",
+            "event_hero_box_budget": "{budget}"
+          }
+        }
+      }
+    },
+    "ShopItem_event_magic_box": {
+      "type": "input",
+      "label": "魔法水晶礼盒",
+      "inputs": [
+        {
+          "name": "count",
+          "label": "购买次数（0为跳过）",
+          "default": "0",
+          "pipeline_type": "int",
+          "verify": "^(?:[0-9]|[1-9][0-9]|100)$"
+        },
+        {
+          "name": "budget",
+          "label": "本次总预算（钻石，0为跳过）",
+          "default": "0",
+          "pipeline_type": "int",
+          "verify": "^(?:0|[1-9][0-9]{0,7}|100000000)$"
+        }
+      ],
+      "pipeline_override": {
+        "GT_EventShop_Run": {
+          "custom_action_param": {
+            "event_magic_box_count": "{count}",
+            "event_magic_box_budget": "{budget}"
+          }
+        }
+      }
+    },
+    "ShopItem_event_blessing": {
+      "type": "input",
+      "label": "祝福之书",
+      "inputs": [
+        {
+          "name": "count",
+          "label": "购买次数（0为跳过）",
+          "default": "0",
+          "pipeline_type": "int",
+          "verify": "^(?:[0-9]|[1-9][0-9]|100)$"
+        },
+        {
+          "name": "budget",
+          "label": "本次总预算（钻石，0为跳过）",
+          "default": "0",
+          "pipeline_type": "int",
+          "verify": "^(?:0|[1-9][0-9]{0,7}|100000000)$"
+        }
+      ],
+      "pipeline_override": {
+        "GT_EventShop_Run": {
+          "custom_action_param": {
+            "event_blessing_count": "{count}",
+            "event_blessing_budget": "{budget}"
+          }
+        }
+      }
+    },
+    "ShopItem_event_awakening_box": {
+      "type": "input",
+      "label": "珍贵觉醒石箱子",
+      "inputs": [
+        {
+          "name": "count",
+          "label": "购买次数（0为跳过）",
+          "default": "0",
+          "pipeline_type": "int",
+          "verify": "^(?:[0-9]|[1-9][0-9]|100)$"
+        },
+        {
+          "name": "budget",
+          "label": "本次总预算（钻石，0为跳过）",
+          "default": "0",
+          "pipeline_type": "int",
+          "verify": "^(?:0|[1-9][0-9]{0,7}|100000000)$"
+        }
+      ],
+      "pipeline_override": {
+        "GT_EventShop_Run": {
+          "custom_action_param": {
+            "event_awakening_box_count": "{count}",
+            "event_awakening_box_budget": "{budget}"
+          }
+        }
+      }
+    },
+    "ShopItem_event_refine": {
+      "type": "input",
+      "label": "词条洗炼灵石",
+      "inputs": [
+        {
+          "name": "count",
+          "label": "购买次数（0为跳过）",
+          "default": "0",
+          "pipeline_type": "int",
+          "verify": "^(?:[0-9]|[1-9][0-9]|100)$"
+        },
+        {
+          "name": "budget",
+          "label": "本次总预算（钻石，0为跳过）",
+          "default": "0",
+          "pipeline_type": "int",
+          "verify": "^(?:0|[1-9][0-9]{0,7}|100000000)$"
+        }
+      ],
+      "pipeline_override": {
+        "GT_EventShop_Run": {
+          "custom_action_param": {
+            "event_refine_count": "{count}",
+            "event_refine_budget": "{budget}"
+          }
+        }
+      }
+    },
+    "ShopItem_event_lock": {
+      "type": "input",
+      "label": "词条锁定灵石",
+      "inputs": [
+        {
+          "name": "count",
+          "label": "购买次数（0为跳过）",
+          "default": "0",
+          "pipeline_type": "int",
+          "verify": "^(?:[0-9]|[1-9][0-9]|100)$"
+        },
+        {
+          "name": "budget",
+          "label": "本次总预算（钻石，0为跳过）",
+          "default": "0",
+          "pipeline_type": "int",
+          "verify": "^(?:0|[1-9][0-9]{0,7}|100000000)$"
+        }
+      ],
+      "pipeline_override": {
+        "GT_EventShop_Run": {
+          "custom_action_param": {
+            "event_lock_count": "{count}",
+            "event_lock_budget": "{budget}"
+          }
+        }
+      }
     }
   }
 }

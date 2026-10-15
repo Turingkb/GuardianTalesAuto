@@ -15,6 +15,9 @@ CASES = [
     ("GT_Test_ShopPaid", "02_stamina_detail.png", False),
     ("GT_Test_ShopQuantity", "02_stamina_detail.png", True),
     ("GT_Test_ShopQuantity", "11_hammer_confirm.png", False),
+    ("GT_Test_ShopDiamondCompact", "dev/2026-10-16/screenshots/event-coffee-dialog.png", True),
+    ("GT_Test_Shop_gold", "dev/2026-10-16/screenshots/event-coffee-dialog.png", False),
+    ("GT_Test_ShopDiamondCompact", "dev/2026-10-16/screenshots/event-hero-crystal-dialog.png", True),
 ]
 
 
@@ -24,8 +27,9 @@ def main():
     directory.mkdir(exist_ok=True)
     with (directory / "shop-recognition.log").open("wb") as log:
         for node, image, expected in CASES:
+            fixture = image if image.startswith("dev/") else "dev/2026-10-15/screenshots/" + image
             command = [sys.executable, str(ROOT / "dev/run_task.py"), node,
-                       "--image", "dev/2026-10-15/screenshots/" + image]
+                       "--image", fixture]
             if not expected: command.append("--expect-miss")
             result = subprocess.run(command, cwd=ROOT, stdout=log, stderr=subprocess.STDOUT, timeout=30)
             failures += result.returncode != 0

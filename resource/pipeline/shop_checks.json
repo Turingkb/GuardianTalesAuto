@@ -54,5 +54,16 @@
       90
     ],
     "threshold": 0.94
+  },
+  "GT_Test_ShopDiamondCompact": {
+    "recognition": "TemplateMatch",
+    "template": "shop_currency_diamond_compact.png",
+    "roi": [
+      686,
+      544,
+      72,
+      105
+    ],
+    "threshold": 0.94
   }
 }

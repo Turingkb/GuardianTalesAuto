@@ -432,5 +432,19 @@
       39,
       40
     ]
+  },
+  {
+    "template": "shop_currency_diamond_compact.png",
+    "source": "dev/2026-10-16/screenshots/event-coffee-dialog.png",
+    "box_xyxy": [
+      713,
+      568,
+      738,
+      594
+    ],
+    "size": [
+      25,
+      26
+    ]
   }
 ]

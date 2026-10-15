@@ -1,9 +1,13 @@
 """Shop plans with exact item, currency, quantity and balance checks."""
 
 from dataclasses import dataclass
+import json
+from pathlib import Path
 import re
 
 from native import Screen
+
+PRODUCTS = json.loads(Path(__file__).with_name("shop_products.json").read_text(encoding="utf-8"))
 
 
 @dataclass(frozen=True)
@@ -23,23 +27,21 @@ def number(text: str) -> int:
     return int(value)
 
 
-def plans(params: dict) -> list[Product]:
+def plans(params: dict, *, event_only: bool | None = None) -> list[Product]:
     result = []
-    for key, category, name, currency in [
-        ("stamina", "资源", "储备体力", "diamond"),
-        ("green", "钻石商店", "超凡突破锤", "diamond"),
-        ("yellow", "钻石商店", "史诗突破锤", "diamond"),
-        ("legendary", "英雄成长", "传说中的觉醒石", "gold"),
-        ("hammer", "装备", "强化锤", "gold"),
-        ("diamond_other", "钻石商店", "", "diamond"),
-        ("event", "活动商店", "", "diamond"),
-    ]:
+    definitions = PRODUCTS + [{"key": "diamond_other", "category": "钻石商店", "name": "", "currency": "diamond"},
+                              {"key": "event", "category": "活动商店", "name": "", "currency": "diamond"}]
+    for definition in definitions:
+        key, category, name, currency = (definition[field] for field in ("key", "category", "name", "currency"))
+        if event_only is not None and (category == "活动商店") != event_only:
+            continue
         count, budget = params.get(key + "_count", 0), params.get(key + "_budget", 0)
         if type(count) is not int or type(budget) is not int or not 0 <= count <= 100 or not 0 <= budget <= 100000000:
             raise ValueError(f"Invalid quantity/budget for {key}")
         if not count or not budget:
             continue
-        name = params.get(key + "_name", name).strip()
+        # Preset names cannot be replaced by stale custom input from the GUI.
+        name = params.get(key + "_name", name).strip() if key in ("event", "diamond_other") else name
         currency = params.get(key + "_currency", currency)
         if not name or len(name) > 40 or re.search("召唤|抽卡|付费|人民币|礼包", name):
             raise ValueError(f"Unsupported product name: {name!r}")
@@ -52,6 +54,10 @@ def plans(params: dict) -> list[Product]:
 def center(item: dict) -> tuple[int, int]:
     x, y, w, h = item["box"]
     return int(x + w / 2), int(y + h / 2)
+
+
+def item_name(text: str) -> str:
+    return re.sub(r"\s+", "", text).replace("（", "(").replace("）", ")")
 
 
 def require_shop(screen: Screen):
@@ -89,7 +95,7 @@ def find_product(screen: Screen, name: str, free: bool = False) -> tuple[int, in
         require_shop(screen)
         items = screen.ocr([278, 190, 980, 504])
         for item in items:
-            text = item["text"].replace(" ", "")
+            text = item_name(item["text"])
             if free:
                 if text == "每日免费商品":
                     x, y = center(item)
@@ -97,7 +103,7 @@ def find_product(screen: Screen, name: str, free: bool = False) -> tuple[int, in
                     return column, max(195, y - 90)
                 continue
             aliases = (name, "传说觉醒石") if name == "传说中的觉醒石" else (name,)
-            if text in aliases:
+            if text in tuple(item_name(alias) for alias in aliases):
                 x, y = center(item)
                 # The price and sold-out label belong to the same card column.
                 column = min((394, 642, 890, 1138), key=lambda value: abs(x - value))
@@ -127,8 +133,8 @@ def inspect_purchase(screen: Screen, product: Product) -> tuple[int, tuple[int, 
         raise RuntimeError("Purchase dialog is missing")
     aliases = (product.name, "传说觉醒石") if product.key == "legendary" else (product.name,)
     # Match the title line exactly, excluding the material-description subtitle.
-    lines = [item["text"].replace(" ", "") for item in screen.ocr([435, 270, 410, 80])]
-    if not any(alias in lines for alias in aliases):
+    lines = [item_name(item["text"]) for item in screen.ocr([435, 270, 410, 80])]
+    if not any(item_name(alias) in lines for alias in aliases):
         raise RuntimeError(f"Unexpected product: {lines!r}")
     buttons = screen.ocr([390, 540, 250, 110], "^取消$")
     if len(buttons) != 1:
@@ -142,8 +148,11 @@ def inspect_purchase(screen: Screen, product: Product) -> tuple[int, tuple[int, 
         if not screen.has(button_roi, "^免费$") or not screen.has([590, 249, 115, 43], "^2[,，.]?000$"):
             raise RuntimeError("Free coins must be exactly 2000 with a free confirmation")
         return 0, (752, y)
-    if not screen.recognize("TemplateMatch", {"template": f"shop_currency_{product.currency}.png",
-                                              "roi": [686, y - 24, 72, 48], "threshold": 0.94}):
+    templates = [f"shop_currency_{product.currency}.png"]
+    if product.currency == "diamond":
+        templates.append("shop_currency_diamond_compact.png")
+    if not any(screen.recognize("TemplateMatch", {"template": template, "roi": [686, y - 24, 72, 48],
+                                                   "threshold": 0.94}) for template in templates):
         raise RuntimeError("Purchase currency does not match configured currency")
     price = number(screen.text([746, y - 21, 100, 42]))
     if not price:
@@ -205,13 +214,13 @@ def purchase(screen: Screen, product: Product, preview: bool) -> None:
         screen.log("shop_verified", item=product.name, spent=spent)
 
 
-def shop_purchase(screen: Screen, params: dict) -> bool:
-    products = plans(params)
+def shop_purchase(screen: Screen, params: dict, *, event_only: bool = False) -> bool:
+    products = plans(params, event_only=event_only)
     preview = params.get("preview_only", False)
-    free = params.get("free_coins", True)
+    free = params.get("free_coins", not event_only)
     if type(preview) is not bool or type(free) is not bool:
         raise ValueError("Shop switches must be boolean")
-    if free:
+    if free and not event_only:
         products.insert(0, Product("free", "资源", "金币", "free", 1, 0))
     for product in products:
         if select_category(screen, product.category):

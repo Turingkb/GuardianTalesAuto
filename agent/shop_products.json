@@ -1,0 +1,149 @@
+[
+  {
+    "key": "stamina",
+    "category": "资源",
+    "name": "储备体力",
+    "currency": "diamond",
+    "label": "储备体力"
+  },
+  {
+    "key": "green",
+    "category": "钻石商店",
+    "name": "超凡突破锤",
+    "currency": "diamond",
+    "label": "绿锤（超凡突破锤）"
+  },
+  {
+    "key": "yellow",
+    "category": "钻石商店",
+    "name": "史诗突破锤",
+    "currency": "diamond",
+    "label": "黄锤（史诗突破锤）"
+  },
+  {
+    "key": "legendary",
+    "category": "英雄成长",
+    "name": "传说中的觉醒石",
+    "currency": "gold",
+    "label": "传说觉醒石"
+  },
+  {
+    "key": "hammer",
+    "category": "装备",
+    "name": "强化锤",
+    "currency": "gold",
+    "label": "强化锤"
+  },
+  {
+    "key": "diamond_refine",
+    "category": "钻石商店",
+    "name": "洗炼灵石",
+    "currency": "diamond",
+    "label": "洗炼灵石"
+  },
+  {
+    "key": "diamond_crystal",
+    "category": "钻石商店",
+    "name": "英雄水晶",
+    "currency": "diamond",
+    "label": "英雄水晶"
+  },
+  {
+    "key": "diamond_star",
+    "category": "钻石商店",
+    "name": "星片",
+    "currency": "diamond",
+    "label": "星片"
+  },
+  {
+    "key": "diamond_dream",
+    "category": "钻石商店",
+    "name": "梦幻进化石",
+    "currency": "diamond",
+    "label": "梦幻进化石"
+  },
+  {
+    "key": "diamond_hammer",
+    "category": "钻石商店",
+    "name": "强化锤",
+    "currency": "diamond",
+    "label": "强化锤"
+  },
+  {
+    "key": "diamond_experience",
+    "category": "钻石商店",
+    "name": "经验结晶",
+    "currency": "diamond",
+    "label": "经验结晶"
+  },
+  {
+    "key": "diamond_awakening_box",
+    "category": "钻石商店",
+    "name": "觉醒副本宝箱(70级)",
+    "currency": "diamond",
+    "label": "觉醒副本宝箱（70级）"
+  },
+  {
+    "key": "event_coins",
+    "category": "活动商店",
+    "name": "金币福袋",
+    "currency": "diamond",
+    "label": "金币福袋"
+  },
+  {
+    "key": "event_coffee",
+    "category": "活动商店",
+    "name": "咖啡机",
+    "currency": "diamond",
+    "label": "咖啡机（随机体力）"
+  },
+  {
+    "key": "event_yellow",
+    "category": "活动商店",
+    "name": "史诗突破锤",
+    "currency": "diamond",
+    "label": "黄锤（史诗突破锤）"
+  },
+  {
+    "key": "event_hero_box",
+    "category": "活动商店",
+    "name": "英雄水晶礼盒",
+    "currency": "diamond",
+    "label": "英雄水晶礼盒"
+  },
+  {
+    "key": "event_magic_box",
+    "category": "活动商店",
+    "name": "魔法水晶礼盒",
+    "currency": "diamond",
+    "label": "魔法水晶礼盒"
+  },
+  {
+    "key": "event_blessing",
+    "category": "活动商店",
+    "name": "祝福之书",
+    "currency": "diamond",
+    "label": "祝福之书"
+  },
+  {
+    "key": "event_awakening_box",
+    "category": "活动商店",
+    "name": "珍贵觉醒石箱子",
+    "currency": "diamond",
+    "label": "珍贵觉醒石箱子"
+  },
+  {
+    "key": "event_refine",
+    "category": "活动商店",
+    "name": "词条洗炼灵石",
+    "currency": "diamond",
+    "label": "词条洗炼灵石"
+  },
+  {
+    "key": "event_lock",
+    "category": "活动商店",
+    "name": "词条锁定灵石",
+    "currency": "diamond",
+    "label": "词条锁定灵石"
+  }
+]

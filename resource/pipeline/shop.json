@@ -100,5 +100,40 @@
         "next": [
             "GT_Common_HubRoute"
         ]
+    },
+
+    "GT_EventShopPurchase": {
+        "next": [
+            "[JumpBack]GT_Common_Prepare",
+            "GT_EventShop_Open"
+        ],
+        "timeout": 30000
+    },
+    "GT_EventShop_Open": {
+        "recognition": "And",
+        "all_of": [
+            "GT_StartUp_HubReady"
+        ],
+        "action": "Click",
+        "target": [
+            308,
+            630,
+            22,
+            24
+        ],
+        "post_delay": 1200,
+        "next": [
+            "GT_EventShop_Run"
+        ]
+    },
+    "GT_EventShop_Run": {
+        "action": "Custom",
+        "custom_action": "GT_EventShopPurchase",
+        "custom_action_param": {
+            "free_coins": false
+        },
+        "next": [
+            "GT_Common_HubRoute"
+        ]
     }
 }

@@ -144,7 +144,7 @@ def execute_stamina_sweep(screen: Screen, requested: int, boosted_only: bool, ki
     return wanted
 
 
-def execute_plain_sweep(screen: Screen, wanted: int, kind: str) -> int:
+def execute_plain_sweep(screen: Screen, wanted: int, kind: str, *, preview_only: bool = False) -> int:
     """The no-boost layout moves the counter and stamina row down by 47px."""
     for _ in range(30):
         screen.capture()
@@ -164,9 +164,39 @@ def execute_plain_sweep(screen: Screen, wanted: int, kind: str) -> int:
     screen.save(f"{kind}-before-confirm")
     screen.log("resource_confirm", kind=kind, count=wanted, stamina=available, reserve=reserve,
                spend=spend, reserve_spend=reserve_spend, boosted=False)
+    if preview_only:
+        screen.log("resource_preview", kind=kind, count=wanted)
+        screen.tap(536, 637, 0.5)
+        return 0
     screen.tap(744, 637, 1.0)
     finish_sweep(screen, wanted, kind)
     return wanted
+
+
+def flower_sweep(screen: Screen, params: dict) -> bool:
+    count = params.get("count", 10)
+    attributes = {"neutral": ("虚", 337, 395, 45, 260), "light": ("光", 737, 395, 445, 260),
+                  "dark": ("暗", 1137, 395, 845, 260), "earth": ("土", 337, 642, 45, 505),
+                  "fire": ("火", 737, 642, 445, 505), "water": ("水", 1137, 642, 845, 505)}
+    attribute = params.get("attribute", "neutral")
+    preview = params.get("preview_only", False)
+    if type(count) is not int or not 0 <= count <= 100 or attribute not in attributes or type(preview) is not bool:
+        raise ValueError("Invalid flowering-stone sweep settings")
+    if not count:
+        screen.log("resource_skipped", kind="flower", reason="configured_zero")
+        return True
+    label, x, y, title_x, title_y = attributes[attribute]
+    screen.capture()
+    if not screen.has([title_x, title_y, 350, 68], label + "属性开花石副本"):
+        raise RuntimeError("Selected flowering-stone dungeon is not visible")
+    if not screen.has([x - 35, y - 22, 110, 44], "^扫荡$"):
+        raise RuntimeError("Flowering-stone sweep is not unlocked")
+    screen.tap(x, y, 0.6)
+    screen.capture()
+    if not dialog_visible(screen) or screen.has([365, 538, 170, 44], "每日焕发"):
+        raise RuntimeError("Unexpected flowering-stone sweep layout")
+    execute_plain_sweep(screen, count, "flower", preview_only=preview)
+    return True
 
 
 def tethys_free(screen: Screen, params: dict) -> bool:
@@ -350,5 +380,7 @@ HANDLERS = {"GT_AwakeningFree": awake_free,
             "GT_ExperienceResourceSweep": partial(resource_sweep, kind="experience"),
             "GT_ItemsResourceSweep": partial(resource_sweep, kind="items"),
             "GT_RedResourceSweep": partial(resource_sweep, kind="red"),
+            "GT_FlowerSweep": flower_sweep,
             "GT_ShopPurchase": shop_purchase, "GT_TethysFree": tethys_free,
+            "GT_EventShopPurchase": partial(shop_purchase, event_only=True),
             "GT_EvolutionSweep": evolution_sweep, "GT_AgentProbe": probe}

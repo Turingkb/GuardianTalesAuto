@@ -221,5 +221,108 @@
       "GT_Common_HubRoute"
     ],
     "timeout": 60000
+  },
+  "GT_FlowerSweep": {
+    "next": [
+      "[JumpBack]GT_Common_Prepare",
+      "[JumpBack]GT_Flower_OpenOnce",
+      "GT_Sweep_Flower"
+    ],
+    "timeout": 30000
+  },
+  "GT_Flower_OpenOnce": {
+    "max_hit": 1,
+    "next": [
+      "GT_Flower_Play"
+    ]
+  },
+  "GT_Flower_Category": {
+    "recognition": "OCR",
+    "expected": [
+      "开花石副本"
+    ],
+    "roi": [
+      445,
+      148,
+      390,
+      42
+    ],
+    "action": "Click",
+    "target": [
+      640,
+      169
+    ],
+    "post_delay": 700,
+    "next": [
+      "GT_Flower_Ready"
+    ]
+  },
+  "GT_Sweep_Flower": {
+    "action": "Custom",
+    "custom_action": "GT_FlowerSweep",
+    "custom_action_param": {
+      "count": 10,
+      "attribute": "neutral"
+    },
+    "next": [
+      "GT_Common_HubRoute"
+    ]
+  },
+  "GT_Flower_Play": {
+    "recognition": "And",
+    "all_of": [
+      "GT_StartUp_HubReady"
+    ],
+    "action": "Click",
+    "target": [
+      1076,
+      617,
+      28,
+      30
+    ],
+    "post_delay": 1000,
+    "next": [
+      "GT_Flower_Rift"
+    ]
+  },
+  "GT_Flower_Rift": {
+    "recognition": "And",
+    "all_of": [
+      {
+        "recognition": "TemplateMatch",
+        "template": "play_title.png",
+        "roi": [
+          20,
+          5,
+          190,
+          65
+        ],
+        "threshold": 0.9
+      },
+      "GT_Common_PageHeaderBright"
+    ],
+    "action": "Click",
+    "target": [
+      386,
+      107,
+      34,
+      24
+    ],
+    "post_delay": 700,
+    "next": [
+      "GT_Flower_Category"
+    ]
+  },
+  "GT_Flower_Ready": {
+    "recognition": "OCR",
+    "expected": [
+      "虚属性开花石副本"
+    ],
+    "roi": [
+      45,
+      260,
+      350,
+      68
+    ]
   }
 }
