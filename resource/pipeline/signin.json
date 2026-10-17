@@ -201,6 +201,7 @@
   },
   "GT_SignInAndSoul": {
     "next": [
+      "[JumpBack]GT_SignIn_SoulBeforeOnce",
       "[JumpBack]GT_SignIn_Once",
       "GT_CollectSoulPoints"
     ]
@@ -209,6 +210,12 @@
     "max_hit": 1,
     "next": [
       "GT_SignIn"
+    ]
+  },
+  "GT_SignIn_SoulBeforeOnce": {
+    "max_hit": 1,
+    "next": [
+      "GT_CollectSoulPoints"
     ]
   }
 }

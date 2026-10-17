@@ -7,6 +7,7 @@ import time
 
 from native import Screen
 from shop import shop_purchase
+from pass_rewards import pass_rewards
 
 
 def integer_text(text: str) -> int:
@@ -203,7 +204,8 @@ def tethys_free(screen: Screen, params: dict) -> bool:
     screen.capture()
     if not screen.has([65, 5, 340, 60], "忒提斯英雄传"):
         raise RuntimeError("Thetis page is not visible")
-    value = screen.text([1030, 564, 100, 44]).replace(" ", "")
+    # The ticket icon immediately to the left can be OCR'd as a Chinese prefix.
+    value = screen.text([1070, 564, 60, 44]).replace(" ", "")
     match = re.fullmatch(r"([0-3])[/／]3", value)
     if not match:
         raise RuntimeError(f"Cannot determine Thetis free entries: {value!r}")
@@ -383,4 +385,5 @@ HANDLERS = {"GT_AwakeningFree": awake_free,
             "GT_FlowerSweep": flower_sweep,
             "GT_ShopPurchase": shop_purchase, "GT_TethysFree": tethys_free,
             "GT_EventShopPurchase": partial(shop_purchase, event_only=True),
+            "GT_PassRewards": pass_rewards,
             "GT_EvolutionSweep": evolution_sweep, "GT_AgentProbe": probe}

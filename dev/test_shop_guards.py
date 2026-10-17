@@ -127,7 +127,7 @@ class ShopGuards(unittest.TestCase):
         for cost, vouchers, count in [("0", "0/3", "3"), ("150", "1/3", "3"),
                                       ("0", "1/3", "3"), ("0", "0/3", "4")]:
             screen = PurchaseDialog()
-            values = {(1030, 564, 100, 44): "3/3", (330, 385, 620, 40): count,
+            values = {(1070, 564, 60, 44): "3/3", (330, 385, 620, 40): count,
                       (870, 492, 75, 40): cost, (870, 540, 75, 40): vouchers}
             screen.text = lambda roi: values[tuple(roi)]
             with patch.object(actions, "finish_sweep"):

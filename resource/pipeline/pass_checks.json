@@ -1,0 +1,158 @@
+{
+  "GT_Test_PassReady": {
+    "recognition": "And",
+    "all_of": [
+      {
+        "recognition": "OCR",
+        "expected": [
+          "^邀请赛$"
+        ],
+        "roi": [
+          70,
+          12,
+          110,
+          44
+        ]
+      },
+      {
+        "recognition": "Or",
+        "any_of": [
+          {
+            "recognition": "OCR",
+            "expected": [
+              "邀请函等级"
+            ],
+            "roi": [
+              350,
+              146,
+              150,
+              42
+            ]
+          },
+          {
+            "recognition": "And",
+            "all_of": [
+              {
+                "recognition": "OCR",
+                "expected": [
+                  "通关世界挑战赛"
+                ],
+                "roi": [
+                  350,
+                  90,
+                  420,
+                  80
+                ]
+              },
+              {
+                "recognition": "OCR",
+                "expected": [
+                  "^公主的礼物$"
+                ],
+                "roi": [
+                  350,
+                  365,
+                  190,
+                  55
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "recognition": "ColorMatch",
+        "method": 4,
+        "lower": [
+          220,
+          220,
+          220
+        ],
+        "upper": [
+          255,
+          255,
+          255
+        ],
+        "roi": [
+          30,
+          16,
+          150,
+          44
+        ],
+        "count": 200
+      }
+    ]
+  },
+  "GT_Test_PassClaimAvailable": {
+    "recognition": "And",
+    "all_of": [
+      "GT_Test_PassReady",
+      {
+        "recognition": "OCR",
+        "expected": [
+          "^全部领取$"
+        ],
+        "roi": [
+          1068,
+          628,
+          166,
+          53
+        ]
+      },
+      {
+        "recognition": "ColorMatch",
+        "method": 4,
+        "lower": [
+          240,
+          175,
+          0
+        ],
+        "upper": [
+          255,
+          230,
+          70
+        ],
+        "roi": [
+          1076,
+          635,
+          148,
+          36
+        ],
+        "count": 2500
+      }
+    ]
+  },
+  "GT_Test_PassBanner_guardian": {
+    "recognition": "TemplateMatch",
+    "template": "pass_banner_guardian.png",
+    "roi": [
+      30,
+      120,
+      270,
+      560
+    ],
+    "threshold": 0.88
+  },
+  "GT_Test_PassBanner_celebration": {
+    "recognition": "TemplateMatch",
+    "template": "pass_banner_celebration.png",
+    "roi": [
+      30,
+      120,
+      270,
+      560
+    ],
+    "threshold": 0.88
+  },
+  "GT_Test_PassBanner_world": {
+    "recognition": "TemplateMatch",
+    "template": "pass_banner_world.png",
+    "roi": [
+      30,
+      120,
+      270,
+      560
+    ],
+    "threshold": 0.88
+  }
+}

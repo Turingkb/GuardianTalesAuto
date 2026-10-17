@@ -1,0 +1,55 @@
+{
+  "GT_PassRewards": {
+    "next": [
+      "[JumpBack]GT_Common_Prepare",
+      "GT_Pass_Open"
+    ],
+    "timeout": 30000
+  },
+  "GT_Pass_Open": {
+    "recognition": "And",
+    "all_of": [
+      "GT_StartUp_HubReady",
+      {
+        "recognition": "OCR",
+        "expected": [
+          "^邀请赛$"
+        ],
+        "roi": [
+          1050,
+          185,
+          130,
+          60
+        ],
+        "threshold": 0.7
+      }
+    ],
+    "action": "Click",
+    "target": [
+      1109,
+      160
+    ],
+    "post_delay": 1200,
+    "next": [
+      "GT_Pass_Run"
+    ]
+  },
+  "GT_Pass_Run": {
+    "recognition": "OCR",
+    "expected": [
+      "^邀请赛$"
+    ],
+    "roi": [
+      70,
+      12,
+      110,
+      44
+    ],
+    "action": "Custom",
+    "custom_action": "GT_PassRewards",
+    "custom_action_param": {},
+    "next": [
+      "GT_Common_HubRoute"
+    ]
+  }
+}

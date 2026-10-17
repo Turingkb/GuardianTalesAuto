@@ -43,7 +43,7 @@
       "entry": "GT_SignInAndSoul",
       "label": "签到检查与领取",
       "default_check": true,
-      "description": "检查普通签到和已适配的活动签到，尝试领取高亮格；已签到时关闭奖励预览并返回大厅。 签到后顺手收取浮游城灵魂点。"
+      "description": "签到前后收取浮游城灵魂点，兼容两种悬浮爱心并等待加载；已签到时也会执行收取。检查普通及已适配的活动签到。"
     },
     {
       "name": "公会签到",
@@ -192,6 +192,13 @@
       "label": "全屏OCR探测（调试）",
       "default_check": false,
       "description": "只识别当前画面文字，不点击游戏界面。结果见框架日志。"
+    },
+    {
+      "name": "领取通行证奖励",
+      "label": "领取通行证奖励",
+      "entry": "GT_PassRewards",
+      "default_check": true,
+      "description": "从邀请赛进入，检查守护者、庆典和通关世界挑战赛；领取已完成目标的经验与已解锁奖励。不购买通行证，不升级跳级，不使用邀请币兑换。"
     },
     {
       "name": "关闭游戏",

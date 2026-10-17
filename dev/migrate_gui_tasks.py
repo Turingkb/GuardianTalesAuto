@@ -25,6 +25,10 @@ def migrate(config: dict, tasks: list[dict]) -> dict:
         entry = RENAMED.get(entry, entry)
         if entry in definitions and entry not in ordered: ordered.append(entry)
     ordered.extend(entry for entry in definitions if entry not in ordered)
+    # Newly added reward tasks must run before an already configured final close.
+    if "GT_CloseGame" in ordered:
+        ordered.remove("GT_CloseGame")
+        ordered.append("GT_CloseGame")
     config["CurrentTasks"] = [definitions[entry]["name"] + "<|||>" + entry for entry in ordered]
     return config
 

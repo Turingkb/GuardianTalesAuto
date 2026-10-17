@@ -65,5 +65,18 @@
       105
     ],
     "threshold": 0.94
+  },
+  "GT_Test_TethysFreeRemaining": {
+    "recognition": "OCR",
+    "expected": [
+      "^[0-3][/／]3$"
+    ],
+    "roi": [
+      1070,
+      564,
+      60,
+      44
+    ],
+    "threshold": 0.7
   }
 }

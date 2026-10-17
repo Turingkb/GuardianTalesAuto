@@ -23,6 +23,7 @@
   },
   "GT_Common_HubRoute": {
     "next": [
+      "[JumpBack]GT_Common_ConfirmTethysLevelUp",
       "[JumpBack]GT_Common_AckSweepResult",
       "[JumpBack]GT_Common_CancelSweepDialog",
       "[JumpBack]GT_Common_CancelHeroSettings",
@@ -371,6 +372,18 @@
           340,
           60
         ]
+      },
+      {
+        "recognition": "OCR",
+        "expected": [
+          "^邀请赛$"
+        ],
+        "roi": [
+          70,
+          12,
+          110,
+          44
+        ]
       }
     ],
     "action": "DoNothing"
@@ -585,5 +598,53 @@
       40
     ],
     "post_delay": 700
+  },
+  "GT_Common_ConfirmTethysLevelUp": {
+    "recognition": "And",
+    "all_of": [
+      {
+        "recognition": "OCR",
+        "expected": [
+          "^已提升守护者战术等级$"
+        ],
+        "roi": [
+          455,
+          230,
+          375,
+          45
+        ],
+        "threshold": 0.7
+      },
+      {
+        "recognition": "OCR",
+        "expected": [
+          "守护者战术等级额外奖励"
+        ],
+        "roi": [
+          430,
+          320,
+          420,
+          50
+        ],
+        "threshold": 0.7
+      },
+      {
+        "recognition": "OCR",
+        "expected": [
+          "^确认$"
+        ],
+        "roi": [
+          530,
+          575,
+          220,
+          90
+        ],
+        "threshold": 0.7
+      }
+    ],
+    "box_index": 2,
+    "action": "Click",
+    "post_delay": 800,
+    "max_hit": 5
   }
 }

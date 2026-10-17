@@ -446,5 +446,61 @@
       25,
       26
     ]
+  },
+  {
+    "template": "hub_heart_large.png",
+    "source": "dev/2026-10-17/screenshots/soul-after.png",
+    "box_xyxy": [
+      379,
+      173,
+      411,
+      202
+    ],
+    "size": [
+      32,
+      29
+    ]
+  },
+  {
+    "template": "pass_banner_guardian.png",
+    "source": "dev/2026-10-17/screenshots/invitational.png",
+    "box_xyxy": [
+      157,
+      144,
+      269,
+      211
+    ],
+    "size": [
+      112,
+      67
+    ]
+  },
+  {
+    "template": "pass_banner_celebration.png",
+    "source": "dev/2026-10-17/screenshots/pass-celebration.png",
+    "box_xyxy": [
+      110,
+      259,
+      264,
+      327
+    ],
+    "size": [
+      154,
+      68
+    ]
+  },
+  {
+    "template": "pass_banner_world.png",
+    "source": "dev/2026-10-17/screenshots/invitational.png",
+    "box_xyxy": [
+      155,
+      374,
+      285,
+      443
+    ],
+    "size": [
+      130,
+      69
+    ]
   }
 ]
