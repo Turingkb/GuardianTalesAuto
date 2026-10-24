@@ -9,6 +9,23 @@ BANNERS = (("guardian", "pass_banner_guardian.png"),
            ("world", "pass_banner_world.png"))
 
 
+def wait_ready(screen: Screen, *, phase: str | None = None, world: bool = False):
+    """Wait for a known page/tab after navigation without submitting extra taps."""
+    deadline = time.monotonic() + 12
+    while True:
+        screen.capture()
+        ready = page_ready(screen) and (not world or world_page(screen))
+        if ready and phase is not None:
+            ready = bool(screen.recognize("ColorMatch", {
+                "method": 4, "lower": [0, 140, 200], "upper": [100, 220, 255],
+                "roi": [800 if phase == "goals" else 335, 80, 435, 38], "count": 6000}))
+        if ready:
+            return
+        if time.monotonic() >= deadline:
+            raise RuntimeError(f"Invitational page did not become ready: {phase or ('world' if world else 'page')}")
+        screen.pause(0.3)
+
+
 def page_ready(screen: Screen) -> bool:
     return (screen.has([70, 12, 110, 44], "^邀请赛$")
             and (screen.has([350, 146, 150, 42], "邀请函等级") or world_page(screen))
@@ -77,24 +94,16 @@ def claim_all(screen: Screen, kind: str, phase: str) -> int:
 def select_tab(screen: Screen, phase: str):
     if phase not in ("goals", "rewards"):
         raise ValueError("Unknown pass tab")
-    screen.capture()
-    if not page_ready(screen):
-        raise RuntimeError("Invitational page is not ready")
+    wait_ready(screen)
     x, label = (1000, "邀请函目标") if phase == "goals" else (556, "邀请函奖励")
     if not screen.has([x - 160, 75, 320, 48], label):
         raise RuntimeError(f"Pass tab is missing: {phase}")
     screen.tap(x, 98, 0.5)
-    screen.capture()
-    if not page_ready(screen) or not screen.recognize("ColorMatch", {
-            "method": 4, "lower": [0, 140, 200], "upper": [100, 220, 255],
-            "roi": [800 if phase == "goals" else 335, 80, 435, 38], "count": 6000}):
-        raise RuntimeError(f"Pass tab did not become active: {phase}")
+    wait_ready(screen, phase=phase)
 
 
 def pass_rewards(screen: Screen, params: dict) -> bool:
-    screen.capture()
-    if not page_ready(screen):
-        raise RuntimeError("Invitational page is not visible")
+    wait_ready(screen)
     screen.act("Swipe", {"begin": [285, 160], "end": [285, 640], "duration": 300})
     screen.pause(0.3)
     for kind, template in BANNERS:
@@ -109,9 +118,7 @@ def pass_rewards(screen: Screen, params: dict) -> bool:
         x, y, w, h = banner["box"]
         screen.tap(int(x + w / 2), int(y + h / 2), 0.6)
         if kind == "world":
-            screen.capture()
-            if not world_page(screen):
-                raise RuntimeError("World challenge reward page did not open")
+            wait_ready(screen, world=True)
             claim_all(screen, kind, "rewards")
             continue
         select_tab(screen, "goals")

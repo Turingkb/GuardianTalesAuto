@@ -4,6 +4,7 @@ from dataclasses import dataclass
 import json
 from pathlib import Path
 import re
+import time
 
 from native import Screen
 
@@ -61,8 +62,15 @@ def item_name(text: str) -> str:
 
 
 def require_shop(screen: Screen):
-    if not screen.recognize("TemplateMatch", {"template": "shop_title.png", "roi": [20, 5, 160, 65], "threshold": 0.9}):
-        raise RuntimeError("Shop page is not visible")
+    # Opening the shop can download resources; a fixed post-delay is too short.
+    deadline = time.monotonic() + 30
+    while True:
+        if screen.recognize("TemplateMatch", {"template": "shop_title.png", "roi": [20, 5, 160, 65], "threshold": 0.9}):
+            return
+        if time.monotonic() >= deadline:
+            raise RuntimeError("Shop page did not become visible within thirty seconds")
+        screen.pause(0.5)
+        screen.capture()
 
 
 def select_category(screen: Screen, name: str) -> bool:

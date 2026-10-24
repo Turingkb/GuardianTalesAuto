@@ -33,6 +33,27 @@ class ClaimScreen:
 
 
 class DailyClaims(unittest.TestCase):
+    def test_pass_navigation_waits_through_loading_without_extra_taps(self):
+        screen = ClaimScreen()
+        with patch.object(passes, "page_ready", side_effect=[False, False, True]):
+            passes.wait_ready(screen)
+        self.assertEqual(screen.taps, [])
+
+    def test_pass_tab_waits_for_active_color_after_page_appears(self):
+        screen = ClaimScreen()
+        with patch.object(screen, "recognize", side_effect=[None, {"box": [0, 0, 1, 1]}]), \
+                patch.object(passes, "page_ready", return_value=True):
+            passes.wait_ready(screen, phase="goals")
+        self.assertEqual(screen.taps, [])
+
+    def test_pass_navigation_timeout_never_clicks_unknown_page(self):
+        screen = ClaimScreen()
+        with patch.object(passes, "page_ready", return_value=False), \
+                patch.object(passes.time, "monotonic", side_effect=[0, 1, 13]), \
+                self.assertRaises(RuntimeError):
+            passes.wait_ready(screen)
+        self.assertEqual(screen.taps, [])
+
     def test_disabled_or_wrong_claim_button_never_clicks(self):
         for kwargs in [{"yellow": False}, {"label": False}]:
             screen = ClaimScreen(**kwargs)

@@ -31,6 +31,11 @@ CASES = [
     ("GT_Test_PassClaimAvailable", "dev/2026-10-15/screenshots/14_paid_gem_negative.png", False),
     *[("GT_Test_PassBanner_" + kind, FIX + "invitational.png", True)
       for kind in ("guardian", "celebration", "world")],
+    ("GT_Common_DismissReward", "dev/2026-10-24/screenshots/event-points.png", True),
+    ("GT_Common_DismissReward", "dev/2026-10-24/screenshots/shop-loading.png", False),
+    ("GT_Common_DismissReward", FIX + "soul-large-run.png", False),
+    ("GT_Common_DismissReward", "dev/2026-10-15/screenshots/14_paid_gem_negative.png", False),
+    ("GT_Test_PassReady", "dev/2026-10-24/screenshots/pass-transition-settled.png", True),
 ]
 
 

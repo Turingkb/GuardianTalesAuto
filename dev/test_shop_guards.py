@@ -40,6 +40,22 @@ class PurchaseDialog:
 class ShopGuards(unittest.TestCase):
     product = shop.Product("stamina", "资源", "储备体力", "diamond", 1, 100)
 
+    def test_shop_resource_loading_waits_without_input(self):
+        screen = PurchaseDialog()
+        screen.pause = lambda seconds: None
+        with patch.object(screen, "recognize", side_effect=[None, None, {"box": [0, 0, 1, 1]}]):
+            shop.require_shop(screen)
+        self.assertEqual(screen.taps, [])
+
+    def test_shop_loading_timeout_never_guesses_a_button(self):
+        screen = PurchaseDialog()
+        screen.pause = lambda seconds: None
+        with patch.object(screen, "recognize", return_value=None), \
+                patch.object(shop.time, "monotonic", side_effect=[0, 1, 31]), \
+                self.assertRaises(RuntimeError):
+            shop.require_shop(screen)
+        self.assertEqual(screen.taps, [])
+
     def test_paid_defaults_are_empty(self):
         self.assertEqual(shop.plans({}), [])
         self.assertEqual(shop.plans({"stamina_count": 10}), [])
