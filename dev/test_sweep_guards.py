@@ -27,6 +27,23 @@ class Dialog:
 
 
 class Guards(unittest.TestCase):
+    def test_evolution_closes_known_points_popup_before_next_hero(self):
+        screen = Dialog()
+        screen.pause = lambda seconds: None
+        screen.has = lambda roi, expected: (roi == [45, 260, 350, 65]
+                                            or not screen.taps)
+        actions.wait_evolution_page(screen)
+        self.assertEqual(screen.taps, [(640, 660)])
+
+    def test_evolution_unknown_overlay_never_clicks_settings(self):
+        screen = Dialog()
+        screen.pause = lambda seconds: None
+        screen.has = lambda *args: False
+        with patch.object(actions.time, "monotonic", side_effect=[0, 1, 13]), \
+                self.assertRaises(RuntimeError):
+            actions.choose_evolution_hero(screen, (404, 333))
+        self.assertEqual(screen.taps, [])
+
     def test_stamina_cost_formats(self):
         for text, expected in [("71(-71)", (71, 71)), ("2,965(-29)", (2965, 29)),
                                ("2，965", (2965, 0)), ("42（−10）", (42, 10))]:

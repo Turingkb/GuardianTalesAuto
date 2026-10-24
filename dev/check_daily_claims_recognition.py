@@ -36,6 +36,14 @@ CASES = [
     ("GT_Common_DismissReward", FIX + "soul-large-run.png", False),
     ("GT_Common_DismissReward", "dev/2026-10-15/screenshots/14_paid_gem_negative.png", False),
     ("GT_Test_PassReady", "dev/2026-10-24/screenshots/pass-transition-settled.png", True),
+    ("GT_Daily_ClaimActivity", "dev/2026-10-24/screenshots/daily-claim-blocked.png", True),
+    ("GT_Daily_ClaimActivity", "dev/2026-10-24/screenshots/daily-all-completed.png", False),
+    ("GT_Daily_ClaimActivity", "dev/2026-10-24/screenshots/daily-activity-claim.png", False),
+    ("GT_Daily_ClaimActivity", "dev/2026-10-15/screenshots/14_paid_gem_negative.png", False),
+    ("GT_Daily_AllCompleted", "dev/2026-10-24/screenshots/daily-all-completed.png", True),
+    ("GT_Daily_AllCompleted", "dev/2026-10-24/screenshots/daily-claim-blocked.png", False),
+    ("GT_Daily_AllCompleted", "dev/2026-10-24/screenshots/daily-after-sweeps-before-claim.png", False),
+    ("GT_Daily_AllCompleted", "dev/2026-10-24/screenshots/daily-activity-claim.png", False),
 ]
 
 

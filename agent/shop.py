@@ -105,7 +105,7 @@ def find_product(screen: Screen, name: str, free: bool = False) -> tuple[int, in
         for item in items:
             text = item_name(item["text"])
             if free:
-                if text == "每日免费商品":
+                if re.fullmatch(r"每日免费商品[!！]?", text):
                     x, y = center(item)
                     column = min((394, 642, 890, 1138), key=lambda value: abs(x - value))
                     return column, max(195, y - 90)

@@ -112,6 +112,9 @@ class DailyClaims(unittest.TestCase):
         self.assertTrue(migrated["CurrentTasks"][-1].endswith("<|||>GT_CloseGame"))
         entries = [value.split("<|||>")[-1] for value in migrated["CurrentTasks"]]
         self.assertLess(entries.index("GT_PassRewards"), entries.index("GT_CloseGame"))
+        self.assertLess(entries.index("GT_FlowerSweep"), entries.index("GT_DailyRewards"))
+        self.assertLess(entries.index("GT_DailyRewards"), entries.index("GT_PassRewards"))
+        self.assertEqual([task["entry"] for task in migrated["TaskItems"]], entries)
 
 
 if __name__ == "__main__": unittest.main(verbosity=2)

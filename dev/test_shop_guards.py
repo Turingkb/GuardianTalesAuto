@@ -40,6 +40,15 @@ class PurchaseDialog:
 class ShopGuards(unittest.TestCase):
     product = shop.Product("stamina", "资源", "储备体力", "diamond", 1, 100)
 
+    def test_free_coin_caption_accepts_game_exclamation_only(self):
+        for label in ("每日免费商品", "每日免费商品!", "每日免费商品！", "每日免费商品套餐"):
+            screen = PurchaseDialog()
+            screen.act = lambda *args: None
+            screen.pause = lambda *args: None
+            screen.ocr = lambda *args: [{"text": label, "box": [835, 440, 110, 20]}]
+            expected = None if label.endswith("套餐") else (890, 360)
+            self.assertEqual(shop.find_product(screen, "金币", free=True), expected)
+
     def test_shop_resource_loading_waits_without_input(self):
         screen = PurchaseDialog()
         screen.pause = lambda seconds: None

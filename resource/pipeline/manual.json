@@ -56,7 +56,7 @@
             {"recognition": "OCR", "expected": ["虚属性进化石副本"], "roi": [45, 260, 350, 65], "threshold": 0.7},
             "GT_Common_PageHeaderBright"
         ],
-        "focus": {"Node.Action.Succeeded": "进化石副本入口已打开；请选择属性、英雄和次数，本任务不执行扫荡。"}
+        "focus": {"Node.Action.Succeeded": "进化石副本入口已打开。"}
     },
     "GT_Manual_ResourceCategory": {
         "recognition": "OCR", "expected": ["资源.*觉醒副本"], "roi": [840, 147, 340, 44], "threshold": 0.7,
@@ -69,7 +69,7 @@
             {"recognition": "OCR", "expected": ["觉醒副本"], "roi": [45, 505, 350, 68], "threshold": 0.7},
             "GT_Common_PageHeaderBright"
         ],
-        "focus": {"Node.Action.Succeeded": "资源/觉醒副本入口已打开；本任务不消耗体力或次数，请人工选择并执行。"}
+        "focus": {"Node.Action.Succeeded": "资源与觉醒副本入口已打开。"}
     },
     "GT_OpenDailyTasks": {
         "next": ["[JumpBack]GT_Common_Prepare", "GT_Manual_DailyClick"], "timeout": 30000

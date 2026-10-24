@@ -290,7 +290,25 @@ def evolution_candidate(screen: Screen) -> tuple[int, int] | None:
     return None
 
 
+def wait_evolution_page(screen: Screen) -> None:
+    """Dismiss known sweep rewards before clicking the next hero's settings."""
+    deadline = time.monotonic() + 12
+    while True:
+        screen.capture()
+        if (screen.has([510, 245, 270, 70], "^获得活动积分$|^领取奖励$|^获得活跃度$")
+                and screen.has([425, 635, 445, 68], "点击空白.*关闭弹窗")):
+            screen.tap(640, 660, 0.5)
+        elif (screen.has([45, 260, 350, 65], "虚属性进化石副本")
+              and screen.recognize("ColorMatch", {"method": 4, "lower": [220, 220, 220],
+                  "upper": [255, 255, 255], "roi": [30, 16, 200, 44], "count": 200})):
+            return
+        if time.monotonic() >= deadline:
+            raise RuntimeError("Evolution page is still covered after sweep rewards")
+        screen.pause(0.3)
+
+
 def choose_evolution_hero(screen: Screen, gear: tuple[int, int]) -> bool:
+    wait_evolution_page(screen)
     screen.tap(*gear, 0.5)
     screen.capture()
     if not screen.has([526, 48, 230, 40], "奖励设置"):

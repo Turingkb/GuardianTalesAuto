@@ -15,7 +15,7 @@
         "next": ["GT_Daily_Route"]
     },
     "GT_Daily_Route": {
-        "next": ["[JumpBack]GT_Common_DismissReward", "[JumpBack]GT_Daily_ClaimAll", "GT_Daily_Done"],
+        "next": ["[JumpBack]GT_Common_DismissReward", "[JumpBack]GT_Daily_ClaimAll", "[JumpBack]GT_Daily_ClaimActivity", "GT_Daily_AllCompleted", "GT_Daily_Done"],
         "timeout": 20000
     },
     "GT_Daily_ClaimAll": {
@@ -27,6 +27,27 @@
         ],
         "box_index": 1,
         "action": "Click", "post_delay": 1200, "max_hit": 3
+    },
+    "GT_Daily_ClaimActivity": {
+        "recognition": "And",
+        "all_of": [
+            {"recognition": "TemplateMatch", "template": "daily_title.png", "roi": [20, 5, 190, 65], "threshold": 0.9},
+            "GT_Common_PageHeaderBright",
+            {"recognition": "OCR", "expected": ["^已获得$"], "roi": [90, 613, 210, 58], "threshold": 0.7},
+            {"recognition": "ColorMatch", "method": 4, "lower": [240, 175, 0], "upper": [255, 225, 60], "roi": [105, 624, 150, 36], "count": 2500}
+        ],
+        "action": "Click", "target": [185, 643], "post_delay": 1200, "max_hit": 2
+    },
+    "GT_Daily_AllCompleted": {
+        "recognition": "And",
+        "all_of": [
+            {"recognition": "TemplateMatch", "template": "daily_title.png", "roi": [20, 5, 190, 65], "threshold": 0.9},
+            "GT_Common_PageHeaderBright",
+            {"recognition": "OCR", "expected": ["^已完成今天所有日常任务$"], "roi": [650, 440, 360, 65], "threshold": 0.7},
+            {"recognition": "ColorMatch", "method": 4, "lower": [105, 110, 120], "upper": [145, 150, 165], "roi": [105, 624, 150, 36], "count": 2500}
+        ],
+        "action": "Click", "target": [35, 25, 20, 20], "post_delay": 700,
+        "next": ["GT_StartUp_HubReady"]
     },
     "GT_Daily_Done": {
         "recognition": "And",

@@ -77,13 +77,6 @@
       ]
     },
     {
-      "name": "领取已完成的日常奖励",
-      "entry": "GT_DailyRewards",
-      "label": "领取已完成的日常奖励",
-      "default_check": true,
-      "description": "进入日常任务，点击可用的全部领取按钮，关闭奖励弹窗并返回大厅。不会执行战斗。"
-    },
-    {
       "name": "邮箱自动领取",
       "entry": "GT_MailCollect",
       "label": "邮箱自动领取",
@@ -192,6 +185,13 @@
       "label": "全屏OCR探测（调试）",
       "default_check": false,
       "description": "只识别当前画面文字，不点击游戏界面。结果见框架日志。"
+    },
+    {
+      "name": "领取已完成的日常奖励",
+      "entry": "GT_DailyRewards",
+      "label": "领取已完成的日常奖励",
+      "default_check": true,
+      "description": "进入日常任务，点击可用的全部领取按钮，关闭奖励弹窗并返回大厅。不会执行战斗。"
     },
     {
       "name": "领取通行证奖励",

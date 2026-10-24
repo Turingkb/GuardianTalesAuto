@@ -18,17 +18,18 @@ def migrate(config: dict, tasks: list[dict]) -> dict:
             cached[entry] = {**task, **definitions[entry]}
             if "default_check" in task:
                 cached[entry]["default_check"] = task["default_check"]
-    config["TaskItems"] = [cached.get(task["entry"], task) for task in tasks]
     ordered = []
     for value in config.get("CurrentTasks", []):
         entry = value.split("<|||>")[-1]
         entry = RENAMED.get(entry, entry)
         if entry in definitions and entry not in ordered: ordered.append(entry)
     ordered.extend(entry for entry in definitions if entry not in ordered)
-    # Newly added reward tasks must run before an already configured final close.
-    if "GT_CloseGame" in ordered:
-        ordered.remove("GT_CloseGame")
-        ordered.append("GT_CloseGame")
+    # Sweep/gift tasks create new daily/pass goals. Claim only after earning them.
+    for entry in ("GT_DailyRewards", "GT_PassRewards", "GT_CloseGame"):
+        if entry in ordered:
+            ordered.remove(entry)
+            ordered.append(entry)
+    config["TaskItems"] = [cached.get(entry, definitions[entry]) for entry in ordered]
     config["CurrentTasks"] = [definitions[entry]["name"] + "<|||>" + entry for entry in ordered]
     return config
 
