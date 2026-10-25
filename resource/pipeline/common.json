@@ -23,6 +23,7 @@
   },
   "GT_Common_HubRoute": {
     "next": [
+      "[JumpBack]GT_Common_CloseActivityGoals",
       "[JumpBack]GT_Common_ConfirmTethysLevelUp",
       "[JumpBack]GT_Common_AckSweepResult",
       "[JumpBack]GT_Common_CancelSweepDialog",
@@ -385,6 +386,31 @@
           110,
           44
         ]
+      },
+      {
+        "recognition": "And",
+        "all_of": [
+          {
+            "recognition": "OCR",
+            "roi": [
+              70,
+              12,
+              350,
+              48
+            ],
+            "expected": "开心宾果乐"
+          },
+          {
+            "recognition": "OCR",
+            "roi": [
+              28,
+              185,
+              220,
+              50
+            ],
+            "expected": "确认活动目标"
+          }
+        ]
       }
     ],
     "action": "DoNothing"
@@ -647,5 +673,58 @@
     "action": "Click",
     "post_delay": 800,
     "max_hit": 5
+  },
+  "GT_Common_CloseActivityGoals": {
+    "recognition": "And",
+    "all_of": [
+      {
+        "recognition": "OCR",
+        "roi": [
+          170,
+          40,
+          140,
+          60
+        ],
+        "expected": "^活动目标$"
+      },
+      {
+        "recognition": "OCR",
+        "roi": [
+          350,
+          20,
+          180,
+          45
+        ],
+        "expected": "^活动任务$"
+      },
+      {
+        "recognition": "ColorMatch",
+        "method": 4,
+        "lower": [
+          220,
+          220,
+          220
+        ],
+        "upper": [
+          255,
+          255,
+          255
+        ],
+        "roi": [
+          180,
+          45,
+          125,
+          45
+        ],
+        "count": 150
+      }
+    ],
+    "action": "Click",
+    "target": [
+      1237,
+      43
+    ],
+    "post_delay": 600,
+    "max_hit": 3
   }
 }

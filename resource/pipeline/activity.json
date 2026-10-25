@@ -1,0 +1,14 @@
+{
+  "GT_ActivityRewards": {
+    "next": ["[JumpBack]GT_Common_Prepare", "GT_ActivityRewards_Open"]
+  },
+  "GT_ActivityRewards_Open": {
+    "recognition": "And", "all_of": ["GT_StartUp_HubReady"],
+    "action": "Click", "target": [1202, 148, 30, 30], "post_delay": 1200,
+    "next": ["GT_ActivityRewards_Run"]
+  },
+  "GT_ActivityRewards_Run": {
+    "action": "Custom", "custom_action": "GT_ActivityRewards",
+    "next": ["GT_Common_HubRoute"]
+  }
+}

@@ -61,7 +61,7 @@ class FeatureTests(unittest.TestCase):
         entries = {t["entry"] for t in interface["task"]}
         self.assertFalse(entries & {"GT_OpenMail", "GT_OpenResourceRift", "GT_OpenEvolutionRift", "GT_OpenDailyTasks"})
         self.assertTrue({"GT_FlowerSweep", "GT_EventShopPurchase", "GT_OpenActivity"} <= entries)
-        self.assertEqual(sum(bool(t.get("default_check")) for t in interface["task"]), 9)
+        self.assertEqual(sum(bool(t.get("default_check")) for t in interface["task"]), 10)
 
     def test_flower_zero_or_invalid_settings_never_tap(self):
         screen = FlowerScreen()

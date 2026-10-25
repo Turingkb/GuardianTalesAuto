@@ -194,6 +194,13 @@
       "description": "进入日常任务，点击可用的全部领取按钮，关闭奖励弹窗并返回大厅。不会执行战斗。"
     },
     {
+      "name": "活动奖励领取",
+      "label": "活动奖励领取",
+      "entry": "GT_ActivityRewards",
+      "default_check": true,
+      "description": "每日任务后领取已适配活动中完成目标的积分；当前支持开心宾果乐。不开始挑战、不抽奖、不兑换，未开放则跳过。"
+    },
+    {
       "name": "领取通行证奖励",
       "label": "领取通行证奖励",
       "entry": "GT_PassRewards",

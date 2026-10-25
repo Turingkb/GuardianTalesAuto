@@ -502,5 +502,19 @@
       130,
       69
     ]
+  },
+  {
+    "template": "activity_banner_bingo.png",
+    "source": "dev/2026-10-25/activity.png",
+    "box_xyxy": [
+      50,
+      145,
+      270,
+      201
+    ],
+    "size": [
+      220,
+      56
+    ]
   }
 ]

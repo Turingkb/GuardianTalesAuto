@@ -8,6 +8,7 @@ import time
 from native import Screen
 from shop import shop_purchase
 from pass_rewards import pass_rewards
+from activity_rewards import activity_rewards
 
 
 def integer_text(text: str) -> int:
@@ -403,5 +404,5 @@ HANDLERS = {"GT_AwakeningFree": awake_free,
             "GT_FlowerSweep": flower_sweep,
             "GT_ShopPurchase": shop_purchase, "GT_TethysFree": tethys_free,
             "GT_EventShopPurchase": partial(shop_purchase, event_only=True),
-            "GT_PassRewards": pass_rewards,
+            "GT_PassRewards": pass_rewards, "GT_ActivityRewards": activity_rewards,
             "GT_EvolutionSweep": evolution_sweep, "GT_AgentProbe": probe}
