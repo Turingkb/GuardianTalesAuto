@@ -516,5 +516,19 @@
       220,
       56
     ]
+  },
+  {
+    "template": "princess_chest.png",
+    "source": "dev/2026-10-25/princess/current.png",
+    "box_xyxy": [
+      625,
+      382,
+      668,
+      425
+    ],
+    "size": [
+      43,
+      43
+    ]
   }
 ]

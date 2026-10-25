@@ -1,0 +1,29 @@
+{
+  "GT_PrincessChest": {
+    "next": ["[JumpBack]GT_Common_Prepare", "GT_PrincessChest_Route"],
+    "timeout": 30000
+  },
+  "GT_PrincessChest_Route": {
+    "next": ["GT_PrincessChest_Result", "GT_PrincessChest_Open", "GT_StartUp_HubReady"]
+  },
+  "GT_PrincessChest_Open": {
+    "recognition": "And",
+    "all_of": [
+      "GT_StartUp_HubReady",
+      {"recognition": "TemplateMatch", "template": "princess_chest.png", "roi": [185, 105, 1083, 480], "threshold": 0.94}
+    ],
+    "box_index": 1, "action": "LongPress", "duration": 50, "target": true,
+    "post_delay": 800, "max_hit": 1,
+    "next": ["GT_PrincessChest_Result"]
+  },
+  "GT_PrincessChest_Result": {
+    "recognition": "And",
+    "all_of": [
+      {"recognition": "OCR", "expected": "^公主的珍贵礼物$", "roi": [510, 245, 270, 70], "threshold": 0.7},
+      {"recognition": "OCR", "expected": "点击空白.*关闭弹窗", "roi": [425, 635, 445, 68], "threshold": 0.7}
+    ],
+    "action": "Click", "target": [640, 660], "post_delay": 700,
+    "timeout": 20000, "next": ["GT_StartUp_HubReady"],
+    "focus": {"Node.Action.Succeeded": "已领取小公主宝箱奖励。"}
+  }
+}

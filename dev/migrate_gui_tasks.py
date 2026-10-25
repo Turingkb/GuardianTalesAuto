@@ -25,7 +25,7 @@ def migrate(config: dict, tasks: list[dict]) -> dict:
         if entry in definitions and entry not in ordered: ordered.append(entry)
     ordered.extend(entry for entry in definitions if entry not in ordered)
     # Sweep/gift tasks create new daily/pass goals. Claim only after earning them.
-    for entry in ("GT_DailyRewards", "GT_ActivityRewards", "GT_PassRewards", "GT_CloseGame"):
+    for entry in ("GT_DailyRewards", "GT_ActivityRewards", "GT_PassRewards", "GT_PrincessChest", "GT_CloseGame"):
         if entry in ordered:
             ordered.remove(entry)
             ordered.append(entry)
