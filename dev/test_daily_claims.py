@@ -116,8 +116,7 @@ class DailyClaims(unittest.TestCase):
         self.assertLess(entries.index("GT_DailyRewards"), entries.index("GT_PassRewards"))
         self.assertLess(entries.index("GT_DailyRewards"), entries.index("GT_ActivityRewards"))
         self.assertLess(entries.index("GT_ActivityRewards"), entries.index("GT_PassRewards"))
-        self.assertLess(entries.index("GT_PassRewards"), entries.index("GT_PrincessChest"))
-        self.assertLess(entries.index("GT_PrincessChest"), entries.index("GT_CloseGame"))
+        self.assertNotIn("GT_PrincessChest", entries)
         self.assertEqual([task["entry"] for task in migrated["TaskItems"]], entries)
 
 

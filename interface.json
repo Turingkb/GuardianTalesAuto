@@ -191,7 +191,7 @@
       "entry": "GT_DailyRewards",
       "label": "领取已完成的日常奖励",
       "default_check": true,
-      "description": "进入日常任务，点击可用的全部领取按钮，关闭奖励弹窗并返回大厅。不会执行战斗。"
+      "description": "领取已完成的日常任务与活跃度奖励，返回大厅后顺带领取小公主宝箱；没有宝箱时跳过，不执行战斗。"
     },
     {
       "name": "活动奖励领取",
@@ -206,13 +206,6 @@
       "entry": "GT_PassRewards",
       "default_check": true,
       "description": "从邀请赛进入，检查守护者、庆典和通关世界挑战赛；领取已完成目标的经验与已解锁奖励。不购买通行证，不升级跳级，不使用邀请币兑换。"
-    },
-    {
-      "name": "领取小公主宝箱",
-      "label": "领取小公主宝箱",
-      "entry": "GT_PrincessChest",
-      "default_check": true,
-      "description": "识别大厅中的小公主宝箱，点击后确认公主的珍贵礼物。没有宝箱或已领取时跳过，不购买物品。"
     },
     {
       "name": "关闭游戏",

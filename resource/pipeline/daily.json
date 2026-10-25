@@ -1,9 +1,10 @@
 {
     "GT_DailyRewards": {
-        "next": ["[JumpBack]GT_Common_Prepare", "GT_Daily_Open"],
+        "next": ["[JumpBack]GT_Common_Prepare", "[JumpBack]GT_Daily_Open", "GT_PrincessChest"],
         "timeout": 30000
     },
     "GT_Daily_Open": {
+        "max_hit": 1,
         "recognition": "And", "all_of": ["GT_StartUp_HubReady"],
         "action": "Click", "target": [395, 648, 1, 1], "post_delay": 700,
         "next": ["GT_Daily_SelectDaily"]
