@@ -28,8 +28,7 @@ class FlowerScreen:
 
 class FeatureTests(unittest.TestCase):
     def test_regular_and_event_shops_have_separate_plans(self):
-        params = {"stamina_count": 1, "stamina_budget": 100,
-                  "event_coffee_count": 1, "event_coffee_budget": 200}
+        params = {"stamina_count": 1, "event_coffee_count": 1}
         self.assertEqual([p.key for p in shop.plans(params, event_only=False)], ["stamina"])
         self.assertEqual([p.key for p in shop.plans(params, event_only=True)], ["event_coffee"])
 
@@ -39,7 +38,7 @@ class FeatureTests(unittest.TestCase):
             select.assert_not_called()
 
     def test_preset_product_needs_no_typed_name(self):
-        product = shop.plans({"event_coffee_count": 1, "event_coffee_budget": 200,
+        product = shop.plans({"event_coffee_count": 1,
                               "event_coffee_name": "不可覆盖固定商品"}, event_only=True)[0]
         self.assertEqual((product.name, product.currency), ("咖啡机", "diamond"))
 
@@ -49,6 +48,10 @@ class FeatureTests(unittest.TestCase):
         update(interface, shop.PRODUCTS)
         self.assertEqual(interface, before)
         options = interface["option"]
+        for name, option in options.items():
+            if name.startswith("ShopItem_") and "inputs" in option:
+                self.assertNotIn("budget", [item["name"] for item in option["inputs"]])
+                self.assertIn(name + "Currency", options)
         for case in options["EventShopProducts"]["cases"]:
             for child in case["option"]:
                 option = options[child]

@@ -18,7 +18,6 @@ class Product:
     name: str
     currency: str
     count: int
-    budget: int
 
 
 def number(text: str) -> int:
@@ -36,10 +35,10 @@ def plans(params: dict, *, event_only: bool | None = None) -> list[Product]:
         key, category, name, currency = (definition[field] for field in ("key", "category", "name", "currency"))
         if event_only is not None and (category == "活动商店") != event_only:
             continue
-        count, budget = params.get(key + "_count", 0), params.get(key + "_budget", 0)
-        if type(count) is not int or type(budget) is not int or not 0 <= count <= 100 or not 0 <= budget <= 100000000:
-            raise ValueError(f"Invalid quantity/budget for {key}")
-        if not count or not budget:
+        count = params.get(key + "_count", 0)
+        if type(count) is not int or not 0 <= count <= 100:
+            raise ValueError(f"Invalid quantity for {key}")
+        if not count:
             continue
         # Preset names cannot be replaced by stale custom input from the GUI.
         name = params.get(key + "_name", name).strip() if key in ("event", "diamond_other") else name
@@ -48,7 +47,7 @@ def plans(params: dict, *, event_only: bool | None = None) -> list[Product]:
             raise ValueError(f"Unsupported product name: {name!r}")
         if currency not in ("gold", "diamond", "hero_crystal"):
             raise ValueError("Unsupported shop currency")
-        result.append(Product(key, category, name, currency, count, budget))
+        result.append(Product(key, category, name, currency, count))
     return result
 
 
@@ -201,13 +200,13 @@ def purchase(screen: Screen, product: Product, preview: bool) -> None:
         screen.capture()
         try:
             price, target = inspect_purchase(screen, product)
-            if price > product.budget - spent or (before is not None and price > before):
-                screen.log("shop_skipped", item=product.name, reason="budget_or_balance", price=price)
+            if before is not None and price > before:
+                screen.log("shop_skipped", item=product.name, reason="insufficient_balance", price=price)
                 cancel(screen)
                 return
             screen.save("shop-before-confirm")
             screen.log("shop_preview" if preview else "shop_confirm", item=product.name,
-                       currency=product.currency, price=price, spent=spent, budget=product.budget)
+                       currency=product.currency, price=price, spent=spent)
             if preview:
                 cancel(screen)
                 return
@@ -229,7 +228,7 @@ def shop_purchase(screen: Screen, params: dict, *, event_only: bool = False) -> 
     if type(preview) is not bool or type(free) is not bool:
         raise ValueError("Shop switches must be boolean")
     if free and not event_only:
-        products.insert(0, Product("free", "资源", "金币", "free", 1, 0))
+        products.insert(0, Product("free", "资源", "金币", "free", 1))
     for product in products:
         if select_category(screen, product.category):
             purchase(screen, product, preview)

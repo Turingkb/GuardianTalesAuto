@@ -38,7 +38,7 @@ class PurchaseDialog:
 
 
 class ShopGuards(unittest.TestCase):
-    product = shop.Product("stamina", "资源", "储备体力", "diamond", 1, 100)
+    product = shop.Product("stamina", "资源", "储备体力", "diamond", 1)
 
     def test_free_coin_caption_accepts_game_exclamation_only(self):
         for label in ("每日免费商品", "每日免费商品!", "每日免费商品！", "每日免费商品套餐"):
@@ -67,11 +67,16 @@ class ShopGuards(unittest.TestCase):
 
     def test_paid_defaults_are_empty(self):
         self.assertEqual(shop.plans({}), [])
-        self.assertEqual(shop.plans({"stamina_count": 10}), [])
         self.assertEqual(shop.plans({"stamina_budget": 1000}), [])
 
+    def test_count_and_currency_are_sufficient_and_stale_budget_is_ignored(self):
+        for budget in (None, 0, 100):
+            params = {"stamina_count": 3, "stamina_currency": "diamond"}
+            if budget is not None: params["stamina_budget"] = budget
+            self.assertEqual(shop.plans(params), [shop.Product("stamina", "资源", "储备体力", "diamond", 3)])
+
     def test_limits_and_types(self):
-        for key, value in [("count", -1), ("count", 101), ("count", True), ("budget", "100"), ("budget", -1)]:
+        for key, value in [("count", -1), ("count", 101), ("count", True), ("count", "3")]:
             with self.assertRaises(ValueError): shop.plans({"stamina_" + key: value})
 
     def test_custom_name_and_currency_are_checked(self):
@@ -88,9 +93,10 @@ class ShopGuards(unittest.TestCase):
             with self.subTest(kwargs=kwargs), self.assertRaises((ValueError, RuntimeError)):
                 shop.inspect_purchase(PurchaseDialog(**kwargs), self.product)
 
-    def test_budget_exceeded_only_cancels(self):
+    def test_insufficient_balance_only_cancels(self):
         screen = PurchaseDialog(price="101")
-        with patch.object(shop, "find_product", return_value=(394, 300)):
+        with patch.object(shop, "find_product", return_value=(394, 300)), \
+                patch.object(shop, "balance", return_value=100):
             shop.purchase(screen, self.product, False)
         self.assertEqual(screen.taps, [(394, 300), (527, 611)])
 
@@ -100,18 +106,26 @@ class ShopGuards(unittest.TestCase):
             shop.purchase(screen, self.product, True)
         self.assertEqual(screen.taps, [(394, 300), (527, 611)])
 
-    def test_total_budget_stops_repeated_purchases(self):
+    def test_stops_at_requested_count_without_a_budget(self):
         screen = PurchaseDialog()
-        product = shop.Product("stamina", "资源", "储备体力", "diamond", 2, 100)
+        product = shop.Product("stamina", "资源", "储备体力", "diamond", 2)
         with patch.object(shop, "find_product", return_value=(394, 300)), \
-                patch.object(shop, "balance", side_effect=[1000, 900, 900]), patch.object(shop, "settle"):
+                patch.object(shop, "balance", side_effect=[1000, 900, 900, 800]), patch.object(shop, "settle"):
+            shop.purchase(screen, product, False)
+        self.assertEqual(screen.taps.count((752, 611)), 2)
+
+    def test_balance_exhausted_between_transactions_cancels_next_purchase(self):
+        screen = PurchaseDialog()
+        product = shop.Product("stamina", "资源", "储备体力", "diamond", 3)
+        with patch.object(shop, "find_product", return_value=(394, 300)), \
+                patch.object(shop, "balance", side_effect=[150, 50, 50]), patch.object(shop, "settle"):
             shop.purchase(screen, product, False)
         self.assertEqual(screen.taps.count((752, 611)), 1)
         self.assertEqual(screen.taps[-1], (527, 611))
 
     def test_unexpected_balance_change_stops_before_second_purchase(self):
         screen = PurchaseDialog()
-        product = shop.Product("stamina", "资源", "储备体力", "diamond", 2, 1000)
+        product = shop.Product("stamina", "资源", "储备体力", "diamond", 2)
         with patch.object(shop, "find_product", return_value=(394, 300)), \
                 patch.object(shop, "balance", side_effect=[1000, 800]), patch.object(shop, "settle"), \
                 self.assertRaises(RuntimeError):
