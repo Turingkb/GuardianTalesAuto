@@ -9,6 +9,7 @@ import time
 from native import Screen
 
 PRODUCTS = json.loads(Path(__file__).with_name("shop_products.json").read_text(encoding="utf-8"))
+CUSTOM_PRODUCTS = json.loads(Path(__file__).with_name("shop_custom_products.json").read_text(encoding="utf-8"))
 
 
 @dataclass(frozen=True)
@@ -29,8 +30,8 @@ def number(text: str) -> int:
 
 def plans(params: dict, *, event_only: bool | None = None) -> list[Product]:
     result = []
-    definitions = PRODUCTS + [{"key": "diamond_other", "category": "钻石商店", "name": "", "currency": "diamond"},
-                              {"key": "event", "category": "活动商店", "name": "", "currency": "diamond"}]
+    definitions = PRODUCTS + CUSTOM_PRODUCTS
+    custom_keys = {product["key"] for product in CUSTOM_PRODUCTS}
     for definition in definitions:
         key, category, name, currency = (definition[field] for field in ("key", "category", "name", "currency"))
         if event_only is not None and (category == "活动商店") != event_only:
@@ -41,7 +42,7 @@ def plans(params: dict, *, event_only: bool | None = None) -> list[Product]:
         if not count:
             continue
         # Preset names cannot be replaced by stale custom input from the GUI.
-        name = params.get(key + "_name", name).strip() if key in ("event", "diamond_other") else name
+        name = params.get(key + "_name", name).strip() if key in custom_keys else name
         currency = params.get(key + "_currency", currency)
         if not name or len(name) > 40 or re.search("召唤|抽卡|付费|人民币|礼包", name):
             raise ValueError(f"Unsupported product name: {name!r}")

@@ -1,0 +1,7 @@
+[
+  {"key": "resource_other", "category": "资源", "name": "", "currency": "diamond", "label": "资源其它商品"},
+  {"key": "diamond_other", "category": "钻石商店", "name": "", "currency": "diamond", "label": "钻石商店其它商品"},
+  {"key": "growth_other", "category": "英雄成长", "name": "", "currency": "gold", "label": "英雄成长其它商品"},
+  {"key": "equipment_other", "category": "装备", "name": "", "currency": "gold", "label": "装备其它商品"},
+  {"key": "event", "category": "活动商店", "name": "", "currency": "diamond", "label": "活动商店其它商品"}
+]

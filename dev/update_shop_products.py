@@ -4,14 +4,19 @@ import json
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+CUSTOM_PRODUCTS = json.loads((ROOT / "agent/shop_custom_products.json").read_text(encoding="utf-8"))
 
 
-def product_option(product: dict, node: str) -> dict:
+def product_option(product: dict, node: str, *, custom: bool = False) -> dict:
     key = product["key"]
-    return {"type": "input", "label": product["label"], "inputs": [
+    option = {"type": "input", "label": product["label"], "inputs": [
         {"name": "count", "label": "购买次数（0为跳过）", "default": "0", "pipeline_type": "int",
          "verify": "^(?:[0-9]|[1-9][0-9]|100)$"}],
         "pipeline_override": {node: {"custom_action_param": {key + "_count": "{count}"}}}}
+    if custom:
+        option["inputs"].insert(0, {"name": "name", "label": "商品名称（与游戏显示一致）", "default": "", "verify": "^.{1,40}$"})
+        option["pipeline_override"][node]["custom_action_param"][key + "_name"] = "{name}"
+    return option
 
 
 def currency_option(key: str, currency: str, node: str) -> dict:
@@ -24,25 +29,26 @@ def currency_option(key: str, currency: str, node: str) -> dict:
 
 def update(interface: dict, products: list[dict]) -> None:
     options = interface["option"]
-    diamond, event = [], []
-    for product in products:
+    groups = {category: [] for category in ("资源", "钻石商店", "英雄成长", "装备", "活动商店")}
+    for product in products + CUSTOM_PRODUCTS:
         key, category = product["key"], product["category"]
         option = "ShopItem_" + key
         node = "GT_EventShop_Run" if category == "活动商店" else "GT_Shop_PurchaseRun"
-        options[option] = product_option(product, node)
+        custom = not product["name"]
+        options[option] = product_option(product, node, custom=custom)
         options[option + "Currency"] = currency_option(key, product["currency"], node)
-        case = {"name": key, "label": product["label"], "option": [option, option + "Currency"]}
-        if category == "活动商店": event.append(case)
-        elif category == "钻石商店": diamond.append(case)
-    options["ShopItem_diamond_otherCurrency"] = currency_option("diamond_other", "diamond", "GT_Shop_PurchaseRun")
-    options["ShopItem_eventCurrency"] = currency_option("event", "diamond", "GT_EventShop_Run")
-    diamond.append({"name": "diamond_other", "label": "未收录商品（高级）", "option": ["ShopItem_diamond_other", "ShopItem_diamond_otherCurrency"]})
-    event.append({"name": "event", "label": "未收录商品（高级）", "option": ["ShopItem_event", "ShopItem_eventCurrency"]})
-    options["ShopDiamondProducts"] = {"type": "checkbox", "label": "勾选要购买的商品", "default_case": [], "cases": diamond}
-    options["EventShopProducts"] = {"type": "checkbox", "label": "勾选活动商品", "default_case": [], "cases": event}
-    options["ShopItem_diamond_other"]["label"] = "未收录的钻石商品"
-    options["ShopItem_event"]["label"] = "未收录的活动商品"
-    options["ShopItem_event"]["description"] = "仅未收录商品需要填写游戏中的完整名称；常见商品直接勾选即可。"
+        case = {"name": key, "label": "其它商品（填写名称）" if custom else product["label"], "option": [option, option + "Currency"]}
+        groups[category].append(case)
+    specs = [("资源", "ShopResourceProducts", "ShopResources", ["stamina"]),
+             ("钻石商店", "ShopDiamondProducts", "ShopDiamonds", []),
+             ("英雄成长", "ShopGrowthProducts", "ShopGrowth", ["legendary"]),
+             ("装备", "ShopEquipmentProducts", "ShopEquipment", ["hammer"]),
+             ("活动商店", "EventShopProducts", None, [])]
+    for category, name, parent, defaults in specs:
+        options[name] = {"type": "checkbox", "label": "勾选要购买的商品", "default_case": defaults, "cases": groups[category]}
+        if parent:
+            enabled = next(case for case in options[parent]["cases"] if case["name"] == "Yes")
+            enabled["option"] = [name]
     for name, option in options.items():
         if name.startswith("ShopItem_"):
             if "inputs" in option:

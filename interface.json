@@ -1008,8 +1008,7 @@
           "name": "Yes",
           "label": "开启",
           "option": [
-            "ShopItem_stamina",
-            "ShopItem_staminaCurrency"
+            "ShopResourceProducts"
           ]
         }
       ]
@@ -1056,11 +1055,11 @@
     },
     "ShopItem_diamond_other": {
       "type": "input",
-      "label": "未收录的钻石商品",
+      "label": "钻石商店其它商品",
       "inputs": [
         {
           "name": "name",
-          "label": "商品完整名称",
+          "label": "商品名称（与游戏显示一致）",
           "default": "",
           "verify": "^.{1,40}$"
         },
@@ -1160,7 +1159,7 @@
         },
         {
           "name": "diamond_other",
-          "label": "未收录商品（高级）",
+          "label": "其它商品（填写名称）",
           "option": [
             "ShopItem_diamond_other",
             "ShopItem_diamond_otherCurrency"
@@ -1259,8 +1258,7 @@
           "name": "Yes",
           "label": "开启",
           "option": [
-            "ShopItem_legendary",
-            "ShopItem_legendaryCurrency"
+            "ShopGrowthProducts"
           ]
         }
       ]
@@ -1298,19 +1296,18 @@
           "name": "Yes",
           "label": "开启",
           "option": [
-            "ShopItem_hammer",
-            "ShopItem_hammerCurrency"
+            "ShopEquipmentProducts"
           ]
         }
       ]
     },
     "ShopItem_event": {
       "type": "input",
-      "label": "未收录的活动商品",
+      "label": "活动商店其它商品",
       "inputs": [
         {
           "name": "name",
-          "label": "商品完整名称",
+          "label": "商品名称（与游戏显示一致）",
           "default": "",
           "verify": "^.{1,40}$"
         },
@@ -1329,8 +1326,7 @@
             "event_name": "{name}"
           }
         }
-      },
-      "description": "仅未收录商品需要填写游戏中的完整名称；常见商品直接勾选即可。"
+      }
     },
     "ShopItem_eventCurrency": {
       "type": "select",
@@ -1668,7 +1664,7 @@
     },
     "EventShopProducts": {
       "type": "checkbox",
-      "label": "勾选活动商品",
+      "label": "勾选要购买的商品",
       "default_case": [],
       "cases": [
         {
@@ -1745,7 +1741,7 @@
         },
         {
           "name": "event",
-          "label": "未收录商品（高级）",
+          "label": "其它商品（填写名称）",
           "option": [
             "ShopItem_event",
             "ShopItem_eventCurrency"
@@ -2710,6 +2706,282 @@
               }
             }
           }
+        }
+      ]
+    },
+    "ShopItem_resource_other": {
+      "type": "input",
+      "label": "资源其它商品",
+      "inputs": [
+        {
+          "name": "name",
+          "label": "商品名称（与游戏显示一致）",
+          "default": "",
+          "verify": "^.{1,40}$"
+        },
+        {
+          "name": "count",
+          "label": "购买次数（0为跳过）",
+          "default": "0",
+          "pipeline_type": "int",
+          "verify": "^(?:[0-9]|[1-9][0-9]|100)$"
+        }
+      ],
+      "pipeline_override": {
+        "GT_Shop_PurchaseRun": {
+          "custom_action_param": {
+            "resource_other_count": "{count}",
+            "resource_other_name": "{name}"
+          }
+        }
+      }
+    },
+    "ShopItem_resource_otherCurrency": {
+      "type": "select",
+      "label": "购买货币",
+      "default_case": "diamond",
+      "cases": [
+        {
+          "name": "gold",
+          "label": "金币",
+          "pipeline_override": {
+            "GT_Shop_PurchaseRun": {
+              "custom_action_param": {
+                "resource_other_currency": "gold"
+              }
+            }
+          }
+        },
+        {
+          "name": "diamond",
+          "label": "钻石（不含付费钻石）",
+          "pipeline_override": {
+            "GT_Shop_PurchaseRun": {
+              "custom_action_param": {
+                "resource_other_currency": "diamond"
+              }
+            }
+          }
+        },
+        {
+          "name": "hero_crystal",
+          "label": "英雄水晶",
+          "pipeline_override": {
+            "GT_Shop_PurchaseRun": {
+              "custom_action_param": {
+                "resource_other_currency": "hero_crystal"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "ShopItem_growth_other": {
+      "type": "input",
+      "label": "英雄成长其它商品",
+      "inputs": [
+        {
+          "name": "name",
+          "label": "商品名称（与游戏显示一致）",
+          "default": "",
+          "verify": "^.{1,40}$"
+        },
+        {
+          "name": "count",
+          "label": "购买次数（0为跳过）",
+          "default": "0",
+          "pipeline_type": "int",
+          "verify": "^(?:[0-9]|[1-9][0-9]|100)$"
+        }
+      ],
+      "pipeline_override": {
+        "GT_Shop_PurchaseRun": {
+          "custom_action_param": {
+            "growth_other_count": "{count}",
+            "growth_other_name": "{name}"
+          }
+        }
+      }
+    },
+    "ShopItem_growth_otherCurrency": {
+      "type": "select",
+      "label": "购买货币",
+      "default_case": "gold",
+      "cases": [
+        {
+          "name": "gold",
+          "label": "金币",
+          "pipeline_override": {
+            "GT_Shop_PurchaseRun": {
+              "custom_action_param": {
+                "growth_other_currency": "gold"
+              }
+            }
+          }
+        },
+        {
+          "name": "diamond",
+          "label": "钻石（不含付费钻石）",
+          "pipeline_override": {
+            "GT_Shop_PurchaseRun": {
+              "custom_action_param": {
+                "growth_other_currency": "diamond"
+              }
+            }
+          }
+        },
+        {
+          "name": "hero_crystal",
+          "label": "英雄水晶",
+          "pipeline_override": {
+            "GT_Shop_PurchaseRun": {
+              "custom_action_param": {
+                "growth_other_currency": "hero_crystal"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "ShopItem_equipment_other": {
+      "type": "input",
+      "label": "装备其它商品",
+      "inputs": [
+        {
+          "name": "name",
+          "label": "商品名称（与游戏显示一致）",
+          "default": "",
+          "verify": "^.{1,40}$"
+        },
+        {
+          "name": "count",
+          "label": "购买次数（0为跳过）",
+          "default": "0",
+          "pipeline_type": "int",
+          "verify": "^(?:[0-9]|[1-9][0-9]|100)$"
+        }
+      ],
+      "pipeline_override": {
+        "GT_Shop_PurchaseRun": {
+          "custom_action_param": {
+            "equipment_other_count": "{count}",
+            "equipment_other_name": "{name}"
+          }
+        }
+      }
+    },
+    "ShopItem_equipment_otherCurrency": {
+      "type": "select",
+      "label": "购买货币",
+      "default_case": "gold",
+      "cases": [
+        {
+          "name": "gold",
+          "label": "金币",
+          "pipeline_override": {
+            "GT_Shop_PurchaseRun": {
+              "custom_action_param": {
+                "equipment_other_currency": "gold"
+              }
+            }
+          }
+        },
+        {
+          "name": "diamond",
+          "label": "钻石（不含付费钻石）",
+          "pipeline_override": {
+            "GT_Shop_PurchaseRun": {
+              "custom_action_param": {
+                "equipment_other_currency": "diamond"
+              }
+            }
+          }
+        },
+        {
+          "name": "hero_crystal",
+          "label": "英雄水晶",
+          "pipeline_override": {
+            "GT_Shop_PurchaseRun": {
+              "custom_action_param": {
+                "equipment_other_currency": "hero_crystal"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "ShopResourceProducts": {
+      "type": "checkbox",
+      "label": "勾选要购买的商品",
+      "default_case": [
+        "stamina"
+      ],
+      "cases": [
+        {
+          "name": "stamina",
+          "label": "储备体力",
+          "option": [
+            "ShopItem_stamina",
+            "ShopItem_staminaCurrency"
+          ]
+        },
+        {
+          "name": "resource_other",
+          "label": "其它商品（填写名称）",
+          "option": [
+            "ShopItem_resource_other",
+            "ShopItem_resource_otherCurrency"
+          ]
+        }
+      ]
+    },
+    "ShopGrowthProducts": {
+      "type": "checkbox",
+      "label": "勾选要购买的商品",
+      "default_case": [
+        "legendary"
+      ],
+      "cases": [
+        {
+          "name": "legendary",
+          "label": "传说觉醒石",
+          "option": [
+            "ShopItem_legendary",
+            "ShopItem_legendaryCurrency"
+          ]
+        },
+        {
+          "name": "growth_other",
+          "label": "其它商品（填写名称）",
+          "option": [
+            "ShopItem_growth_other",
+            "ShopItem_growth_otherCurrency"
+          ]
+        }
+      ]
+    },
+    "ShopEquipmentProducts": {
+      "type": "checkbox",
+      "label": "勾选要购买的商品",
+      "default_case": [
+        "hammer"
+      ],
+      "cases": [
+        {
+          "name": "hammer",
+          "label": "强化锤",
+          "option": [
+            "ShopItem_hammer",
+            "ShopItem_hammerCurrency"
+          ]
+        },
+        {
+          "name": "equipment_other",
+          "label": "其它商品（填写名称）",
+          "option": [
+            "ShopItem_equipment_other",
+            "ShopItem_equipment_otherCurrency"
+          ]
         }
       ]
     }
