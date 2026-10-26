@@ -95,7 +95,7 @@
         "action": "Custom",
         "custom_action": "GT_ShopPurchase",
         "custom_action_param": {
-            "free_coins": true
+            "free_coins": false
         },
         "next": [
             "GT_Common_HubRoute"

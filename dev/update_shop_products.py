@@ -20,7 +20,8 @@ def product_option(product: dict, node: str, *, custom: bool = False) -> dict:
 
 
 def currency_option(key: str, currency: str, node: str) -> dict:
-    labels = {"gold": "金币", "diamond": "钻石（不含付费钻石）", "hero_crystal": "英雄水晶"}
+    labels = {"gold": "金币", "diamond": "钻石（不含付费钻石）",
+              "hero_crystal": "英雄水晶（暂未适配）", "star_piece": "星片"}
     return {"type": "select", "label": "购买货币", "default_case": currency, "cases": [
         {"name": value, "label": label,
          "pipeline_override": {node: {"custom_action_param": {key + "_currency": value}}}}
@@ -37,9 +38,11 @@ def update(interface: dict, products: list[dict]) -> None:
         custom = not product["name"]
         options[option] = product_option(product, node, custom=custom)
         options[option + "Currency"] = currency_option(key, product["currency"], node)
-        case = {"name": key, "label": "其它商品（填写名称）" if custom else product["label"], "option": [option, option + "Currency"]}
+        case = {"name": key, "label": "自定义商品（备用）" if custom else product["label"], "option": [option, option + "Currency"]}
         groups[category].append(case)
-    specs = [("资源", "ShopResourceProducts", "ShopResources", ["stamina"]),
+    groups["资源"].append({"name": "free_coins", "label": "金币（每日免费）",
+                          "pipeline_override": {"GT_Shop_PurchaseRun": {"custom_action_param": {"free_coins": True}}}})
+    specs = [("资源", "ShopResourceProducts", "ShopResources", ["free_coins"]),
              ("钻石商店", "ShopDiamondProducts", "ShopDiamonds", []),
              ("英雄成长", "ShopGrowthProducts", "ShopGrowth", ["legendary"]),
              ("装备", "ShopEquipmentProducts", "ShopEquipment", ["hammer"]),
@@ -49,6 +52,19 @@ def update(interface: dict, products: list[dict]) -> None:
         if parent:
             enabled = next(case for case in options[parent]["cases"] if case["name"] == "Yes")
             enabled["option"] = [name]
+    options["ShopResources"]["default_case"] = "Yes"
+    # The free coin checkbox now lives alongside stamina in the resource list.
+    for task in interface["task"]:
+        if task["entry"] == "GT_ShopPurchase":
+            task["option"] = [name for name in task["option"] if name != "ShopFree"]
+    options.pop("ShopFree", None)
+    # Drop stale generated entries from the abandoned bulk catalog.
+    valid_keys = {product["key"] for product in products + CUSTOM_PRODUCTS}
+    for name in list(options):
+        if name.startswith("ShopItem_"):
+            key = name[len("ShopItem_"):]
+            if key.endswith("Currency"): key = key[:-len("Currency")]
+            if key not in valid_keys: del options[name]
     for name, option in options.items():
         if name.startswith("ShopItem_"):
             if "inputs" in option:

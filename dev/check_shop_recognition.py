@@ -10,7 +10,7 @@ CASES = [
     ("GT_Test_Shop_gold", "02_stamina_detail.png", False),
     ("GT_Test_Shop_gold", "11_hammer_confirm.png", True),
     ("GT_Test_Shop_diamond", "11_hammer_confirm.png", False),
-    ("GT_Test_Shop_hero_crystal", "12_growth_confirm.png", True),
+    ("GT_Test_Shop_star_piece", "12_growth_confirm.png", True),
     ("GT_Test_ShopPaid", "14_paid_gem_negative.png", True),
     ("GT_Test_ShopPaid", "02_stamina_detail.png", False),
     ("GT_Test_ShopQuantity", "02_stamina_detail.png", True),

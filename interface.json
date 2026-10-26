@@ -57,9 +57,8 @@
       "entry": "GT_ShopPurchase",
       "label": "商店购买",
       "default_check": true,
-      "description": "默认领取免费金币。按商品设置购买次数和货币，次数为0时跳过；余额不足或缺货时停止购买。",
+      "description": "资源勾选体力、每日免费金币；英雄成长勾选传说觉醒石；装备勾选强化锤。购买只设置次数和货币，次数0跳过。",
       "option": [
-        "ShopFree",
         "ShopResources",
         "ShopDiamonds",
         "ShopGrowth",
@@ -946,35 +945,6 @@
         }
       ]
     },
-    "ShopFree": {
-      "type": "switch",
-      "label": "领取免费金币",
-      "default_case": "Yes",
-      "cases": [
-        {
-          "name": "Yes",
-          "label": "是",
-          "pipeline_override": {
-            "GT_Shop_PurchaseRun": {
-              "custom_action_param": {
-                "free_coins": true
-              }
-            }
-          }
-        },
-        {
-          "name": "No",
-          "label": "否",
-          "pipeline_override": {
-            "GT_Shop_PurchaseRun": {
-              "custom_action_param": {
-                "free_coins": false
-              }
-            }
-          }
-        }
-      ]
-    },
     "ShopItem_stamina": {
       "type": "input",
       "label": "储备体力",
@@ -998,7 +968,7 @@
     "ShopResources": {
       "type": "switch",
       "label": "资源购买",
-      "default_case": "No",
+      "default_case": "Yes",
       "cases": [
         {
           "name": "No",
@@ -1159,7 +1129,7 @@
         },
         {
           "name": "diamond_other",
-          "label": "其它商品（填写名称）",
+          "label": "自定义商品（备用）",
           "option": [
             "ShopItem_diamond_other",
             "ShopItem_diamond_otherCurrency"
@@ -1234,11 +1204,22 @@
         },
         {
           "name": "hero_crystal",
-          "label": "英雄水晶",
+          "label": "英雄水晶（暂未适配）",
           "pipeline_override": {
             "GT_Shop_PurchaseRun": {
               "custom_action_param": {
                 "legendary_currency": "hero_crystal"
+              }
+            }
+          }
+        },
+        {
+          "name": "star_piece",
+          "label": "星片",
+          "pipeline_override": {
+            "GT_Shop_PurchaseRun": {
+              "custom_action_param": {
+                "legendary_currency": "star_piece"
               }
             }
           }
@@ -1357,11 +1338,22 @@
         },
         {
           "name": "hero_crystal",
-          "label": "英雄水晶",
+          "label": "英雄水晶（暂未适配）",
           "pipeline_override": {
             "GT_EventShop_Run": {
               "custom_action_param": {
                 "event_currency": "hero_crystal"
+              }
+            }
+          }
+        },
+        {
+          "name": "star_piece",
+          "label": "星片",
+          "pipeline_override": {
+            "GT_EventShop_Run": {
+              "custom_action_param": {
+                "event_currency": "star_piece"
               }
             }
           }
@@ -1741,7 +1733,7 @@
         },
         {
           "name": "event",
-          "label": "其它商品（填写名称）",
+          "label": "自定义商品（备用）",
           "option": [
             "ShopItem_event",
             "ShopItem_eventCurrency"
@@ -1898,11 +1890,22 @@
         },
         {
           "name": "hero_crystal",
-          "label": "英雄水晶",
+          "label": "英雄水晶（暂未适配）",
           "pipeline_override": {
             "GT_Shop_PurchaseRun": {
               "custom_action_param": {
                 "stamina_currency": "hero_crystal"
+              }
+            }
+          }
+        },
+        {
+          "name": "star_piece",
+          "label": "星片",
+          "pipeline_override": {
+            "GT_Shop_PurchaseRun": {
+              "custom_action_param": {
+                "stamina_currency": "star_piece"
               }
             }
           }
@@ -1938,11 +1941,22 @@
         },
         {
           "name": "hero_crystal",
-          "label": "英雄水晶",
+          "label": "英雄水晶（暂未适配）",
           "pipeline_override": {
             "GT_Shop_PurchaseRun": {
               "custom_action_param": {
                 "green_currency": "hero_crystal"
+              }
+            }
+          }
+        },
+        {
+          "name": "star_piece",
+          "label": "星片",
+          "pipeline_override": {
+            "GT_Shop_PurchaseRun": {
+              "custom_action_param": {
+                "green_currency": "star_piece"
               }
             }
           }
@@ -1978,11 +1992,22 @@
         },
         {
           "name": "hero_crystal",
-          "label": "英雄水晶",
+          "label": "英雄水晶（暂未适配）",
           "pipeline_override": {
             "GT_Shop_PurchaseRun": {
               "custom_action_param": {
                 "yellow_currency": "hero_crystal"
+              }
+            }
+          }
+        },
+        {
+          "name": "star_piece",
+          "label": "星片",
+          "pipeline_override": {
+            "GT_Shop_PurchaseRun": {
+              "custom_action_param": {
+                "yellow_currency": "star_piece"
               }
             }
           }
@@ -2018,11 +2043,22 @@
         },
         {
           "name": "hero_crystal",
-          "label": "英雄水晶",
+          "label": "英雄水晶（暂未适配）",
           "pipeline_override": {
             "GT_Shop_PurchaseRun": {
               "custom_action_param": {
                 "hammer_currency": "hero_crystal"
+              }
+            }
+          }
+        },
+        {
+          "name": "star_piece",
+          "label": "星片",
+          "pipeline_override": {
+            "GT_Shop_PurchaseRun": {
+              "custom_action_param": {
+                "hammer_currency": "star_piece"
               }
             }
           }
@@ -2058,11 +2094,22 @@
         },
         {
           "name": "hero_crystal",
-          "label": "英雄水晶",
+          "label": "英雄水晶（暂未适配）",
           "pipeline_override": {
             "GT_Shop_PurchaseRun": {
               "custom_action_param": {
                 "diamond_refine_currency": "hero_crystal"
+              }
+            }
+          }
+        },
+        {
+          "name": "star_piece",
+          "label": "星片",
+          "pipeline_override": {
+            "GT_Shop_PurchaseRun": {
+              "custom_action_param": {
+                "diamond_refine_currency": "star_piece"
               }
             }
           }
@@ -2098,11 +2145,22 @@
         },
         {
           "name": "hero_crystal",
-          "label": "英雄水晶",
+          "label": "英雄水晶（暂未适配）",
           "pipeline_override": {
             "GT_Shop_PurchaseRun": {
               "custom_action_param": {
                 "diamond_crystal_currency": "hero_crystal"
+              }
+            }
+          }
+        },
+        {
+          "name": "star_piece",
+          "label": "星片",
+          "pipeline_override": {
+            "GT_Shop_PurchaseRun": {
+              "custom_action_param": {
+                "diamond_crystal_currency": "star_piece"
               }
             }
           }
@@ -2138,11 +2196,22 @@
         },
         {
           "name": "hero_crystal",
-          "label": "英雄水晶",
+          "label": "英雄水晶（暂未适配）",
           "pipeline_override": {
             "GT_Shop_PurchaseRun": {
               "custom_action_param": {
                 "diamond_star_currency": "hero_crystal"
+              }
+            }
+          }
+        },
+        {
+          "name": "star_piece",
+          "label": "星片",
+          "pipeline_override": {
+            "GT_Shop_PurchaseRun": {
+              "custom_action_param": {
+                "diamond_star_currency": "star_piece"
               }
             }
           }
@@ -2178,11 +2247,22 @@
         },
         {
           "name": "hero_crystal",
-          "label": "英雄水晶",
+          "label": "英雄水晶（暂未适配）",
           "pipeline_override": {
             "GT_Shop_PurchaseRun": {
               "custom_action_param": {
                 "diamond_dream_currency": "hero_crystal"
+              }
+            }
+          }
+        },
+        {
+          "name": "star_piece",
+          "label": "星片",
+          "pipeline_override": {
+            "GT_Shop_PurchaseRun": {
+              "custom_action_param": {
+                "diamond_dream_currency": "star_piece"
               }
             }
           }
@@ -2218,11 +2298,22 @@
         },
         {
           "name": "hero_crystal",
-          "label": "英雄水晶",
+          "label": "英雄水晶（暂未适配）",
           "pipeline_override": {
             "GT_Shop_PurchaseRun": {
               "custom_action_param": {
                 "diamond_hammer_currency": "hero_crystal"
+              }
+            }
+          }
+        },
+        {
+          "name": "star_piece",
+          "label": "星片",
+          "pipeline_override": {
+            "GT_Shop_PurchaseRun": {
+              "custom_action_param": {
+                "diamond_hammer_currency": "star_piece"
               }
             }
           }
@@ -2258,11 +2349,22 @@
         },
         {
           "name": "hero_crystal",
-          "label": "英雄水晶",
+          "label": "英雄水晶（暂未适配）",
           "pipeline_override": {
             "GT_Shop_PurchaseRun": {
               "custom_action_param": {
                 "diamond_experience_currency": "hero_crystal"
+              }
+            }
+          }
+        },
+        {
+          "name": "star_piece",
+          "label": "星片",
+          "pipeline_override": {
+            "GT_Shop_PurchaseRun": {
+              "custom_action_param": {
+                "diamond_experience_currency": "star_piece"
               }
             }
           }
@@ -2298,11 +2400,22 @@
         },
         {
           "name": "hero_crystal",
-          "label": "英雄水晶",
+          "label": "英雄水晶（暂未适配）",
           "pipeline_override": {
             "GT_Shop_PurchaseRun": {
               "custom_action_param": {
                 "diamond_awakening_box_currency": "hero_crystal"
+              }
+            }
+          }
+        },
+        {
+          "name": "star_piece",
+          "label": "星片",
+          "pipeline_override": {
+            "GT_Shop_PurchaseRun": {
+              "custom_action_param": {
+                "diamond_awakening_box_currency": "star_piece"
               }
             }
           }
@@ -2338,11 +2451,22 @@
         },
         {
           "name": "hero_crystal",
-          "label": "英雄水晶",
+          "label": "英雄水晶（暂未适配）",
           "pipeline_override": {
             "GT_EventShop_Run": {
               "custom_action_param": {
                 "event_coins_currency": "hero_crystal"
+              }
+            }
+          }
+        },
+        {
+          "name": "star_piece",
+          "label": "星片",
+          "pipeline_override": {
+            "GT_EventShop_Run": {
+              "custom_action_param": {
+                "event_coins_currency": "star_piece"
               }
             }
           }
@@ -2378,11 +2502,22 @@
         },
         {
           "name": "hero_crystal",
-          "label": "英雄水晶",
+          "label": "英雄水晶（暂未适配）",
           "pipeline_override": {
             "GT_EventShop_Run": {
               "custom_action_param": {
                 "event_coffee_currency": "hero_crystal"
+              }
+            }
+          }
+        },
+        {
+          "name": "star_piece",
+          "label": "星片",
+          "pipeline_override": {
+            "GT_EventShop_Run": {
+              "custom_action_param": {
+                "event_coffee_currency": "star_piece"
               }
             }
           }
@@ -2418,11 +2553,22 @@
         },
         {
           "name": "hero_crystal",
-          "label": "英雄水晶",
+          "label": "英雄水晶（暂未适配）",
           "pipeline_override": {
             "GT_EventShop_Run": {
               "custom_action_param": {
                 "event_yellow_currency": "hero_crystal"
+              }
+            }
+          }
+        },
+        {
+          "name": "star_piece",
+          "label": "星片",
+          "pipeline_override": {
+            "GT_EventShop_Run": {
+              "custom_action_param": {
+                "event_yellow_currency": "star_piece"
               }
             }
           }
@@ -2458,11 +2604,22 @@
         },
         {
           "name": "hero_crystal",
-          "label": "英雄水晶",
+          "label": "英雄水晶（暂未适配）",
           "pipeline_override": {
             "GT_EventShop_Run": {
               "custom_action_param": {
                 "event_hero_box_currency": "hero_crystal"
+              }
+            }
+          }
+        },
+        {
+          "name": "star_piece",
+          "label": "星片",
+          "pipeline_override": {
+            "GT_EventShop_Run": {
+              "custom_action_param": {
+                "event_hero_box_currency": "star_piece"
               }
             }
           }
@@ -2498,11 +2655,22 @@
         },
         {
           "name": "hero_crystal",
-          "label": "英雄水晶",
+          "label": "英雄水晶（暂未适配）",
           "pipeline_override": {
             "GT_EventShop_Run": {
               "custom_action_param": {
                 "event_magic_box_currency": "hero_crystal"
+              }
+            }
+          }
+        },
+        {
+          "name": "star_piece",
+          "label": "星片",
+          "pipeline_override": {
+            "GT_EventShop_Run": {
+              "custom_action_param": {
+                "event_magic_box_currency": "star_piece"
               }
             }
           }
@@ -2538,11 +2706,22 @@
         },
         {
           "name": "hero_crystal",
-          "label": "英雄水晶",
+          "label": "英雄水晶（暂未适配）",
           "pipeline_override": {
             "GT_EventShop_Run": {
               "custom_action_param": {
                 "event_blessing_currency": "hero_crystal"
+              }
+            }
+          }
+        },
+        {
+          "name": "star_piece",
+          "label": "星片",
+          "pipeline_override": {
+            "GT_EventShop_Run": {
+              "custom_action_param": {
+                "event_blessing_currency": "star_piece"
               }
             }
           }
@@ -2578,11 +2757,22 @@
         },
         {
           "name": "hero_crystal",
-          "label": "英雄水晶",
+          "label": "英雄水晶（暂未适配）",
           "pipeline_override": {
             "GT_EventShop_Run": {
               "custom_action_param": {
                 "event_awakening_box_currency": "hero_crystal"
+              }
+            }
+          }
+        },
+        {
+          "name": "star_piece",
+          "label": "星片",
+          "pipeline_override": {
+            "GT_EventShop_Run": {
+              "custom_action_param": {
+                "event_awakening_box_currency": "star_piece"
               }
             }
           }
@@ -2618,11 +2808,22 @@
         },
         {
           "name": "hero_crystal",
-          "label": "英雄水晶",
+          "label": "英雄水晶（暂未适配）",
           "pipeline_override": {
             "GT_EventShop_Run": {
               "custom_action_param": {
                 "event_refine_currency": "hero_crystal"
+              }
+            }
+          }
+        },
+        {
+          "name": "star_piece",
+          "label": "星片",
+          "pipeline_override": {
+            "GT_EventShop_Run": {
+              "custom_action_param": {
+                "event_refine_currency": "star_piece"
               }
             }
           }
@@ -2658,11 +2859,22 @@
         },
         {
           "name": "hero_crystal",
-          "label": "英雄水晶",
+          "label": "英雄水晶（暂未适配）",
           "pipeline_override": {
             "GT_EventShop_Run": {
               "custom_action_param": {
                 "event_lock_currency": "hero_crystal"
+              }
+            }
+          }
+        },
+        {
+          "name": "star_piece",
+          "label": "星片",
+          "pipeline_override": {
+            "GT_EventShop_Run": {
+              "custom_action_param": {
+                "event_lock_currency": "star_piece"
               }
             }
           }
@@ -2698,7 +2910,7 @@
         },
         {
           "name": "hero_crystal",
-          "label": "英雄水晶",
+          "label": "英雄水晶（暂未适配）",
           "pipeline_override": {
             "GT_Shop_PurchaseRun": {
               "custom_action_param": {
@@ -2706,204 +2918,14 @@
               }
             }
           }
-        }
-      ]
-    },
-    "ShopItem_resource_other": {
-      "type": "input",
-      "label": "资源其它商品",
-      "inputs": [
-        {
-          "name": "name",
-          "label": "商品名称（与游戏显示一致）",
-          "default": "",
-          "verify": "^.{1,40}$"
         },
         {
-          "name": "count",
-          "label": "购买次数（0为跳过）",
-          "default": "0",
-          "pipeline_type": "int",
-          "verify": "^(?:[0-9]|[1-9][0-9]|100)$"
-        }
-      ],
-      "pipeline_override": {
-        "GT_Shop_PurchaseRun": {
-          "custom_action_param": {
-            "resource_other_count": "{count}",
-            "resource_other_name": "{name}"
-          }
-        }
-      }
-    },
-    "ShopItem_resource_otherCurrency": {
-      "type": "select",
-      "label": "购买货币",
-      "default_case": "diamond",
-      "cases": [
-        {
-          "name": "gold",
-          "label": "金币",
+          "name": "star_piece",
+          "label": "星片",
           "pipeline_override": {
             "GT_Shop_PurchaseRun": {
               "custom_action_param": {
-                "resource_other_currency": "gold"
-              }
-            }
-          }
-        },
-        {
-          "name": "diamond",
-          "label": "钻石（不含付费钻石）",
-          "pipeline_override": {
-            "GT_Shop_PurchaseRun": {
-              "custom_action_param": {
-                "resource_other_currency": "diamond"
-              }
-            }
-          }
-        },
-        {
-          "name": "hero_crystal",
-          "label": "英雄水晶",
-          "pipeline_override": {
-            "GT_Shop_PurchaseRun": {
-              "custom_action_param": {
-                "resource_other_currency": "hero_crystal"
-              }
-            }
-          }
-        }
-      ]
-    },
-    "ShopItem_growth_other": {
-      "type": "input",
-      "label": "英雄成长其它商品",
-      "inputs": [
-        {
-          "name": "name",
-          "label": "商品名称（与游戏显示一致）",
-          "default": "",
-          "verify": "^.{1,40}$"
-        },
-        {
-          "name": "count",
-          "label": "购买次数（0为跳过）",
-          "default": "0",
-          "pipeline_type": "int",
-          "verify": "^(?:[0-9]|[1-9][0-9]|100)$"
-        }
-      ],
-      "pipeline_override": {
-        "GT_Shop_PurchaseRun": {
-          "custom_action_param": {
-            "growth_other_count": "{count}",
-            "growth_other_name": "{name}"
-          }
-        }
-      }
-    },
-    "ShopItem_growth_otherCurrency": {
-      "type": "select",
-      "label": "购买货币",
-      "default_case": "gold",
-      "cases": [
-        {
-          "name": "gold",
-          "label": "金币",
-          "pipeline_override": {
-            "GT_Shop_PurchaseRun": {
-              "custom_action_param": {
-                "growth_other_currency": "gold"
-              }
-            }
-          }
-        },
-        {
-          "name": "diamond",
-          "label": "钻石（不含付费钻石）",
-          "pipeline_override": {
-            "GT_Shop_PurchaseRun": {
-              "custom_action_param": {
-                "growth_other_currency": "diamond"
-              }
-            }
-          }
-        },
-        {
-          "name": "hero_crystal",
-          "label": "英雄水晶",
-          "pipeline_override": {
-            "GT_Shop_PurchaseRun": {
-              "custom_action_param": {
-                "growth_other_currency": "hero_crystal"
-              }
-            }
-          }
-        }
-      ]
-    },
-    "ShopItem_equipment_other": {
-      "type": "input",
-      "label": "装备其它商品",
-      "inputs": [
-        {
-          "name": "name",
-          "label": "商品名称（与游戏显示一致）",
-          "default": "",
-          "verify": "^.{1,40}$"
-        },
-        {
-          "name": "count",
-          "label": "购买次数（0为跳过）",
-          "default": "0",
-          "pipeline_type": "int",
-          "verify": "^(?:[0-9]|[1-9][0-9]|100)$"
-        }
-      ],
-      "pipeline_override": {
-        "GT_Shop_PurchaseRun": {
-          "custom_action_param": {
-            "equipment_other_count": "{count}",
-            "equipment_other_name": "{name}"
-          }
-        }
-      }
-    },
-    "ShopItem_equipment_otherCurrency": {
-      "type": "select",
-      "label": "购买货币",
-      "default_case": "gold",
-      "cases": [
-        {
-          "name": "gold",
-          "label": "金币",
-          "pipeline_override": {
-            "GT_Shop_PurchaseRun": {
-              "custom_action_param": {
-                "equipment_other_currency": "gold"
-              }
-            }
-          }
-        },
-        {
-          "name": "diamond",
-          "label": "钻石（不含付费钻石）",
-          "pipeline_override": {
-            "GT_Shop_PurchaseRun": {
-              "custom_action_param": {
-                "equipment_other_currency": "diamond"
-              }
-            }
-          }
-        },
-        {
-          "name": "hero_crystal",
-          "label": "英雄水晶",
-          "pipeline_override": {
-            "GT_Shop_PurchaseRun": {
-              "custom_action_param": {
-                "equipment_other_currency": "hero_crystal"
+                "diamond_other_currency": "star_piece"
               }
             }
           }
@@ -2914,7 +2936,7 @@
       "type": "checkbox",
       "label": "勾选要购买的商品",
       "default_case": [
-        "stamina"
+        "free_coins"
       ],
       "cases": [
         {
@@ -2926,12 +2948,15 @@
           ]
         },
         {
-          "name": "resource_other",
-          "label": "其它商品（填写名称）",
-          "option": [
-            "ShopItem_resource_other",
-            "ShopItem_resource_otherCurrency"
-          ]
+          "name": "free_coins",
+          "label": "金币（每日免费）",
+          "pipeline_override": {
+            "GT_Shop_PurchaseRun": {
+              "custom_action_param": {
+                "free_coins": true
+              }
+            }
+          }
         }
       ]
     },
@@ -2949,14 +2974,6 @@
             "ShopItem_legendary",
             "ShopItem_legendaryCurrency"
           ]
-        },
-        {
-          "name": "growth_other",
-          "label": "其它商品（填写名称）",
-          "option": [
-            "ShopItem_growth_other",
-            "ShopItem_growth_otherCurrency"
-          ]
         }
       ]
     },
@@ -2973,14 +2990,6 @@
           "option": [
             "ShopItem_hammer",
             "ShopItem_hammerCurrency"
-          ]
-        },
-        {
-          "name": "equipment_other",
-          "label": "其它商品（填写名称）",
-          "option": [
-            "ShopItem_equipment_other",
-            "ShopItem_equipment_otherCurrency"
           ]
         }
       ]

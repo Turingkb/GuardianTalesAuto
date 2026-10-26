@@ -21,17 +21,6 @@
     ],
     "threshold": 0.94
   },
-  "GT_Test_Shop_hero_crystal": {
-    "recognition": "TemplateMatch",
-    "template": "shop_currency_hero_crystal.png",
-    "roi": [
-      686,
-      544,
-      72,
-      105
-    ],
-    "threshold": 0.94
-  },
   "GT_Test_ShopPaid": {
     "recognition": "OCR",
     "expected": [
@@ -78,5 +67,16 @@
       44
     ],
     "threshold": 0.7
+  },
+  "GT_Test_Shop_star_piece": {
+    "recognition": "TemplateMatch",
+    "template": "shop_currency_star_piece.png",
+    "roi": [
+      686,
+      544,
+      72,
+      105
+    ],
+    "threshold": 0.94
   }
 }

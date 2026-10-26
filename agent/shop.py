@@ -46,7 +46,7 @@ def plans(params: dict, *, event_only: bool | None = None) -> list[Product]:
         currency = params.get(key + "_currency", currency)
         if not name or len(name) > 40 or re.search("召唤|抽卡|付费|人民币|礼包", name):
             raise ValueError(f"Unsupported product name: {name!r}")
-        if currency not in ("gold", "diamond", "hero_crystal"):
+        if currency not in ("gold", "diamond", "star_piece"):
             raise ValueError("Unsupported shop currency")
         result.append(Product(key, category, name, currency, count))
     return result
@@ -173,7 +173,7 @@ def inspect_purchase(screen: Screen, product: Product) -> tuple[int, tuple[int, 
 
 
 def balance(screen: Screen, currency: str) -> int:
-    rois = {"gold": [745, 16, 112, 38], "diamond": [940, 15, 90, 42], "hero_crystal": [1150, 75, 70, 35]}
+    rois = {"gold": [745, 16, 112, 38], "diamond": [940, 15, 90, 42], "star_piece": [1150, 75, 70, 35]}
     return number(screen.text(rois[currency]))
 
 
@@ -225,7 +225,7 @@ def purchase(screen: Screen, product: Product, preview: bool) -> None:
 def shop_purchase(screen: Screen, params: dict, *, event_only: bool = False) -> bool:
     products = plans(params, event_only=event_only)
     preview = params.get("preview_only", False)
-    free = params.get("free_coins", not event_only)
+    free = params.get("free_coins", False)
     if type(preview) is not bool or type(free) is not bool:
         raise ValueError("Shop switches must be boolean")
     if free and not event_only:

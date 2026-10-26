@@ -406,20 +406,6 @@
     ]
   },
   {
-    "template": "shop_currency_hero_crystal.png",
-    "source": "dev/2026-10-15/screenshots/12_growth_confirm.png",
-    "box_xyxy": [
-      718,
-      598,
-      746,
-      625
-    ],
-    "size": [
-      28,
-      27
-    ]
-  },
-  {
     "template": "shop_quantity_minus.png",
     "source": "dev/2026-10-15/screenshots/02_stamina_detail.png",
     "box_xyxy": [
@@ -530,5 +516,20 @@
       43,
       43
     ]
+  },
+  {
+    "template": "shop_currency_star_piece.png",
+    "source": "dev/2026-10-15/screenshots/12_growth_confirm.png",
+    "box_xyxy": [
+      718,
+      598,
+      746,
+      625
+    ],
+    "size": [
+      28,
+      27
+    ],
+    "note": "游戏实机确认黄色六角货币为星片；旧英雄水晶命名有误。"
   }
 ]

@@ -27,15 +27,15 @@ class FlowerScreen:
 
 
 class FeatureTests(unittest.TestCase):
-    def test_other_items_are_supported_in_every_shop_category(self):
+    def test_custom_items_remain_only_in_diamond_and_event_shops(self):
         params = {}
         for index, definition in enumerate(shop.CUSTOM_PRODUCTS):
             key = definition["key"]
             params.update({key + "_name": f"自选商品{index}", key + "_count": 2, key + "_currency": "gold"})
         products = shop.plans(params)
-        self.assertEqual({p.category for p in products}, {"资源", "钻石商店", "英雄成长", "装备", "活动商店"})
+        self.assertEqual({p.category for p in products}, {"钻石商店", "活动商店"})
         self.assertTrue(all(p.count == 2 and p.currency == "gold" for p in products))
-        self.assertEqual(len(shop.plans(params, event_only=False)), 4)
+        self.assertEqual(len(shop.plans(params, event_only=False)), 1)
         self.assertEqual(len(shop.plans(params, event_only=True)), 1)
 
     def test_other_items_reject_empty_and_summon_names_in_every_category(self):
@@ -45,15 +45,28 @@ class FeatureTests(unittest.TestCase):
                 with self.subTest(key=key, name=name), self.assertRaises(ValueError):
                     shop.plans({key + "_name": name, key + "_count": 1})
 
-    def test_every_category_exposes_other_items_without_enabling_them(self):
+    def test_specified_categories_only_expose_requested_goods(self):
         interface = json.loads((ROOT / "interface.json").read_text(encoding="utf-8"))
         options = interface["option"]
-        for group in ("ShopResourceProducts", "ShopDiamondProducts", "ShopGrowthProducts", "ShopEquipmentProducts", "EventShopProducts"):
+        expected = {"ShopResourceProducts": ["stamina", "free_coins"],
+                    "ShopGrowthProducts": ["legendary"], "ShopEquipmentProducts": ["hammer"]}
+        for group, keys in expected.items():
+            self.assertEqual([case["name"] for case in options[group]["cases"]], keys)
+        self.assertNotIn("ShopFree", next(task["option"] for task in interface["task"] if task["entry"] == "GT_ShopPurchase"))
+        for group in ("ShopDiamondProducts", "EventShopProducts"):
             custom = [case for case in options[group]["cases"] if case["name"] in {p["key"] for p in shop.CUSTOM_PRODUCTS}]
             self.assertEqual(len(custom), 1)
             self.assertNotIn(custom[0]["name"], options[group]["default_case"])
             fields = options[custom[0]["option"][0]]["inputs"]
             self.assertEqual([field["name"] for field in fields], ["name", "count"])
+
+    def test_free_coins_require_their_checkbox_parameter(self):
+        screen = FlowerScreen()
+        with patch.object(shop, "select_category", return_value=True) as select, patch.object(shop, "purchase") as purchase:
+            shop.shop_purchase(screen, {})
+            select.assert_not_called()
+            shop.shop_purchase(screen, {"free_coins": True})
+            self.assertEqual(purchase.call_args.args[1].currency, "free")
 
     def test_regular_and_event_shops_have_separate_plans(self):
         params = {"stamina_count": 1, "event_coffee_count": 1}
