@@ -25,7 +25,8 @@ class PurchaseDialog:
     def text(self, roi):
         if roi == [435, 270, 410, 80]: return self.name
         if roi == [660, 587, 200, 48]: return self.label
-        if roi == [746, 590, 100, 42]: return self.price
+        if roi == [746, 590, 100, 42]: return ".5.000" if self.price == "15,000" else self.price
+        if roi == [730, 590, 116, 42]: return self.price
         if roi == [375, 460, 548, 39]: return self.quantity
         return "16889"
     def has(self, roi, expected): return True
@@ -86,6 +87,11 @@ class ShopGuards(unittest.TestCase):
 
     def test_read_valid_price(self):
         self.assertEqual(shop.inspect_purchase(PurchaseDialog(), self.product), (100, (752, 611)))
+
+    def test_five_digit_price_retains_its_leading_digit(self):
+        product = shop.Product("legendary", "英雄成长", "传说中的觉醒石", "gold", 3)
+        screen = PurchaseDialog(price="15,000", label="15,000", name=product.name)
+        self.assertEqual(shop.inspect_purchase(screen, product), (15000, (752, 611)))
 
     def test_reject_cash_paid_gems_unknown_price_and_quantity(self):
         for kwargs in [{"label": "付费100"}, {"label": "￥6"}, {"price": "1O0"}, {"price": "0"},

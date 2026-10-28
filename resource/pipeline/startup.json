@@ -50,15 +50,43 @@
     "recognition": "And",
     "all_of": [
       {
-        "recognition": "TemplateMatch",
-        "template": "hub_nav_left.png",
-        "roi": [
-          0,
-          600,
-          420,
-          120
+        "recognition": "OCR",
+        "expected": [
+          "^英雄$"
         ],
-        "threshold": 0.8
+        "roi": [
+          108,
+          672,
+          80,
+          35
+        ],
+        "threshold": 0.7
+      },
+      {
+        "recognition": "OCR",
+        "expected": [
+          "^公会$"
+        ],
+        "roi": [
+          194,
+          672,
+          80,
+          35
+        ],
+        "threshold": 0.7
+      },
+      {
+        "recognition": "OCR",
+        "expected": [
+          "^商店$"
+        ],
+        "roi": [
+          280,
+          672,
+          80,
+          35
+        ],
+        "threshold": 0.7
       },
       {
         "recognition": "ColorMatch",

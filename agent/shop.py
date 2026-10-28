@@ -162,7 +162,9 @@ def inspect_purchase(screen: Screen, product: Product) -> tuple[int, tuple[int, 
     if not any(screen.recognize("TemplateMatch", {"template": template, "roi": [686, y - 24, 72, 48],
                                                    "threshold": 0.94}) for template in templates):
         raise RuntimeError("Purchase currency does not match configured currency")
-    price = number(screen.text([746, y - 21, 100, 42]))
+    # Five-digit prices start farther left than 5,000; exclude the currency
+    # icon while retaining the leading digit of 15,000.
+    price = number(screen.text([730, y - 21, 116, 42]))
     if not price:
         raise RuntimeError("Paid item has an unexpected zero price")
     slider = screen.recognize("TemplateMatch", {"template": "shop_quantity_minus.png",
@@ -199,6 +201,7 @@ def purchase(screen: Screen, product: Product, preview: bool) -> None:
         before = balance(screen, product.currency) if product.currency != "free" else None
         screen.tap(*location, 0.5)
         screen.capture()
+        screen.save("shop-open-dialog")
         try:
             price, target = inspect_purchase(screen, product)
             if before is not None and price > before:

@@ -8,6 +8,7 @@ import sys
 
 CASES = [
     ("GT_StartUp_HubReady", "17_clean_hub.png", True),
+    ("GT_StartUp_HubReady", "seasonal_hub_20261028.png", True),
     ("GT_StartUp_HubReady", "21_signin.png", False),
     ("GT_StartUp_HubReady", "52_free_dialog.png", False),
     ("GT_StartUp_HubReady", "26_missions.png", False),
