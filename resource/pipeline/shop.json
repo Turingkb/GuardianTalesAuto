@@ -95,6 +95,7 @@
         "action": "Custom",
         "custom_action": "GT_ShopPurchase",
         "custom_action_param": {
+            "read_settings": true,
             "free_coins": false
         },
         "next": [
@@ -130,6 +131,7 @@
         "action": "Custom",
         "custom_action": "GT_EventShopPurchase",
         "custom_action_param": {
+            "read_settings": true,
             "free_coins": false
         },
         "next": [

@@ -1,0 +1,352 @@
+{
+  "GT_Shop_PurchaseRun_stamina_count": {
+    "action": "Custom",
+    "custom_action": "GT_ShopPurchase",
+    "custom_action_param": {
+      "stamina_count": 0
+    }
+  },
+  "GT_Shop_PurchaseRun_stamina_currency": {
+    "action": "Custom",
+    "custom_action": "GT_ShopPurchase",
+    "custom_action_param": {
+      "stamina_currency": "diamond"
+    }
+  },
+  "GT_Shop_PurchaseRun_green_count": {
+    "action": "Custom",
+    "custom_action": "GT_ShopPurchase",
+    "custom_action_param": {
+      "green_count": 0
+    }
+  },
+  "GT_Shop_PurchaseRun_green_currency": {
+    "action": "Custom",
+    "custom_action": "GT_ShopPurchase",
+    "custom_action_param": {
+      "green_currency": "diamond"
+    }
+  },
+  "GT_Shop_PurchaseRun_yellow_count": {
+    "action": "Custom",
+    "custom_action": "GT_ShopPurchase",
+    "custom_action_param": {
+      "yellow_count": 0
+    }
+  },
+  "GT_Shop_PurchaseRun_yellow_currency": {
+    "action": "Custom",
+    "custom_action": "GT_ShopPurchase",
+    "custom_action_param": {
+      "yellow_currency": "diamond"
+    }
+  },
+  "GT_Shop_PurchaseRun_legendary_count": {
+    "action": "Custom",
+    "custom_action": "GT_ShopPurchase",
+    "custom_action_param": {
+      "legendary_count": 0
+    }
+  },
+  "GT_Shop_PurchaseRun_legendary_currency": {
+    "action": "Custom",
+    "custom_action": "GT_ShopPurchase",
+    "custom_action_param": {
+      "legendary_currency": "gold"
+    }
+  },
+  "GT_Shop_PurchaseRun_hammer_count": {
+    "action": "Custom",
+    "custom_action": "GT_ShopPurchase",
+    "custom_action_param": {
+      "hammer_count": 0
+    }
+  },
+  "GT_Shop_PurchaseRun_hammer_currency": {
+    "action": "Custom",
+    "custom_action": "GT_ShopPurchase",
+    "custom_action_param": {
+      "hammer_currency": "gold"
+    }
+  },
+  "GT_Shop_PurchaseRun_diamond_refine_count": {
+    "action": "Custom",
+    "custom_action": "GT_ShopPurchase",
+    "custom_action_param": {
+      "diamond_refine_count": 0
+    }
+  },
+  "GT_Shop_PurchaseRun_diamond_refine_currency": {
+    "action": "Custom",
+    "custom_action": "GT_ShopPurchase",
+    "custom_action_param": {
+      "diamond_refine_currency": "diamond"
+    }
+  },
+  "GT_Shop_PurchaseRun_diamond_crystal_count": {
+    "action": "Custom",
+    "custom_action": "GT_ShopPurchase",
+    "custom_action_param": {
+      "diamond_crystal_count": 0
+    }
+  },
+  "GT_Shop_PurchaseRun_diamond_crystal_currency": {
+    "action": "Custom",
+    "custom_action": "GT_ShopPurchase",
+    "custom_action_param": {
+      "diamond_crystal_currency": "diamond"
+    }
+  },
+  "GT_Shop_PurchaseRun_diamond_star_count": {
+    "action": "Custom",
+    "custom_action": "GT_ShopPurchase",
+    "custom_action_param": {
+      "diamond_star_count": 0
+    }
+  },
+  "GT_Shop_PurchaseRun_diamond_star_currency": {
+    "action": "Custom",
+    "custom_action": "GT_ShopPurchase",
+    "custom_action_param": {
+      "diamond_star_currency": "diamond"
+    }
+  },
+  "GT_Shop_PurchaseRun_diamond_dream_count": {
+    "action": "Custom",
+    "custom_action": "GT_ShopPurchase",
+    "custom_action_param": {
+      "diamond_dream_count": 0
+    }
+  },
+  "GT_Shop_PurchaseRun_diamond_dream_currency": {
+    "action": "Custom",
+    "custom_action": "GT_ShopPurchase",
+    "custom_action_param": {
+      "diamond_dream_currency": "diamond"
+    }
+  },
+  "GT_Shop_PurchaseRun_diamond_hammer_count": {
+    "action": "Custom",
+    "custom_action": "GT_ShopPurchase",
+    "custom_action_param": {
+      "diamond_hammer_count": 0
+    }
+  },
+  "GT_Shop_PurchaseRun_diamond_hammer_currency": {
+    "action": "Custom",
+    "custom_action": "GT_ShopPurchase",
+    "custom_action_param": {
+      "diamond_hammer_currency": "diamond"
+    }
+  },
+  "GT_Shop_PurchaseRun_diamond_experience_count": {
+    "action": "Custom",
+    "custom_action": "GT_ShopPurchase",
+    "custom_action_param": {
+      "diamond_experience_count": 0
+    }
+  },
+  "GT_Shop_PurchaseRun_diamond_experience_currency": {
+    "action": "Custom",
+    "custom_action": "GT_ShopPurchase",
+    "custom_action_param": {
+      "diamond_experience_currency": "diamond"
+    }
+  },
+  "GT_Shop_PurchaseRun_diamond_awakening_box_count": {
+    "action": "Custom",
+    "custom_action": "GT_ShopPurchase",
+    "custom_action_param": {
+      "diamond_awakening_box_count": 0
+    }
+  },
+  "GT_Shop_PurchaseRun_diamond_awakening_box_currency": {
+    "action": "Custom",
+    "custom_action": "GT_ShopPurchase",
+    "custom_action_param": {
+      "diamond_awakening_box_currency": "diamond"
+    }
+  },
+  "GT_EventShop_Run_event_coins_count": {
+    "action": "Custom",
+    "custom_action": "GT_ShopPurchase",
+    "custom_action_param": {
+      "event_coins_count": 0
+    }
+  },
+  "GT_EventShop_Run_event_coins_currency": {
+    "action": "Custom",
+    "custom_action": "GT_ShopPurchase",
+    "custom_action_param": {
+      "event_coins_currency": "diamond"
+    }
+  },
+  "GT_EventShop_Run_event_coffee_count": {
+    "action": "Custom",
+    "custom_action": "GT_ShopPurchase",
+    "custom_action_param": {
+      "event_coffee_count": 0
+    }
+  },
+  "GT_EventShop_Run_event_coffee_currency": {
+    "action": "Custom",
+    "custom_action": "GT_ShopPurchase",
+    "custom_action_param": {
+      "event_coffee_currency": "diamond"
+    }
+  },
+  "GT_EventShop_Run_event_yellow_count": {
+    "action": "Custom",
+    "custom_action": "GT_ShopPurchase",
+    "custom_action_param": {
+      "event_yellow_count": 0
+    }
+  },
+  "GT_EventShop_Run_event_yellow_currency": {
+    "action": "Custom",
+    "custom_action": "GT_ShopPurchase",
+    "custom_action_param": {
+      "event_yellow_currency": "diamond"
+    }
+  },
+  "GT_EventShop_Run_event_hero_box_count": {
+    "action": "Custom",
+    "custom_action": "GT_ShopPurchase",
+    "custom_action_param": {
+      "event_hero_box_count": 0
+    }
+  },
+  "GT_EventShop_Run_event_hero_box_currency": {
+    "action": "Custom",
+    "custom_action": "GT_ShopPurchase",
+    "custom_action_param": {
+      "event_hero_box_currency": "diamond"
+    }
+  },
+  "GT_EventShop_Run_event_magic_box_count": {
+    "action": "Custom",
+    "custom_action": "GT_ShopPurchase",
+    "custom_action_param": {
+      "event_magic_box_count": 0
+    }
+  },
+  "GT_EventShop_Run_event_magic_box_currency": {
+    "action": "Custom",
+    "custom_action": "GT_ShopPurchase",
+    "custom_action_param": {
+      "event_magic_box_currency": "diamond"
+    }
+  },
+  "GT_EventShop_Run_event_blessing_count": {
+    "action": "Custom",
+    "custom_action": "GT_ShopPurchase",
+    "custom_action_param": {
+      "event_blessing_count": 0
+    }
+  },
+  "GT_EventShop_Run_event_blessing_currency": {
+    "action": "Custom",
+    "custom_action": "GT_ShopPurchase",
+    "custom_action_param": {
+      "event_blessing_currency": "diamond"
+    }
+  },
+  "GT_EventShop_Run_event_awakening_box_count": {
+    "action": "Custom",
+    "custom_action": "GT_ShopPurchase",
+    "custom_action_param": {
+      "event_awakening_box_count": 0
+    }
+  },
+  "GT_EventShop_Run_event_awakening_box_currency": {
+    "action": "Custom",
+    "custom_action": "GT_ShopPurchase",
+    "custom_action_param": {
+      "event_awakening_box_currency": "diamond"
+    }
+  },
+  "GT_EventShop_Run_event_refine_count": {
+    "action": "Custom",
+    "custom_action": "GT_ShopPurchase",
+    "custom_action_param": {
+      "event_refine_count": 0
+    }
+  },
+  "GT_EventShop_Run_event_refine_currency": {
+    "action": "Custom",
+    "custom_action": "GT_ShopPurchase",
+    "custom_action_param": {
+      "event_refine_currency": "diamond"
+    }
+  },
+  "GT_EventShop_Run_event_lock_count": {
+    "action": "Custom",
+    "custom_action": "GT_ShopPurchase",
+    "custom_action_param": {
+      "event_lock_count": 0
+    }
+  },
+  "GT_EventShop_Run_event_lock_currency": {
+    "action": "Custom",
+    "custom_action": "GT_ShopPurchase",
+    "custom_action_param": {
+      "event_lock_currency": "diamond"
+    }
+  },
+  "GT_Shop_PurchaseRun_diamond_other_count": {
+    "action": "Custom",
+    "custom_action": "GT_ShopPurchase",
+    "custom_action_param": {
+      "diamond_other_count": 0
+    }
+  },
+  "GT_Shop_PurchaseRun_diamond_other_currency": {
+    "action": "Custom",
+    "custom_action": "GT_ShopPurchase",
+    "custom_action_param": {
+      "diamond_other_currency": "diamond"
+    }
+  },
+  "GT_Shop_PurchaseRun_diamond_other_name": {
+    "action": "Custom",
+    "custom_action": "GT_ShopPurchase",
+    "custom_action_param": {
+      "diamond_other_name": ""
+    }
+  },
+  "GT_EventShop_Run_event_count": {
+    "action": "Custom",
+    "custom_action": "GT_ShopPurchase",
+    "custom_action_param": {
+      "event_count": 0
+    }
+  },
+  "GT_EventShop_Run_event_currency": {
+    "action": "Custom",
+    "custom_action": "GT_ShopPurchase",
+    "custom_action_param": {
+      "event_currency": "diamond"
+    }
+  },
+  "GT_EventShop_Run_event_name": {
+    "action": "Custom",
+    "custom_action": "GT_ShopPurchase",
+    "custom_action_param": {
+      "event_name": ""
+    }
+  },
+  "GT_Shop_PurchaseRun_free_coins": {
+    "action": "Custom",
+    "custom_action": "GT_ShopPurchase",
+    "custom_action_param": {
+      "free_coins": false
+    }
+  },
+  "GT_EventShop_Run_free_coins": {
+    "action": "Custom",
+    "custom_action": "GT_ShopPurchase",
+    "custom_action_param": {
+      "free_coins": false
+    }
+  }
+}

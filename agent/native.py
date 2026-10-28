@@ -27,6 +27,7 @@ class Native:
         self.fw = ct.CDLL(str(runtime / "MaaFramework.dll"))
         p, s, n = ct.c_void_p, ct.c_char_p, ct.c_int64
         self.context_tasker = self.bind("MaaContextGetTasker", p, p)
+        self.context_node_data = self.bind("MaaContextGetNodeData", ct.c_uint8, p, s, p)
         self.controller = self.bind("MaaTaskerGetController", p, p)
         self.stopping = self.bind("MaaTaskerStopping", ct.c_uint8, p)
         self.post_capture = self.bind("MaaControllerPostScreencap", n, p)
@@ -69,6 +70,15 @@ class Screen:
         if self.image:
             self.native.destroy_image(self.image)
             self.image = None
+
+    def node_data(self, name: str) -> dict:
+        buffer = self.native.create_string()
+        try:
+            if not self.native.context_node_data(self.context, name.encode(), buffer):
+                raise RuntimeError(f"Cannot read task setting: {name}")
+            return json.loads(self.native.read_string(buffer))
+        finally:
+            self.native.destroy_string(buffer)
 
     def check_cancelled(self):
         if self.native.stopping(self.tasker):

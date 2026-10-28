@@ -98,7 +98,7 @@ class FeatureTests(unittest.TestCase):
                 option = options[child]
                 for source in [option] + option.get("cases", []):
                     for node in source.get("pipeline_override", {}):
-                        self.assertEqual(node, "GT_EventShop_Run")
+                        self.assertTrue(node.startswith("GT_EventShop_Run_"))
 
     def test_main_list_removes_duplicate_manual_entries(self):
         interface = json.loads((ROOT / "interface.json").read_text(encoding="utf-8"))

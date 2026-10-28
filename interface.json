@@ -958,7 +958,7 @@
         }
       ],
       "pipeline_override": {
-        "GT_Shop_PurchaseRun": {
+        "GT_Shop_PurchaseRun_stamina_count": {
           "custom_action_param": {
             "stamina_count": "{count}"
           }
@@ -996,7 +996,7 @@
         }
       ],
       "pipeline_override": {
-        "GT_Shop_PurchaseRun": {
+        "GT_Shop_PurchaseRun_green_count": {
           "custom_action_param": {
             "green_count": "{count}"
           }
@@ -1016,7 +1016,7 @@
         }
       ],
       "pipeline_override": {
-        "GT_Shop_PurchaseRun": {
+        "GT_Shop_PurchaseRun_yellow_count": {
           "custom_action_param": {
             "yellow_count": "{count}"
           }
@@ -1042,9 +1042,13 @@
         }
       ],
       "pipeline_override": {
-        "GT_Shop_PurchaseRun": {
+        "GT_Shop_PurchaseRun_diamond_other_count": {
           "custom_action_param": {
-            "diamond_other_count": "{count}",
+            "diamond_other_count": "{count}"
+          }
+        },
+        "GT_Shop_PurchaseRun_diamond_other_name": {
+          "custom_action_param": {
             "diamond_other_name": "{name}"
           }
         }
@@ -1168,7 +1172,7 @@
         }
       ],
       "pipeline_override": {
-        "GT_Shop_PurchaseRun": {
+        "GT_Shop_PurchaseRun_legendary_count": {
           "custom_action_param": {
             "legendary_count": "{count}"
           }
@@ -1184,7 +1188,7 @@
           "name": "gold",
           "label": "金币",
           "pipeline_override": {
-            "GT_Shop_PurchaseRun": {
+            "GT_Shop_PurchaseRun_legendary_currency": {
               "custom_action_param": {
                 "legendary_currency": "gold"
               }
@@ -1195,7 +1199,7 @@
           "name": "diamond",
           "label": "钻石（不含付费钻石）",
           "pipeline_override": {
-            "GT_Shop_PurchaseRun": {
+            "GT_Shop_PurchaseRun_legendary_currency": {
               "custom_action_param": {
                 "legendary_currency": "diamond"
               }
@@ -1206,7 +1210,7 @@
           "name": "hero_crystal",
           "label": "英雄水晶（暂未适配）",
           "pipeline_override": {
-            "GT_Shop_PurchaseRun": {
+            "GT_Shop_PurchaseRun_legendary_currency": {
               "custom_action_param": {
                 "legendary_currency": "hero_crystal"
               }
@@ -1217,7 +1221,7 @@
           "name": "star_piece",
           "label": "星片",
           "pipeline_override": {
-            "GT_Shop_PurchaseRun": {
+            "GT_Shop_PurchaseRun_legendary_currency": {
               "custom_action_param": {
                 "legendary_currency": "star_piece"
               }
@@ -1257,7 +1261,7 @@
         }
       ],
       "pipeline_override": {
-        "GT_Shop_PurchaseRun": {
+        "GT_Shop_PurchaseRun_hammer_count": {
           "custom_action_param": {
             "hammer_count": "{count}"
           }
@@ -1301,9 +1305,13 @@
         }
       ],
       "pipeline_override": {
-        "GT_EventShop_Run": {
+        "GT_EventShop_Run_event_count": {
           "custom_action_param": {
-            "event_count": "{count}",
+            "event_count": "{count}"
+          }
+        },
+        "GT_EventShop_Run_event_name": {
+          "custom_action_param": {
             "event_name": "{name}"
           }
         }
@@ -1318,7 +1326,7 @@
           "name": "gold",
           "label": "金币",
           "pipeline_override": {
-            "GT_EventShop_Run": {
+            "GT_EventShop_Run_event_currency": {
               "custom_action_param": {
                 "event_currency": "gold"
               }
@@ -1329,7 +1337,7 @@
           "name": "diamond",
           "label": "钻石（不含付费钻石）",
           "pipeline_override": {
-            "GT_EventShop_Run": {
+            "GT_EventShop_Run_event_currency": {
               "custom_action_param": {
                 "event_currency": "diamond"
               }
@@ -1340,7 +1348,7 @@
           "name": "hero_crystal",
           "label": "英雄水晶（暂未适配）",
           "pipeline_override": {
-            "GT_EventShop_Run": {
+            "GT_EventShop_Run_event_currency": {
               "custom_action_param": {
                 "event_currency": "hero_crystal"
               }
@@ -1351,7 +1359,7 @@
           "name": "star_piece",
           "label": "星片",
           "pipeline_override": {
-            "GT_EventShop_Run": {
+            "GT_EventShop_Run_event_currency": {
               "custom_action_param": {
                 "event_currency": "star_piece"
               }
@@ -1467,7 +1475,7 @@
         }
       ],
       "pipeline_override": {
-        "GT_Shop_PurchaseRun": {
+        "GT_Shop_PurchaseRun_diamond_refine_count": {
           "custom_action_param": {
             "diamond_refine_count": "{count}"
           }
@@ -1487,7 +1495,7 @@
         }
       ],
       "pipeline_override": {
-        "GT_Shop_PurchaseRun": {
+        "GT_Shop_PurchaseRun_diamond_crystal_count": {
           "custom_action_param": {
             "diamond_crystal_count": "{count}"
           }
@@ -1507,7 +1515,7 @@
         }
       ],
       "pipeline_override": {
-        "GT_Shop_PurchaseRun": {
+        "GT_Shop_PurchaseRun_diamond_star_count": {
           "custom_action_param": {
             "diamond_star_count": "{count}"
           }
@@ -1527,7 +1535,7 @@
         }
       ],
       "pipeline_override": {
-        "GT_Shop_PurchaseRun": {
+        "GT_Shop_PurchaseRun_diamond_dream_count": {
           "custom_action_param": {
             "diamond_dream_count": "{count}"
           }
@@ -1547,7 +1555,7 @@
         }
       ],
       "pipeline_override": {
-        "GT_Shop_PurchaseRun": {
+        "GT_Shop_PurchaseRun_diamond_hammer_count": {
           "custom_action_param": {
             "diamond_hammer_count": "{count}"
           }
@@ -1567,7 +1575,7 @@
         }
       ],
       "pipeline_override": {
-        "GT_Shop_PurchaseRun": {
+        "GT_Shop_PurchaseRun_diamond_experience_count": {
           "custom_action_param": {
             "diamond_experience_count": "{count}"
           }
@@ -1587,7 +1595,7 @@
         }
       ],
       "pipeline_override": {
-        "GT_Shop_PurchaseRun": {
+        "GT_Shop_PurchaseRun_diamond_awakening_box_count": {
           "custom_action_param": {
             "diamond_awakening_box_count": "{count}"
           }
@@ -1607,7 +1615,7 @@
         }
       ],
       "pipeline_override": {
-        "GT_EventShop_Run": {
+        "GT_EventShop_Run_event_coins_count": {
           "custom_action_param": {
             "event_coins_count": "{count}"
           }
@@ -1627,7 +1635,7 @@
         }
       ],
       "pipeline_override": {
-        "GT_EventShop_Run": {
+        "GT_EventShop_Run_event_coffee_count": {
           "custom_action_param": {
             "event_coffee_count": "{count}"
           }
@@ -1647,7 +1655,7 @@
         }
       ],
       "pipeline_override": {
-        "GT_EventShop_Run": {
+        "GT_EventShop_Run_event_yellow_count": {
           "custom_action_param": {
             "event_yellow_count": "{count}"
           }
@@ -1754,7 +1762,7 @@
         }
       ],
       "pipeline_override": {
-        "GT_EventShop_Run": {
+        "GT_EventShop_Run_event_hero_box_count": {
           "custom_action_param": {
             "event_hero_box_count": "{count}"
           }
@@ -1774,7 +1782,7 @@
         }
       ],
       "pipeline_override": {
-        "GT_EventShop_Run": {
+        "GT_EventShop_Run_event_magic_box_count": {
           "custom_action_param": {
             "event_magic_box_count": "{count}"
           }
@@ -1794,7 +1802,7 @@
         }
       ],
       "pipeline_override": {
-        "GT_EventShop_Run": {
+        "GT_EventShop_Run_event_blessing_count": {
           "custom_action_param": {
             "event_blessing_count": "{count}"
           }
@@ -1814,7 +1822,7 @@
         }
       ],
       "pipeline_override": {
-        "GT_EventShop_Run": {
+        "GT_EventShop_Run_event_awakening_box_count": {
           "custom_action_param": {
             "event_awakening_box_count": "{count}"
           }
@@ -1834,7 +1842,7 @@
         }
       ],
       "pipeline_override": {
-        "GT_EventShop_Run": {
+        "GT_EventShop_Run_event_refine_count": {
           "custom_action_param": {
             "event_refine_count": "{count}"
           }
@@ -1854,7 +1862,7 @@
         }
       ],
       "pipeline_override": {
-        "GT_EventShop_Run": {
+        "GT_EventShop_Run_event_lock_count": {
           "custom_action_param": {
             "event_lock_count": "{count}"
           }
@@ -1870,7 +1878,7 @@
           "name": "gold",
           "label": "金币",
           "pipeline_override": {
-            "GT_Shop_PurchaseRun": {
+            "GT_Shop_PurchaseRun_stamina_currency": {
               "custom_action_param": {
                 "stamina_currency": "gold"
               }
@@ -1881,7 +1889,7 @@
           "name": "diamond",
           "label": "钻石（不含付费钻石）",
           "pipeline_override": {
-            "GT_Shop_PurchaseRun": {
+            "GT_Shop_PurchaseRun_stamina_currency": {
               "custom_action_param": {
                 "stamina_currency": "diamond"
               }
@@ -1892,7 +1900,7 @@
           "name": "hero_crystal",
           "label": "英雄水晶（暂未适配）",
           "pipeline_override": {
-            "GT_Shop_PurchaseRun": {
+            "GT_Shop_PurchaseRun_stamina_currency": {
               "custom_action_param": {
                 "stamina_currency": "hero_crystal"
               }
@@ -1903,7 +1911,7 @@
           "name": "star_piece",
           "label": "星片",
           "pipeline_override": {
-            "GT_Shop_PurchaseRun": {
+            "GT_Shop_PurchaseRun_stamina_currency": {
               "custom_action_param": {
                 "stamina_currency": "star_piece"
               }
@@ -1921,7 +1929,7 @@
           "name": "gold",
           "label": "金币",
           "pipeline_override": {
-            "GT_Shop_PurchaseRun": {
+            "GT_Shop_PurchaseRun_green_currency": {
               "custom_action_param": {
                 "green_currency": "gold"
               }
@@ -1932,7 +1940,7 @@
           "name": "diamond",
           "label": "钻石（不含付费钻石）",
           "pipeline_override": {
-            "GT_Shop_PurchaseRun": {
+            "GT_Shop_PurchaseRun_green_currency": {
               "custom_action_param": {
                 "green_currency": "diamond"
               }
@@ -1943,7 +1951,7 @@
           "name": "hero_crystal",
           "label": "英雄水晶（暂未适配）",
           "pipeline_override": {
-            "GT_Shop_PurchaseRun": {
+            "GT_Shop_PurchaseRun_green_currency": {
               "custom_action_param": {
                 "green_currency": "hero_crystal"
               }
@@ -1954,7 +1962,7 @@
           "name": "star_piece",
           "label": "星片",
           "pipeline_override": {
-            "GT_Shop_PurchaseRun": {
+            "GT_Shop_PurchaseRun_green_currency": {
               "custom_action_param": {
                 "green_currency": "star_piece"
               }
@@ -1972,7 +1980,7 @@
           "name": "gold",
           "label": "金币",
           "pipeline_override": {
-            "GT_Shop_PurchaseRun": {
+            "GT_Shop_PurchaseRun_yellow_currency": {
               "custom_action_param": {
                 "yellow_currency": "gold"
               }
@@ -1983,7 +1991,7 @@
           "name": "diamond",
           "label": "钻石（不含付费钻石）",
           "pipeline_override": {
-            "GT_Shop_PurchaseRun": {
+            "GT_Shop_PurchaseRun_yellow_currency": {
               "custom_action_param": {
                 "yellow_currency": "diamond"
               }
@@ -1994,7 +2002,7 @@
           "name": "hero_crystal",
           "label": "英雄水晶（暂未适配）",
           "pipeline_override": {
-            "GT_Shop_PurchaseRun": {
+            "GT_Shop_PurchaseRun_yellow_currency": {
               "custom_action_param": {
                 "yellow_currency": "hero_crystal"
               }
@@ -2005,7 +2013,7 @@
           "name": "star_piece",
           "label": "星片",
           "pipeline_override": {
-            "GT_Shop_PurchaseRun": {
+            "GT_Shop_PurchaseRun_yellow_currency": {
               "custom_action_param": {
                 "yellow_currency": "star_piece"
               }
@@ -2023,7 +2031,7 @@
           "name": "gold",
           "label": "金币",
           "pipeline_override": {
-            "GT_Shop_PurchaseRun": {
+            "GT_Shop_PurchaseRun_hammer_currency": {
               "custom_action_param": {
                 "hammer_currency": "gold"
               }
@@ -2034,7 +2042,7 @@
           "name": "diamond",
           "label": "钻石（不含付费钻石）",
           "pipeline_override": {
-            "GT_Shop_PurchaseRun": {
+            "GT_Shop_PurchaseRun_hammer_currency": {
               "custom_action_param": {
                 "hammer_currency": "diamond"
               }
@@ -2045,7 +2053,7 @@
           "name": "hero_crystal",
           "label": "英雄水晶（暂未适配）",
           "pipeline_override": {
-            "GT_Shop_PurchaseRun": {
+            "GT_Shop_PurchaseRun_hammer_currency": {
               "custom_action_param": {
                 "hammer_currency": "hero_crystal"
               }
@@ -2056,7 +2064,7 @@
           "name": "star_piece",
           "label": "星片",
           "pipeline_override": {
-            "GT_Shop_PurchaseRun": {
+            "GT_Shop_PurchaseRun_hammer_currency": {
               "custom_action_param": {
                 "hammer_currency": "star_piece"
               }
@@ -2074,7 +2082,7 @@
           "name": "gold",
           "label": "金币",
           "pipeline_override": {
-            "GT_Shop_PurchaseRun": {
+            "GT_Shop_PurchaseRun_diamond_refine_currency": {
               "custom_action_param": {
                 "diamond_refine_currency": "gold"
               }
@@ -2085,7 +2093,7 @@
           "name": "diamond",
           "label": "钻石（不含付费钻石）",
           "pipeline_override": {
-            "GT_Shop_PurchaseRun": {
+            "GT_Shop_PurchaseRun_diamond_refine_currency": {
               "custom_action_param": {
                 "diamond_refine_currency": "diamond"
               }
@@ -2096,7 +2104,7 @@
           "name": "hero_crystal",
           "label": "英雄水晶（暂未适配）",
           "pipeline_override": {
-            "GT_Shop_PurchaseRun": {
+            "GT_Shop_PurchaseRun_diamond_refine_currency": {
               "custom_action_param": {
                 "diamond_refine_currency": "hero_crystal"
               }
@@ -2107,7 +2115,7 @@
           "name": "star_piece",
           "label": "星片",
           "pipeline_override": {
-            "GT_Shop_PurchaseRun": {
+            "GT_Shop_PurchaseRun_diamond_refine_currency": {
               "custom_action_param": {
                 "diamond_refine_currency": "star_piece"
               }
@@ -2125,7 +2133,7 @@
           "name": "gold",
           "label": "金币",
           "pipeline_override": {
-            "GT_Shop_PurchaseRun": {
+            "GT_Shop_PurchaseRun_diamond_crystal_currency": {
               "custom_action_param": {
                 "diamond_crystal_currency": "gold"
               }
@@ -2136,7 +2144,7 @@
           "name": "diamond",
           "label": "钻石（不含付费钻石）",
           "pipeline_override": {
-            "GT_Shop_PurchaseRun": {
+            "GT_Shop_PurchaseRun_diamond_crystal_currency": {
               "custom_action_param": {
                 "diamond_crystal_currency": "diamond"
               }
@@ -2147,7 +2155,7 @@
           "name": "hero_crystal",
           "label": "英雄水晶（暂未适配）",
           "pipeline_override": {
-            "GT_Shop_PurchaseRun": {
+            "GT_Shop_PurchaseRun_diamond_crystal_currency": {
               "custom_action_param": {
                 "diamond_crystal_currency": "hero_crystal"
               }
@@ -2158,7 +2166,7 @@
           "name": "star_piece",
           "label": "星片",
           "pipeline_override": {
-            "GT_Shop_PurchaseRun": {
+            "GT_Shop_PurchaseRun_diamond_crystal_currency": {
               "custom_action_param": {
                 "diamond_crystal_currency": "star_piece"
               }
@@ -2176,7 +2184,7 @@
           "name": "gold",
           "label": "金币",
           "pipeline_override": {
-            "GT_Shop_PurchaseRun": {
+            "GT_Shop_PurchaseRun_diamond_star_currency": {
               "custom_action_param": {
                 "diamond_star_currency": "gold"
               }
@@ -2187,7 +2195,7 @@
           "name": "diamond",
           "label": "钻石（不含付费钻石）",
           "pipeline_override": {
-            "GT_Shop_PurchaseRun": {
+            "GT_Shop_PurchaseRun_diamond_star_currency": {
               "custom_action_param": {
                 "diamond_star_currency": "diamond"
               }
@@ -2198,7 +2206,7 @@
           "name": "hero_crystal",
           "label": "英雄水晶（暂未适配）",
           "pipeline_override": {
-            "GT_Shop_PurchaseRun": {
+            "GT_Shop_PurchaseRun_diamond_star_currency": {
               "custom_action_param": {
                 "diamond_star_currency": "hero_crystal"
               }
@@ -2209,7 +2217,7 @@
           "name": "star_piece",
           "label": "星片",
           "pipeline_override": {
-            "GT_Shop_PurchaseRun": {
+            "GT_Shop_PurchaseRun_diamond_star_currency": {
               "custom_action_param": {
                 "diamond_star_currency": "star_piece"
               }
@@ -2227,7 +2235,7 @@
           "name": "gold",
           "label": "金币",
           "pipeline_override": {
-            "GT_Shop_PurchaseRun": {
+            "GT_Shop_PurchaseRun_diamond_dream_currency": {
               "custom_action_param": {
                 "diamond_dream_currency": "gold"
               }
@@ -2238,7 +2246,7 @@
           "name": "diamond",
           "label": "钻石（不含付费钻石）",
           "pipeline_override": {
-            "GT_Shop_PurchaseRun": {
+            "GT_Shop_PurchaseRun_diamond_dream_currency": {
               "custom_action_param": {
                 "diamond_dream_currency": "diamond"
               }
@@ -2249,7 +2257,7 @@
           "name": "hero_crystal",
           "label": "英雄水晶（暂未适配）",
           "pipeline_override": {
-            "GT_Shop_PurchaseRun": {
+            "GT_Shop_PurchaseRun_diamond_dream_currency": {
               "custom_action_param": {
                 "diamond_dream_currency": "hero_crystal"
               }
@@ -2260,7 +2268,7 @@
           "name": "star_piece",
           "label": "星片",
           "pipeline_override": {
-            "GT_Shop_PurchaseRun": {
+            "GT_Shop_PurchaseRun_diamond_dream_currency": {
               "custom_action_param": {
                 "diamond_dream_currency": "star_piece"
               }
@@ -2278,7 +2286,7 @@
           "name": "gold",
           "label": "金币",
           "pipeline_override": {
-            "GT_Shop_PurchaseRun": {
+            "GT_Shop_PurchaseRun_diamond_hammer_currency": {
               "custom_action_param": {
                 "diamond_hammer_currency": "gold"
               }
@@ -2289,7 +2297,7 @@
           "name": "diamond",
           "label": "钻石（不含付费钻石）",
           "pipeline_override": {
-            "GT_Shop_PurchaseRun": {
+            "GT_Shop_PurchaseRun_diamond_hammer_currency": {
               "custom_action_param": {
                 "diamond_hammer_currency": "diamond"
               }
@@ -2300,7 +2308,7 @@
           "name": "hero_crystal",
           "label": "英雄水晶（暂未适配）",
           "pipeline_override": {
-            "GT_Shop_PurchaseRun": {
+            "GT_Shop_PurchaseRun_diamond_hammer_currency": {
               "custom_action_param": {
                 "diamond_hammer_currency": "hero_crystal"
               }
@@ -2311,7 +2319,7 @@
           "name": "star_piece",
           "label": "星片",
           "pipeline_override": {
-            "GT_Shop_PurchaseRun": {
+            "GT_Shop_PurchaseRun_diamond_hammer_currency": {
               "custom_action_param": {
                 "diamond_hammer_currency": "star_piece"
               }
@@ -2329,7 +2337,7 @@
           "name": "gold",
           "label": "金币",
           "pipeline_override": {
-            "GT_Shop_PurchaseRun": {
+            "GT_Shop_PurchaseRun_diamond_experience_currency": {
               "custom_action_param": {
                 "diamond_experience_currency": "gold"
               }
@@ -2340,7 +2348,7 @@
           "name": "diamond",
           "label": "钻石（不含付费钻石）",
           "pipeline_override": {
-            "GT_Shop_PurchaseRun": {
+            "GT_Shop_PurchaseRun_diamond_experience_currency": {
               "custom_action_param": {
                 "diamond_experience_currency": "diamond"
               }
@@ -2351,7 +2359,7 @@
           "name": "hero_crystal",
           "label": "英雄水晶（暂未适配）",
           "pipeline_override": {
-            "GT_Shop_PurchaseRun": {
+            "GT_Shop_PurchaseRun_diamond_experience_currency": {
               "custom_action_param": {
                 "diamond_experience_currency": "hero_crystal"
               }
@@ -2362,7 +2370,7 @@
           "name": "star_piece",
           "label": "星片",
           "pipeline_override": {
-            "GT_Shop_PurchaseRun": {
+            "GT_Shop_PurchaseRun_diamond_experience_currency": {
               "custom_action_param": {
                 "diamond_experience_currency": "star_piece"
               }
@@ -2380,7 +2388,7 @@
           "name": "gold",
           "label": "金币",
           "pipeline_override": {
-            "GT_Shop_PurchaseRun": {
+            "GT_Shop_PurchaseRun_diamond_awakening_box_currency": {
               "custom_action_param": {
                 "diamond_awakening_box_currency": "gold"
               }
@@ -2391,7 +2399,7 @@
           "name": "diamond",
           "label": "钻石（不含付费钻石）",
           "pipeline_override": {
-            "GT_Shop_PurchaseRun": {
+            "GT_Shop_PurchaseRun_diamond_awakening_box_currency": {
               "custom_action_param": {
                 "diamond_awakening_box_currency": "diamond"
               }
@@ -2402,7 +2410,7 @@
           "name": "hero_crystal",
           "label": "英雄水晶（暂未适配）",
           "pipeline_override": {
-            "GT_Shop_PurchaseRun": {
+            "GT_Shop_PurchaseRun_diamond_awakening_box_currency": {
               "custom_action_param": {
                 "diamond_awakening_box_currency": "hero_crystal"
               }
@@ -2413,7 +2421,7 @@
           "name": "star_piece",
           "label": "星片",
           "pipeline_override": {
-            "GT_Shop_PurchaseRun": {
+            "GT_Shop_PurchaseRun_diamond_awakening_box_currency": {
               "custom_action_param": {
                 "diamond_awakening_box_currency": "star_piece"
               }
@@ -2431,7 +2439,7 @@
           "name": "gold",
           "label": "金币",
           "pipeline_override": {
-            "GT_EventShop_Run": {
+            "GT_EventShop_Run_event_coins_currency": {
               "custom_action_param": {
                 "event_coins_currency": "gold"
               }
@@ -2442,7 +2450,7 @@
           "name": "diamond",
           "label": "钻石（不含付费钻石）",
           "pipeline_override": {
-            "GT_EventShop_Run": {
+            "GT_EventShop_Run_event_coins_currency": {
               "custom_action_param": {
                 "event_coins_currency": "diamond"
               }
@@ -2453,7 +2461,7 @@
           "name": "hero_crystal",
           "label": "英雄水晶（暂未适配）",
           "pipeline_override": {
-            "GT_EventShop_Run": {
+            "GT_EventShop_Run_event_coins_currency": {
               "custom_action_param": {
                 "event_coins_currency": "hero_crystal"
               }
@@ -2464,7 +2472,7 @@
           "name": "star_piece",
           "label": "星片",
           "pipeline_override": {
-            "GT_EventShop_Run": {
+            "GT_EventShop_Run_event_coins_currency": {
               "custom_action_param": {
                 "event_coins_currency": "star_piece"
               }
@@ -2482,7 +2490,7 @@
           "name": "gold",
           "label": "金币",
           "pipeline_override": {
-            "GT_EventShop_Run": {
+            "GT_EventShop_Run_event_coffee_currency": {
               "custom_action_param": {
                 "event_coffee_currency": "gold"
               }
@@ -2493,7 +2501,7 @@
           "name": "diamond",
           "label": "钻石（不含付费钻石）",
           "pipeline_override": {
-            "GT_EventShop_Run": {
+            "GT_EventShop_Run_event_coffee_currency": {
               "custom_action_param": {
                 "event_coffee_currency": "diamond"
               }
@@ -2504,7 +2512,7 @@
           "name": "hero_crystal",
           "label": "英雄水晶（暂未适配）",
           "pipeline_override": {
-            "GT_EventShop_Run": {
+            "GT_EventShop_Run_event_coffee_currency": {
               "custom_action_param": {
                 "event_coffee_currency": "hero_crystal"
               }
@@ -2515,7 +2523,7 @@
           "name": "star_piece",
           "label": "星片",
           "pipeline_override": {
-            "GT_EventShop_Run": {
+            "GT_EventShop_Run_event_coffee_currency": {
               "custom_action_param": {
                 "event_coffee_currency": "star_piece"
               }
@@ -2533,7 +2541,7 @@
           "name": "gold",
           "label": "金币",
           "pipeline_override": {
-            "GT_EventShop_Run": {
+            "GT_EventShop_Run_event_yellow_currency": {
               "custom_action_param": {
                 "event_yellow_currency": "gold"
               }
@@ -2544,7 +2552,7 @@
           "name": "diamond",
           "label": "钻石（不含付费钻石）",
           "pipeline_override": {
-            "GT_EventShop_Run": {
+            "GT_EventShop_Run_event_yellow_currency": {
               "custom_action_param": {
                 "event_yellow_currency": "diamond"
               }
@@ -2555,7 +2563,7 @@
           "name": "hero_crystal",
           "label": "英雄水晶（暂未适配）",
           "pipeline_override": {
-            "GT_EventShop_Run": {
+            "GT_EventShop_Run_event_yellow_currency": {
               "custom_action_param": {
                 "event_yellow_currency": "hero_crystal"
               }
@@ -2566,7 +2574,7 @@
           "name": "star_piece",
           "label": "星片",
           "pipeline_override": {
-            "GT_EventShop_Run": {
+            "GT_EventShop_Run_event_yellow_currency": {
               "custom_action_param": {
                 "event_yellow_currency": "star_piece"
               }
@@ -2584,7 +2592,7 @@
           "name": "gold",
           "label": "金币",
           "pipeline_override": {
-            "GT_EventShop_Run": {
+            "GT_EventShop_Run_event_hero_box_currency": {
               "custom_action_param": {
                 "event_hero_box_currency": "gold"
               }
@@ -2595,7 +2603,7 @@
           "name": "diamond",
           "label": "钻石（不含付费钻石）",
           "pipeline_override": {
-            "GT_EventShop_Run": {
+            "GT_EventShop_Run_event_hero_box_currency": {
               "custom_action_param": {
                 "event_hero_box_currency": "diamond"
               }
@@ -2606,7 +2614,7 @@
           "name": "hero_crystal",
           "label": "英雄水晶（暂未适配）",
           "pipeline_override": {
-            "GT_EventShop_Run": {
+            "GT_EventShop_Run_event_hero_box_currency": {
               "custom_action_param": {
                 "event_hero_box_currency": "hero_crystal"
               }
@@ -2617,7 +2625,7 @@
           "name": "star_piece",
           "label": "星片",
           "pipeline_override": {
-            "GT_EventShop_Run": {
+            "GT_EventShop_Run_event_hero_box_currency": {
               "custom_action_param": {
                 "event_hero_box_currency": "star_piece"
               }
@@ -2635,7 +2643,7 @@
           "name": "gold",
           "label": "金币",
           "pipeline_override": {
-            "GT_EventShop_Run": {
+            "GT_EventShop_Run_event_magic_box_currency": {
               "custom_action_param": {
                 "event_magic_box_currency": "gold"
               }
@@ -2646,7 +2654,7 @@
           "name": "diamond",
           "label": "钻石（不含付费钻石）",
           "pipeline_override": {
-            "GT_EventShop_Run": {
+            "GT_EventShop_Run_event_magic_box_currency": {
               "custom_action_param": {
                 "event_magic_box_currency": "diamond"
               }
@@ -2657,7 +2665,7 @@
           "name": "hero_crystal",
           "label": "英雄水晶（暂未适配）",
           "pipeline_override": {
-            "GT_EventShop_Run": {
+            "GT_EventShop_Run_event_magic_box_currency": {
               "custom_action_param": {
                 "event_magic_box_currency": "hero_crystal"
               }
@@ -2668,7 +2676,7 @@
           "name": "star_piece",
           "label": "星片",
           "pipeline_override": {
-            "GT_EventShop_Run": {
+            "GT_EventShop_Run_event_magic_box_currency": {
               "custom_action_param": {
                 "event_magic_box_currency": "star_piece"
               }
@@ -2686,7 +2694,7 @@
           "name": "gold",
           "label": "金币",
           "pipeline_override": {
-            "GT_EventShop_Run": {
+            "GT_EventShop_Run_event_blessing_currency": {
               "custom_action_param": {
                 "event_blessing_currency": "gold"
               }
@@ -2697,7 +2705,7 @@
           "name": "diamond",
           "label": "钻石（不含付费钻石）",
           "pipeline_override": {
-            "GT_EventShop_Run": {
+            "GT_EventShop_Run_event_blessing_currency": {
               "custom_action_param": {
                 "event_blessing_currency": "diamond"
               }
@@ -2708,7 +2716,7 @@
           "name": "hero_crystal",
           "label": "英雄水晶（暂未适配）",
           "pipeline_override": {
-            "GT_EventShop_Run": {
+            "GT_EventShop_Run_event_blessing_currency": {
               "custom_action_param": {
                 "event_blessing_currency": "hero_crystal"
               }
@@ -2719,7 +2727,7 @@
           "name": "star_piece",
           "label": "星片",
           "pipeline_override": {
-            "GT_EventShop_Run": {
+            "GT_EventShop_Run_event_blessing_currency": {
               "custom_action_param": {
                 "event_blessing_currency": "star_piece"
               }
@@ -2737,7 +2745,7 @@
           "name": "gold",
           "label": "金币",
           "pipeline_override": {
-            "GT_EventShop_Run": {
+            "GT_EventShop_Run_event_awakening_box_currency": {
               "custom_action_param": {
                 "event_awakening_box_currency": "gold"
               }
@@ -2748,7 +2756,7 @@
           "name": "diamond",
           "label": "钻石（不含付费钻石）",
           "pipeline_override": {
-            "GT_EventShop_Run": {
+            "GT_EventShop_Run_event_awakening_box_currency": {
               "custom_action_param": {
                 "event_awakening_box_currency": "diamond"
               }
@@ -2759,7 +2767,7 @@
           "name": "hero_crystal",
           "label": "英雄水晶（暂未适配）",
           "pipeline_override": {
-            "GT_EventShop_Run": {
+            "GT_EventShop_Run_event_awakening_box_currency": {
               "custom_action_param": {
                 "event_awakening_box_currency": "hero_crystal"
               }
@@ -2770,7 +2778,7 @@
           "name": "star_piece",
           "label": "星片",
           "pipeline_override": {
-            "GT_EventShop_Run": {
+            "GT_EventShop_Run_event_awakening_box_currency": {
               "custom_action_param": {
                 "event_awakening_box_currency": "star_piece"
               }
@@ -2788,7 +2796,7 @@
           "name": "gold",
           "label": "金币",
           "pipeline_override": {
-            "GT_EventShop_Run": {
+            "GT_EventShop_Run_event_refine_currency": {
               "custom_action_param": {
                 "event_refine_currency": "gold"
               }
@@ -2799,7 +2807,7 @@
           "name": "diamond",
           "label": "钻石（不含付费钻石）",
           "pipeline_override": {
-            "GT_EventShop_Run": {
+            "GT_EventShop_Run_event_refine_currency": {
               "custom_action_param": {
                 "event_refine_currency": "diamond"
               }
@@ -2810,7 +2818,7 @@
           "name": "hero_crystal",
           "label": "英雄水晶（暂未适配）",
           "pipeline_override": {
-            "GT_EventShop_Run": {
+            "GT_EventShop_Run_event_refine_currency": {
               "custom_action_param": {
                 "event_refine_currency": "hero_crystal"
               }
@@ -2821,7 +2829,7 @@
           "name": "star_piece",
           "label": "星片",
           "pipeline_override": {
-            "GT_EventShop_Run": {
+            "GT_EventShop_Run_event_refine_currency": {
               "custom_action_param": {
                 "event_refine_currency": "star_piece"
               }
@@ -2839,7 +2847,7 @@
           "name": "gold",
           "label": "金币",
           "pipeline_override": {
-            "GT_EventShop_Run": {
+            "GT_EventShop_Run_event_lock_currency": {
               "custom_action_param": {
                 "event_lock_currency": "gold"
               }
@@ -2850,7 +2858,7 @@
           "name": "diamond",
           "label": "钻石（不含付费钻石）",
           "pipeline_override": {
-            "GT_EventShop_Run": {
+            "GT_EventShop_Run_event_lock_currency": {
               "custom_action_param": {
                 "event_lock_currency": "diamond"
               }
@@ -2861,7 +2869,7 @@
           "name": "hero_crystal",
           "label": "英雄水晶（暂未适配）",
           "pipeline_override": {
-            "GT_EventShop_Run": {
+            "GT_EventShop_Run_event_lock_currency": {
               "custom_action_param": {
                 "event_lock_currency": "hero_crystal"
               }
@@ -2872,7 +2880,7 @@
           "name": "star_piece",
           "label": "星片",
           "pipeline_override": {
-            "GT_EventShop_Run": {
+            "GT_EventShop_Run_event_lock_currency": {
               "custom_action_param": {
                 "event_lock_currency": "star_piece"
               }
@@ -2890,7 +2898,7 @@
           "name": "gold",
           "label": "金币",
           "pipeline_override": {
-            "GT_Shop_PurchaseRun": {
+            "GT_Shop_PurchaseRun_diamond_other_currency": {
               "custom_action_param": {
                 "diamond_other_currency": "gold"
               }
@@ -2901,7 +2909,7 @@
           "name": "diamond",
           "label": "钻石（不含付费钻石）",
           "pipeline_override": {
-            "GT_Shop_PurchaseRun": {
+            "GT_Shop_PurchaseRun_diamond_other_currency": {
               "custom_action_param": {
                 "diamond_other_currency": "diamond"
               }
@@ -2912,7 +2920,7 @@
           "name": "hero_crystal",
           "label": "英雄水晶（暂未适配）",
           "pipeline_override": {
-            "GT_Shop_PurchaseRun": {
+            "GT_Shop_PurchaseRun_diamond_other_currency": {
               "custom_action_param": {
                 "diamond_other_currency": "hero_crystal"
               }
@@ -2923,7 +2931,7 @@
           "name": "star_piece",
           "label": "星片",
           "pipeline_override": {
-            "GT_Shop_PurchaseRun": {
+            "GT_Shop_PurchaseRun_diamond_other_currency": {
               "custom_action_param": {
                 "diamond_other_currency": "star_piece"
               }
@@ -2951,7 +2959,7 @@
           "name": "free_coins",
           "label": "金币（每日免费）",
           "pipeline_override": {
-            "GT_Shop_PurchaseRun": {
+            "GT_Shop_PurchaseRun_free_coins": {
               "custom_action_param": {
                 "free_coins": true
               }

@@ -7,15 +7,22 @@ ROOT = Path(__file__).resolve().parents[1]
 CUSTOM_PRODUCTS = json.loads((ROOT / "agent/shop_custom_products.json").read_text(encoding="utf-8"))
 
 
+def settings_override(node: str, params: dict) -> dict:
+    # MaaFramework replaces custom_action_param as a whole, rather than merging
+    # its fields. Each independently selected GUI field needs its own node.
+    return {node + "_" + key: {"custom_action_param": {key: value}}
+            for key, value in params.items()}
+
+
 def product_option(product: dict, node: str, *, custom: bool = False) -> dict:
     key = product["key"]
     option = {"type": "input", "label": product["label"], "inputs": [
         {"name": "count", "label": "购买次数（0为跳过）", "default": "0", "pipeline_type": "int",
          "verify": "^(?:[0-9]|[1-9][0-9]|100)$"}],
-        "pipeline_override": {node: {"custom_action_param": {key + "_count": "{count}"}}}}
+        "pipeline_override": settings_override(node, {key + "_count": "{count}"})}
     if custom:
         option["inputs"].insert(0, {"name": "name", "label": "商品名称（与游戏显示一致）", "default": "", "verify": "^.{1,40}$"})
-        option["pipeline_override"][node]["custom_action_param"][key + "_name"] = "{name}"
+        option["pipeline_override"].update(settings_override(node, {key + "_name": "{name}"}))
     return option
 
 
@@ -24,7 +31,7 @@ def currency_option(key: str, currency: str, node: str) -> dict:
               "hero_crystal": "英雄水晶（暂未适配）", "star_piece": "星片"}
     return {"type": "select", "label": "购买货币", "default_case": currency, "cases": [
         {"name": value, "label": label,
-         "pipeline_override": {node: {"custom_action_param": {key + "_currency": value}}}}
+         "pipeline_override": settings_override(node, {key + "_currency": value})}
         for value, label in labels.items()]}
 
 
@@ -41,7 +48,7 @@ def update(interface: dict, products: list[dict]) -> None:
         case = {"name": key, "label": "自定义商品（备用）" if custom else product["label"], "option": [option, option + "Currency"]}
         groups[category].append(case)
     groups["资源"].append({"name": "free_coins", "label": "金币（每日免费）",
-                          "pipeline_override": {"GT_Shop_PurchaseRun": {"custom_action_param": {"free_coins": True}}}})
+                          "pipeline_override": settings_override("GT_Shop_PurchaseRun", {"free_coins": True})})
     specs = [("资源", "ShopResourceProducts", "ShopResources", ["free_coins"]),
              ("钻石商店", "ShopDiamondProducts", "ShopDiamonds", []),
              ("英雄成长", "ShopGrowthProducts", "ShopGrowth", ["legendary"]),
@@ -95,6 +102,18 @@ def main():
     products = json.loads((ROOT / "agent/shop_products.json").read_text(encoding="utf-8"))
     update(interface, products)
     path.write_text(json.dumps(interface, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    settings = {}
+    for product in products + CUSTOM_PRODUCTS:
+        node = "GT_EventShop_Run" if product["category"] == "活动商店" else "GT_Shop_PurchaseRun"
+        defaults = {product["key"] + "_count": 0, product["key"] + "_currency": product["currency"]}
+        if not product["name"]: defaults[product["key"] + "_name"] = ""
+        for target, override in settings_override(node, defaults).items():
+            settings[target] = {"action": "Custom", "custom_action": "GT_ShopPurchase", **override}
+    for node in ("GT_Shop_PurchaseRun", "GT_EventShop_Run"):
+        settings[node + "_free_coins"] = {"action": "Custom", "custom_action": "GT_ShopPurchase",
+                                         "custom_action_param": {"free_coins": False}}
+    (ROOT / "resource/pipeline/shop_settings.json").write_text(
+        json.dumps(settings, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
 
 if __name__ == "__main__": main()

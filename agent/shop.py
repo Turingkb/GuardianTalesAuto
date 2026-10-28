@@ -223,6 +223,17 @@ def purchase(screen: Screen, product: Product, preview: bool) -> None:
 
 
 def shop_purchase(screen: Screen, params: dict, *, event_only: bool = False) -> bool:
+    if params.get("read_settings"):
+        node = "GT_EventShop_Run" if event_only else "GT_Shop_PurchaseRun"
+        fields = ["free_coins"]
+        for product in PRODUCTS + CUSTOM_PRODUCTS:
+            if (product["category"] == "活动商店") != event_only: continue
+            fields.extend(product["key"] + suffix for suffix in ("_count", "_currency"))
+            if not product["name"]: fields.append(product["key"] + "_name")
+        params = dict(params)
+        for field in fields:
+            data = screen.node_data(node + "_" + field)
+            params[field] = data["action"]["param"]["custom_action_param"][field]
     products = plans(params, event_only=event_only)
     preview = params.get("preview_only", False)
     free = params.get("free_coins", False)
@@ -230,6 +241,8 @@ def shop_purchase(screen: Screen, params: dict, *, event_only: bool = False) -> 
         raise ValueError("Shop switches must be boolean")
     if free and not event_only:
         products.insert(0, Product("free", "资源", "金币", "free", 1))
+    screen.log("shop_plan", products=[{"item": product.name, "count": product.count,
+                                     "currency": product.currency} for product in products], preview=preview)
     for product in products:
         if select_category(screen, product.category):
             purchase(screen, product, preview)
