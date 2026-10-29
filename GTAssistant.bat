@@ -1,6 +1,9 @@
 @echo off
 chcp 65001 >nul
+setlocal
 cd /d "%~dp0"
+set "MGA_PYTHON=%~dp0runtimes\python\python.exe"
+if not exist "%MGA_PYTHON%" set "MGA_PYTHON=python"
 rem .NET apphost can be renamed; its MFAAvalonia DLL and JSON files must keep their names.
 if not exist "%~dp0GTAssistant.exe" (
     if exist "%~dp0MFAAvalonia.exe" (
@@ -17,10 +20,10 @@ if not exist "%~dp0GTAssistant.exe" (
     pause
     exit /b 1
 )
-python "%~dp0dev\migrate_gui_tasks.py"
+"%MGA_PYTHON%" "%~dp0dev\launch_gui.py" %*
 if errorlevel 1 (
-    echo [MGA 坎公助手] 更新任务配置失败，请查看以上错误。
+    echo [MGA 坎公助手] 启动检查未通过，请查看以上错误。
     pause
     exit /b 1
 )
-start "MGA 坎公助手" "%~dp0GTAssistant.exe"
+exit /b 0

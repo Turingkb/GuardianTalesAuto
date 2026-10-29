@@ -1,0 +1,77 @@
+{
+  "schema": 1,
+  "python_version": "3.14.10",
+  "ocr_commit": "dabcd4681ac990dc4361de26416d986abd80e4aa",
+  "components": [
+    {
+      "id": "ocr_det.onnx",
+      "file": "ocr_det.onnx",
+      "url": "https://raw.githubusercontent.com/MaaXYZ/MaaCommonAssets/dabcd4681ac990dc4361de26416d986abd80e4aa/OCR/ppocr_v4/zh_cn/det.onnx",
+      "sha256": "767e663dded50813dca0abc9a49859e345e0f74a48b387661188f096a9211d74",
+      "size": 4731945
+    },
+    {
+      "id": "ocr_rec.onnx",
+      "file": "ocr_rec.onnx",
+      "url": "https://raw.githubusercontent.com/MaaXYZ/MaaCommonAssets/dabcd4681ac990dc4361de26416d986abd80e4aa/OCR/ppocr_v4/zh_cn/rec.onnx",
+      "sha256": "da4815ea386ee8083be319da8d20e70f4fdb0b6404ba0d2da7f675831e1b37fa",
+      "size": 10816419
+    },
+    {
+      "id": "ocr_keys.txt",
+      "file": "ocr_keys.txt",
+      "url": "https://raw.githubusercontent.com/MaaXYZ/MaaCommonAssets/dabcd4681ac990dc4361de26416d986abd80e4aa/OCR/ppocr_v4/zh_cn/keys.txt",
+      "sha256": "28b2362ad4ab2dc38769aa72feb535e3a9ddb3fd2a7585a05920e6393b1dc7f7",
+      "size": 26249
+    },
+    {
+      "id": "ocr_license",
+      "file": "ocr_LICENSE",
+      "url": "https://raw.githubusercontent.com/MaaXYZ/MaaCommonAssets/dabcd4681ac990dc4361de26416d986abd80e4aa/LICENSE",
+      "sha256": "2f8ab70ffd1bd53863a27835be02757a657de693e2a2aef9111dbbfa2c5737f0",
+      "size": 1060
+    },
+    {
+      "id": "gui_source",
+      "file": "MFAAvalonia-source.zip",
+      "url": "https://codeload.github.com/MaaXYZ/MFAAvalonia/zip/refs/tags/v2.16.2",
+      "sha256": "55067b2ba76f7122cf08e8877af417d7c8746fb5c584e3e1910f4af911dda162",
+      "size": 34124612
+    },
+    {
+      "id": "framework_source",
+      "file": "MaaFramework-source.zip",
+      "url": "https://codeload.github.com/MaaXYZ/MaaFramework/zip/refs/tags/v5.12.3",
+      "sha256": "fb79f6af152ee67b58279815b0f7b921e7d91f79768591c58db111742859deef",
+      "size": 1135454
+    },
+    {
+      "id": "agent_binary_source",
+      "file": "MaaAgentBinary-source.zip",
+      "url": "https://codeload.github.com/MaaXYZ/MaaAgentBinary/zip/173d43c4b5518064b27720b0cf08c781f291eba9",
+      "sha256": "d5664ec6cccbca162b41fd095b79433099aba0b2f155049c037992f362cb0cc9",
+      "size": 107220
+    },
+    {
+      "id": "gui",
+      "file": "MFAAvalonia-v2.16.2-win-x64.zip",
+      "url": "https://github.com/MaaXYZ/MFAAvalonia/releases/download/v2.16.2/MFAAvalonia-v2.16.2-win-x64.zip",
+      "sha256": "5f048914d4e85dc0f7c0c76582dc123b7eeec688149260e107747a0c04003934",
+      "size": 95531312
+    },
+    {
+      "id": "framework",
+      "file": "MAA-win-x86_64-v5.12.3.zip",
+      "url": "https://github.com/MaaXYZ/MaaFramework/releases/download/v5.12.3/MAA-win-x86_64-v5.12.3.zip",
+      "sha256": "e16ed971e41aadcbf7a767e7371784e6a2efd3a563da8826d61a2f724645e19f",
+      "size": 72509548
+    },
+    {
+      "id": "python",
+      "file": "python-3.14.10-embed-amd64.zip",
+      "url": "https://www.python.org/ftp/python/3.14.10/python-3.14.10-embed-amd64.zip",
+      "sha256": "90905e64a840557d8c1bc4f5b74db3d7ee85e3ffb217611cac1c7813acea4159",
+      "size": 12619664
+    }
+  ]
+}

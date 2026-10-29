@@ -35,3 +35,6 @@ dev/validation_report.md
 logo.ico
 assets/princess-smile.png
 assets/icon-generation.md
+
+# Built release artifacts
+dist/

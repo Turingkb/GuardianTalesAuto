@@ -8,6 +8,8 @@ MGA 是基于 MaaFramework 的《坎公骑冠剑》自动化资源项目。通�
 | [MFAAvalonia](https://github.com/MaaXYZ/MFAAvalonia) | Avalonia 桌面 GUI、任务配置、运行日志、设置、更新与结束后操作 | [v2.16.2](https://github.com/MaaXYZ/MFAAvalonia/tree/v2.16.2)，[GPL-3.0](https://github.com/MaaXYZ/MFAAvalonia/blob/v2.16.2/LICENSE) |
 | [MaaAgentBinary](https://github.com/MaaXYZ/MaaAgentBinary) | 上游运行包中的安卓输入辅助组件 | 随框架包配套，AGPL-3.0；以实际分发包的 LICENSE 为准 |
 | [M9A](https://github.com/MAA1999/M9A) | 日常任务组织、GUI 使用体验与模拟器截图方式的开发参考 | [AGPL-3.0](https://github.com/MAA1999/M9A/blob/main/LICENSE)；不是 MGA 的游戏脚本运行入口 |
+| [Python](https://www.python.org/downloads/release/python-31410/) | 便携包内置的 Windows x64 嵌入式解释器 | 3.14.10，PSF License 及其内含第三方声明，见包内 Python LICENSE.txt |
+| [MaaCommonAssets](https://github.com/MaaXYZ/MaaCommonAssets) | 中文 PaddleOCR v4 ONNX 模型与字符表 | 固定提交见 `dev/release.lock.json`，保留其 MIT LICENSE 与上游模型来源 |
 
 感谢 MaaXYZ、MFAAvalonia、M9A 及其贡献者。MFAAvalonia 自身使用的 Avalonia、SukiUI、MaaFramework.Binding.CSharp 等依赖，请同时保留上游的声明和对应许可证。
 
@@ -15,7 +17,7 @@ MGA 是基于 MaaFramework 的《坎公骑冠剑》自动化资源项目。通�
 
 根目录 `LICENSE` 只授予本项目有权授权的原创代码和文档的 MIT 权利，不将第三方代码、游戏画面、角色设计或商标重新许可为 MIT。
 
-当前 Git 仓库不保存 MaaFramework/MFAAvalonia 二进制、OCR 模型或个人运行配置。运行时应从固定版本的上游项目取得，并保留其许可证和源代码获取方式。`licenses/` 留存主要运行组件的许可证文本。
+当前 Git 仓库不保存 MaaFramework/MFAAvalonia 二进制、OCR 模型或个人运行配置。便携构建器从固定的官方输入生成运行包，保留各组件的许可证和主要上游对应源码归档，并记录来源与校验值。源码部署也须从固定版本上游取得运行时，保留其许可证和源代码获取方式。`licenses/` 留存主要运行组件的许可证文本。
 
 本机 `GTAssistant.exe` 来源于 MFAAvalonia 2.16.2 的 .NET apphost，修改仅为文件名和图标资源；配套 DLL 保留原名。本仓库的 `dev/set_exe_icon.py` 提供图标修改方法，`GTAssistant.bat` 提供文件名处理方法。分发整合运行包时还应附带上游相应版本源码及修改说明，遵守各组件的分发条件。
 
