@@ -20,7 +20,7 @@ if not exist "%~dp0GTAssistant.exe" (
     pause
     exit /b 1
 )
-"%MGA_PYTHON%" "%~dp0dev\launch_gui.py" %*
+"%MGA_PYTHON%" -X utf8 "%~dp0dev\launch_gui.py" %*
 if errorlevel 1 (
     echo [MGA 坎公助手] 启动检查未通过，请查看以上错误。
     pause

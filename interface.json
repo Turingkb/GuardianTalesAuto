@@ -219,6 +219,8 @@
     {
       "child_exec": "python",
       "child_args": [
+        "-X",
+        "utf8",
         "-u",
         "agent/main.py"
       ]

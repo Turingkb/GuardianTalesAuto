@@ -155,8 +155,8 @@ def build(ref: str, cache: Path, output: Path) -> Path:
                                  "Python _pth includes project agent and dev modules",
                                  "Project Interface selects embedded Python; no personal configuration"]})
     check_package(stage)
-    subprocess.run([str(python_path / "python.exe"), "-B", str(stage / "dev/validate_project.py")], check=True, cwd=output)
-    subprocess.run([str(python_path / "python.exe"), "-B", str(stage / "dev/smoke_portable.py")], check=True, cwd=output)
+    subprocess.run([str(python_path / "python.exe"), "-X", "utf8", "-B", str(stage / "dev/validate_project.py")], check=True, cwd=output)
+    subprocess.run([str(python_path / "python.exe"), "-X", "utf8", "-B", str(stage / "dev/smoke_portable.py")], check=True, cwd=output)
     check_package(stage)
     manifest = {path.relative_to(stage).as_posix(): digest(path) for path in sorted(stage.rglob("*")) if path.is_file()}
     write_json(stage / "manifest.sha256.json", manifest)
