@@ -4,10 +4,10 @@
     "zh_cn": "assets/interface_zh.json"
   },
   "name": "GuardianTalesAuto",
-  "label": "坎公骑冠剑助手",
-  "title": "坎公骑冠剑助手 v0.3.0",
-  "version": "0.3.0",
-  "license": "MIT",
+  "label": "MGA 坎公助手",
+  "title": "MGA 坎公助手 v0.3.1",
+  "version": "0.3.1",
+  "license": "LICENSE",
   "controller": [
     {
       "name": "Android",
@@ -217,7 +217,7 @@
   "icon": "logo-v2.ico",
   "agent": [
     {
-      "child_exec": "C:/Python314/python.exe",
+      "child_exec": "python",
       "child_args": [
         "-u",
         "agent/main.py"
@@ -227,7 +227,7 @@
   "option": {
     "EvolutionCount": {
       "type": "input",
-      "label": "进化石扫荡次数",
+      "label": "扫荡次数",
       "inputs": [
         {
           "name": "count",
@@ -239,7 +239,7 @@
         }
       ],
       "pipeline_override": {
-        "GT_Sweep_Evolution": {
+        "GT_Sweep_Evolution_Setting_count": {
           "custom_action_param": {
             "count": "{count}"
           }
@@ -248,14 +248,14 @@
     },
     "EvolutionBoost": {
       "type": "switch",
-      "label": "只扫荡每日焕发次数",
+      "label": "仅使用焕发次数",
       "default_case": "Yes",
       "cases": [
         {
           "name": "Yes",
           "label": "是",
           "pipeline_override": {
-            "GT_Sweep_Evolution": {
+            "GT_Sweep_Evolution_Setting_boost_only": {
               "custom_action_param": {
                 "boost_only": true
               }
@@ -264,9 +264,9 @@
         },
         {
           "name": "No",
-          "label": "否（会继续消耗体力）",
+          "label": "否（消耗普通体力）",
           "pipeline_override": {
-            "GT_Sweep_Evolution": {
+            "GT_Sweep_Evolution_Setting_boost_only": {
               "custom_action_param": {
                 "boost_only": false
               }
@@ -289,7 +289,7 @@
         }
       ],
       "pipeline_override": {
-        "GT_Sweep_Gold": {
+        "GT_Sweep_Gold_Setting_count": {
           "custom_action_param": {
             "count": "{count}"
           }
@@ -298,14 +298,14 @@
     },
     "GoldBoost": {
       "type": "switch",
-      "label": "只扫荡每日焕发次数",
+      "label": "仅使用焕发次数",
       "default_case": "Yes",
       "cases": [
         {
           "name": "Yes",
           "label": "是",
           "pipeline_override": {
-            "GT_Sweep_Gold": {
+            "GT_Sweep_Gold_Setting_boost_only": {
               "custom_action_param": {
                 "boost_only": true
               }
@@ -314,9 +314,9 @@
         },
         {
           "name": "No",
-          "label": "否（会继续消耗体力）",
+          "label": "否（消耗普通体力）",
           "pipeline_override": {
-            "GT_Sweep_Gold": {
+            "GT_Sweep_Gold_Setting_boost_only": {
               "custom_action_param": {
                 "boost_only": false
               }
@@ -339,7 +339,7 @@
         }
       ],
       "pipeline_override": {
-        "GT_Sweep_Experience": {
+        "GT_Sweep_Experience_Setting_count": {
           "custom_action_param": {
             "count": "{count}"
           }
@@ -348,14 +348,14 @@
     },
     "ExperienceBoost": {
       "type": "switch",
-      "label": "只扫荡每日焕发次数",
+      "label": "仅使用焕发次数",
       "default_case": "Yes",
       "cases": [
         {
           "name": "Yes",
           "label": "是",
           "pipeline_override": {
-            "GT_Sweep_Experience": {
+            "GT_Sweep_Experience_Setting_boost_only": {
               "custom_action_param": {
                 "boost_only": true
               }
@@ -364,9 +364,9 @@
         },
         {
           "name": "No",
-          "label": "否（会继续消耗体力）",
+          "label": "否（消耗普通体力）",
           "pipeline_override": {
-            "GT_Sweep_Experience": {
+            "GT_Sweep_Experience_Setting_boost_only": {
               "custom_action_param": {
                 "boost_only": false
               }
@@ -389,7 +389,7 @@
         }
       ],
       "pipeline_override": {
-        "GT_Sweep_Items": {
+        "GT_Sweep_Items_Setting_count": {
           "custom_action_param": {
             "count": "{count}"
           }
@@ -398,14 +398,14 @@
     },
     "ItemsBoost": {
       "type": "switch",
-      "label": "只扫荡每日焕发次数",
+      "label": "仅使用焕发次数",
       "default_case": "Yes",
       "cases": [
         {
           "name": "Yes",
           "label": "是",
           "pipeline_override": {
-            "GT_Sweep_Items": {
+            "GT_Sweep_Items_Setting_boost_only": {
               "custom_action_param": {
                 "boost_only": true
               }
@@ -414,9 +414,9 @@
         },
         {
           "name": "No",
-          "label": "否（会继续消耗体力）",
+          "label": "否（消耗普通体力）",
           "pipeline_override": {
-            "GT_Sweep_Items": {
+            "GT_Sweep_Items_Setting_boost_only": {
               "custom_action_param": {
                 "boost_only": false
               }
@@ -427,14 +427,14 @@
     },
     "EvolutionAttribute": {
       "type": "select",
-      "label": "起始属性（手动模式为指定属性）",
+      "label": "起始属性",
       "default_case": "neutral",
       "cases": [
         {
           "name": "neutral",
           "label": "虚",
           "pipeline_override": {
-            "GT_Sweep_Evolution": {
+            "GT_Sweep_Evolution_Setting_attribute": {
               "custom_action_param": {
                 "attribute": "neutral"
               }
@@ -445,7 +445,7 @@
           "name": "light",
           "label": "光",
           "pipeline_override": {
-            "GT_Sweep_Evolution": {
+            "GT_Sweep_Evolution_Setting_attribute": {
               "custom_action_param": {
                 "attribute": "light"
               }
@@ -456,7 +456,7 @@
           "name": "dark",
           "label": "暗",
           "pipeline_override": {
-            "GT_Sweep_Evolution": {
+            "GT_Sweep_Evolution_Setting_attribute": {
               "custom_action_param": {
                 "attribute": "dark"
               }
@@ -467,7 +467,7 @@
           "name": "earth",
           "label": "土",
           "pipeline_override": {
-            "GT_Sweep_Evolution": {
+            "GT_Sweep_Evolution_Setting_attribute": {
               "custom_action_param": {
                 "attribute": "earth"
               }
@@ -478,7 +478,7 @@
           "name": "fire",
           "label": "火",
           "pipeline_override": {
-            "GT_Sweep_Evolution": {
+            "GT_Sweep_Evolution_Setting_attribute": {
               "custom_action_param": {
                 "attribute": "fire"
               }
@@ -489,25 +489,26 @@
           "name": "water",
           "label": "水",
           "pipeline_override": {
-            "GT_Sweep_Evolution": {
+            "GT_Sweep_Evolution_Setting_attribute": {
               "custom_action_param": {
                 "attribute": "water"
               }
             }
           }
         }
-      ]
+      ],
+      "description": "自动模式从此属性开始轮换；沿用游戏设置时，仅刷此属性。"
     },
     "EvolutionMode": {
       "type": "select",
-      "label": "英雄选择方式",
+      "label": "英雄选择",
       "default_case": "auto",
       "cases": [
         {
           "name": "auto",
-          "label": "自动选择未刷满的已持有英雄",
+          "label": "自动选英雄",
           "pipeline_override": {
-            "GT_Sweep_Evolution": {
+            "GT_Sweep_Evolution_Setting_mode": {
               "custom_action_param": {
                 "mode": "auto"
               }
@@ -516,17 +517,18 @@
         },
         {
           "name": "selected",
-          "label": "使用游戏奖励设置中所选英雄",
+          "label": "沿用游戏设置",
           "description": "先在游戏相应属性副本的齿轮中选择英雄，再运行此任务。按设置次数刷取，不自动换英雄。",
           "pipeline_override": {
-            "GT_Sweep_Evolution": {
+            "GT_Sweep_Evolution_Setting_mode": {
               "custom_action_param": {
                 "mode": "selected"
               }
             }
           }
         }
-      ]
+      ],
+      "description": "自动模式仅选择已持有英雄；满星或累计1160个进化石后切换目标。沿用模式需先在游戏齿轮中设置奖励英雄。"
     },
     "RecognitionInterval": {
       "type": "input",
@@ -538,7 +540,8 @@
           "label": "间隔（50～2000ms）",
           "default": "100",
           "pipeline_type": "int",
-          "verify": "^(?:[5-9][0-9]|[1-9][0-9]{2}|1[0-9]{3}|2000)$"
+          "verify": "^(?:[5-9][0-9]|[1-9][0-9]{2}|1[0-9]{3}|2000)$",
+          "pattern_msg": "请检查输入格式"
         }
       ],
       "pipeline_override": {
@@ -909,7 +912,7 @@
         }
       ],
       "pipeline_override": {
-        "GT_Sweep_Red": {
+        "GT_Sweep_Red_Setting_count": {
           "custom_action_param": {
             "count": "{count}"
           }
@@ -918,14 +921,14 @@
     },
     "RedBoost": {
       "type": "switch",
-      "label": "只扫荡每日焕发次数",
+      "label": "仅使用焕发次数",
       "default_case": "Yes",
       "cases": [
         {
           "name": "Yes",
           "label": "是",
           "pipeline_override": {
-            "GT_Sweep_Red": {
+            "GT_Sweep_Red_Setting_boost_only": {
               "custom_action_param": {
                 "boost_only": true
               }
@@ -934,9 +937,9 @@
         },
         {
           "name": "No",
-          "label": "否（会继续消耗体力）",
+          "label": "否（消耗普通体力）",
           "pipeline_override": {
-            "GT_Sweep_Red": {
+            "GT_Sweep_Red_Setting_boost_only": {
               "custom_action_param": {
                 "boost_only": false
               }
@@ -954,7 +957,8 @@
           "label": "购买次数（0为跳过）",
           "default": "0",
           "pipeline_type": "int",
-          "verify": "^(?:[0-9]|[1-9][0-9]|100)$"
+          "verify": "^(?:[0-9]|[1-9][0-9]|100)$",
+          "pattern_msg": "请输入0到100的整数"
         }
       ],
       "pipeline_override": {
@@ -992,7 +996,8 @@
           "label": "购买次数（0为跳过）",
           "default": "0",
           "pipeline_type": "int",
-          "verify": "^(?:[0-9]|[1-9][0-9]|100)$"
+          "verify": "^(?:[0-9]|[1-9][0-9]|100)$",
+          "pattern_msg": "请输入0到100的整数"
         }
       ],
       "pipeline_override": {
@@ -1012,7 +1017,8 @@
           "label": "购买次数（0为跳过）",
           "default": "0",
           "pipeline_type": "int",
-          "verify": "^(?:[0-9]|[1-9][0-9]|100)$"
+          "verify": "^(?:[0-9]|[1-9][0-9]|100)$",
+          "pattern_msg": "请输入0到100的整数"
         }
       ],
       "pipeline_override": {
@@ -1031,14 +1037,16 @@
           "name": "name",
           "label": "商品名称（与游戏显示一致）",
           "default": "",
-          "verify": "^.{1,40}$"
+          "verify": "^.{1,40}$",
+          "pattern_msg": "请检查输入格式"
         },
         {
           "name": "count",
           "label": "购买次数（0为跳过）",
           "default": "0",
           "pipeline_type": "int",
-          "verify": "^(?:[0-9]|[1-9][0-9]|100)$"
+          "verify": "^(?:[0-9]|[1-9][0-9]|100)$",
+          "pattern_msg": "请输入0到100的整数"
         }
       ],
       "pipeline_override": {
@@ -1168,7 +1176,8 @@
           "label": "购买次数（0为跳过）",
           "default": "0",
           "pipeline_type": "int",
-          "verify": "^(?:[0-9]|[1-9][0-9]|100)$"
+          "verify": "^(?:[0-9]|[1-9][0-9]|100)$",
+          "pattern_msg": "请输入0到100的整数"
         }
       ],
       "pipeline_override": {
@@ -1257,7 +1266,8 @@
           "label": "购买次数（0为跳过）",
           "default": "0",
           "pipeline_type": "int",
-          "verify": "^(?:[0-9]|[1-9][0-9]|100)$"
+          "verify": "^(?:[0-9]|[1-9][0-9]|100)$",
+          "pattern_msg": "请输入0到100的整数"
         }
       ],
       "pipeline_override": {
@@ -1294,14 +1304,16 @@
           "name": "name",
           "label": "商品名称（与游戏显示一致）",
           "default": "",
-          "verify": "^.{1,40}$"
+          "verify": "^.{1,40}$",
+          "pattern_msg": "请检查输入格式"
         },
         {
           "name": "count",
           "label": "购买次数（0为跳过）",
           "default": "0",
           "pipeline_type": "int",
-          "verify": "^(?:[0-9]|[1-9][0-9]|100)$"
+          "verify": "^(?:[0-9]|[1-9][0-9]|100)$",
+          "pattern_msg": "请输入0到100的整数"
         }
       ],
       "pipeline_override": {
@@ -1382,7 +1394,7 @@
         }
       ],
       "pipeline_override": {
-        "GT_Sweep_Flower": {
+        "GT_Sweep_Flower_Setting_count": {
           "custom_action_param": {
             "count": "{count}"
           }
@@ -1398,7 +1410,7 @@
           "name": "neutral",
           "label": "虚",
           "pipeline_override": {
-            "GT_Sweep_Flower": {
+            "GT_Sweep_Flower_Setting_attribute": {
               "custom_action_param": {
                 "attribute": "neutral"
               }
@@ -1409,7 +1421,7 @@
           "name": "light",
           "label": "光",
           "pipeline_override": {
-            "GT_Sweep_Flower": {
+            "GT_Sweep_Flower_Setting_attribute": {
               "custom_action_param": {
                 "attribute": "light"
               }
@@ -1420,7 +1432,7 @@
           "name": "dark",
           "label": "暗",
           "pipeline_override": {
-            "GT_Sweep_Flower": {
+            "GT_Sweep_Flower_Setting_attribute": {
               "custom_action_param": {
                 "attribute": "dark"
               }
@@ -1431,7 +1443,7 @@
           "name": "earth",
           "label": "土",
           "pipeline_override": {
-            "GT_Sweep_Flower": {
+            "GT_Sweep_Flower_Setting_attribute": {
               "custom_action_param": {
                 "attribute": "earth"
               }
@@ -1442,7 +1454,7 @@
           "name": "fire",
           "label": "火",
           "pipeline_override": {
-            "GT_Sweep_Flower": {
+            "GT_Sweep_Flower_Setting_attribute": {
               "custom_action_param": {
                 "attribute": "fire"
               }
@@ -1453,7 +1465,7 @@
           "name": "water",
           "label": "水",
           "pipeline_override": {
-            "GT_Sweep_Flower": {
+            "GT_Sweep_Flower_Setting_attribute": {
               "custom_action_param": {
                 "attribute": "water"
               }
@@ -1471,7 +1483,8 @@
           "label": "购买次数（0为跳过）",
           "default": "0",
           "pipeline_type": "int",
-          "verify": "^(?:[0-9]|[1-9][0-9]|100)$"
+          "verify": "^(?:[0-9]|[1-9][0-9]|100)$",
+          "pattern_msg": "请输入0到100的整数"
         }
       ],
       "pipeline_override": {
@@ -1491,7 +1504,8 @@
           "label": "购买次数（0为跳过）",
           "default": "0",
           "pipeline_type": "int",
-          "verify": "^(?:[0-9]|[1-9][0-9]|100)$"
+          "verify": "^(?:[0-9]|[1-9][0-9]|100)$",
+          "pattern_msg": "请输入0到100的整数"
         }
       ],
       "pipeline_override": {
@@ -1511,7 +1525,8 @@
           "label": "购买次数（0为跳过）",
           "default": "0",
           "pipeline_type": "int",
-          "verify": "^(?:[0-9]|[1-9][0-9]|100)$"
+          "verify": "^(?:[0-9]|[1-9][0-9]|100)$",
+          "pattern_msg": "请输入0到100的整数"
         }
       ],
       "pipeline_override": {
@@ -1531,7 +1546,8 @@
           "label": "购买次数（0为跳过）",
           "default": "0",
           "pipeline_type": "int",
-          "verify": "^(?:[0-9]|[1-9][0-9]|100)$"
+          "verify": "^(?:[0-9]|[1-9][0-9]|100)$",
+          "pattern_msg": "请输入0到100的整数"
         }
       ],
       "pipeline_override": {
@@ -1551,7 +1567,8 @@
           "label": "购买次数（0为跳过）",
           "default": "0",
           "pipeline_type": "int",
-          "verify": "^(?:[0-9]|[1-9][0-9]|100)$"
+          "verify": "^(?:[0-9]|[1-9][0-9]|100)$",
+          "pattern_msg": "请输入0到100的整数"
         }
       ],
       "pipeline_override": {
@@ -1571,7 +1588,8 @@
           "label": "购买次数（0为跳过）",
           "default": "0",
           "pipeline_type": "int",
-          "verify": "^(?:[0-9]|[1-9][0-9]|100)$"
+          "verify": "^(?:[0-9]|[1-9][0-9]|100)$",
+          "pattern_msg": "请输入0到100的整数"
         }
       ],
       "pipeline_override": {
@@ -1591,7 +1609,8 @@
           "label": "购买次数（0为跳过）",
           "default": "0",
           "pipeline_type": "int",
-          "verify": "^(?:[0-9]|[1-9][0-9]|100)$"
+          "verify": "^(?:[0-9]|[1-9][0-9]|100)$",
+          "pattern_msg": "请输入0到100的整数"
         }
       ],
       "pipeline_override": {
@@ -1611,7 +1630,8 @@
           "label": "购买次数（0为跳过）",
           "default": "0",
           "pipeline_type": "int",
-          "verify": "^(?:[0-9]|[1-9][0-9]|100)$"
+          "verify": "^(?:[0-9]|[1-9][0-9]|100)$",
+          "pattern_msg": "请输入0到100的整数"
         }
       ],
       "pipeline_override": {
@@ -1631,7 +1651,8 @@
           "label": "购买次数（0为跳过）",
           "default": "0",
           "pipeline_type": "int",
-          "verify": "^(?:[0-9]|[1-9][0-9]|100)$"
+          "verify": "^(?:[0-9]|[1-9][0-9]|100)$",
+          "pattern_msg": "请输入0到100的整数"
         }
       ],
       "pipeline_override": {
@@ -1651,7 +1672,8 @@
           "label": "购买次数（0为跳过）",
           "default": "0",
           "pipeline_type": "int",
-          "verify": "^(?:[0-9]|[1-9][0-9]|100)$"
+          "verify": "^(?:[0-9]|[1-9][0-9]|100)$",
+          "pattern_msg": "请输入0到100的整数"
         }
       ],
       "pipeline_override": {
@@ -1758,7 +1780,8 @@
           "label": "购买次数（0为跳过）",
           "default": "0",
           "pipeline_type": "int",
-          "verify": "^(?:[0-9]|[1-9][0-9]|100)$"
+          "verify": "^(?:[0-9]|[1-9][0-9]|100)$",
+          "pattern_msg": "请输入0到100的整数"
         }
       ],
       "pipeline_override": {
@@ -1778,7 +1801,8 @@
           "label": "购买次数（0为跳过）",
           "default": "0",
           "pipeline_type": "int",
-          "verify": "^(?:[0-9]|[1-9][0-9]|100)$"
+          "verify": "^(?:[0-9]|[1-9][0-9]|100)$",
+          "pattern_msg": "请输入0到100的整数"
         }
       ],
       "pipeline_override": {
@@ -1798,7 +1822,8 @@
           "label": "购买次数（0为跳过）",
           "default": "0",
           "pipeline_type": "int",
-          "verify": "^(?:[0-9]|[1-9][0-9]|100)$"
+          "verify": "^(?:[0-9]|[1-9][0-9]|100)$",
+          "pattern_msg": "请输入0到100的整数"
         }
       ],
       "pipeline_override": {
@@ -1818,7 +1843,8 @@
           "label": "购买次数（0为跳过）",
           "default": "0",
           "pipeline_type": "int",
-          "verify": "^(?:[0-9]|[1-9][0-9]|100)$"
+          "verify": "^(?:[0-9]|[1-9][0-9]|100)$",
+          "pattern_msg": "请输入0到100的整数"
         }
       ],
       "pipeline_override": {
@@ -1838,7 +1864,8 @@
           "label": "购买次数（0为跳过）",
           "default": "0",
           "pipeline_type": "int",
-          "verify": "^(?:[0-9]|[1-9][0-9]|100)$"
+          "verify": "^(?:[0-9]|[1-9][0-9]|100)$",
+          "pattern_msg": "请输入0到100的整数"
         }
       ],
       "pipeline_override": {
@@ -1858,7 +1885,8 @@
           "label": "购买次数（0为跳过）",
           "default": "0",
           "pipeline_type": "int",
-          "verify": "^(?:[0-9]|[1-9][0-9]|100)$"
+          "verify": "^(?:[0-9]|[1-9][0-9]|100)$",
+          "pattern_msg": "请输入0到100的整数"
         }
       ],
       "pipeline_override": {
@@ -3002,5 +3030,8 @@
         }
       ]
     }
-  }
+  },
+  "description": "ABOUT.md",
+  "contact": "CONTACT.md",
+  "welcome": "WELCOME.md"
 }

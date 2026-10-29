@@ -9,6 +9,7 @@ import traceback
 
 from actions import HANDLERS
 from native import ACTION_CALLBACK, Native, Screen
+from settings import resolve_task_settings
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -20,7 +21,8 @@ def register(native: Native, register_action):
                    handler=handler):
             screen = Screen(native, context)
             try:
-                return int(handler(screen, json.loads(parameters or b"{}")))
+                params = resolve_task_settings(screen, json.loads(parameters or b"{}"))
+                return int(handler(screen, params))
             except Exception as error:
                 # Never let a Python exception unwind through a native callback.
                 screen.log("action_failed", action=action_name.decode(), error=str(error))

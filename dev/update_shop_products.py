@@ -18,10 +18,10 @@ def product_option(product: dict, node: str, *, custom: bool = False) -> dict:
     key = product["key"]
     option = {"type": "input", "label": product["label"], "inputs": [
         {"name": "count", "label": "购买次数（0为跳过）", "default": "0", "pipeline_type": "int",
-         "verify": "^(?:[0-9]|[1-9][0-9]|100)$"}],
+         "verify": "^(?:[0-9]|[1-9][0-9]|100)$", "pattern_msg": "请输入0到100的整数"}],
         "pipeline_override": settings_override(node, {key + "_count": "{count}"})}
     if custom:
-        option["inputs"].insert(0, {"name": "name", "label": "商品名称（与游戏显示一致）", "default": "", "verify": "^.{1,40}$"})
+        option["inputs"].insert(0, {"name": "name", "label": "商品名称（与游戏显示一致）", "default": "", "verify": "^.{1,40}$", "pattern_msg": "请检查输入格式"})
         option["pipeline_override"].update(settings_override(node, {key + "_name": "{name}"}))
     return option
 

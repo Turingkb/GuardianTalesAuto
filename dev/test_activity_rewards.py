@@ -19,7 +19,7 @@ class GoalScreen:
     def pause(self, *args): pass
     def log(self, *args, **kwargs): pass
     def has(self, roi, expected):
-        if expected == "^一键领取$": return self.label
+        if expected == "^一?键领取$": return self.label
         return self.ready
     def text(self, roi): return str(self.balance)
     def recognize(self, kind, params):

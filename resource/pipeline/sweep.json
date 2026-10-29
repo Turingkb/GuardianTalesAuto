@@ -16,7 +16,10 @@
   "GT_Sweep_Awakening": {
     "action": "Custom",
     "custom_action": "GT_AwakeningFree",
-    "custom_action_param": {},
+    "custom_action_param": {
+      "settings_node": "GT_Sweep_Awakening",
+      "settings_fields": []
+    },
     "post_delay": 1500,
     "next": [
       "GT_Common_HubRoute"
@@ -35,7 +38,12 @@
     "custom_action": "GT_GoldResourceSweep",
     "custom_action_param": {
       "count": 10,
-      "boost_only": true
+      "boost_only": true,
+      "settings_node": "GT_Sweep_Gold",
+      "settings_fields": [
+        "count",
+        "boost_only"
+      ]
     },
     "post_delay": 700,
     "next": [
@@ -55,7 +63,12 @@
     "custom_action": "GT_ExperienceResourceSweep",
     "custom_action_param": {
       "count": 10,
-      "boost_only": true
+      "boost_only": true,
+      "settings_node": "GT_Sweep_Experience",
+      "settings_fields": [
+        "count",
+        "boost_only"
+      ]
     },
     "post_delay": 700,
     "next": [
@@ -75,7 +88,12 @@
     "custom_action": "GT_ItemsResourceSweep",
     "custom_action_param": {
       "count": 10,
-      "boost_only": true
+      "boost_only": true,
+      "settings_node": "GT_Sweep_Items",
+      "settings_fields": [
+        "count",
+        "boost_only"
+      ]
     },
     "post_delay": 700,
     "next": [
@@ -103,7 +121,14 @@
       "count": 10,
       "boost_only": true,
       "attribute": "neutral",
-      "mode": "auto"
+      "mode": "auto",
+      "settings_node": "GT_Sweep_Evolution",
+      "settings_fields": [
+        "count",
+        "boost_only",
+        "attribute",
+        "mode"
+      ]
     },
     "post_delay": 700,
     "next": [
@@ -127,7 +152,12 @@
     "custom_action": "GT_RedResourceSweep",
     "custom_action_param": {
       "count": 10,
-      "boost_only": true
+      "boost_only": true,
+      "settings_node": "GT_Sweep_Red",
+      "settings_fields": [
+        "count",
+        "boost_only"
+      ]
     },
     "next": [
       "GT_Common_HubRoute"
@@ -262,7 +292,12 @@
     "custom_action": "GT_FlowerSweep",
     "custom_action_param": {
       "count": 10,
-      "attribute": "neutral"
+      "attribute": "neutral",
+      "settings_node": "GT_Sweep_Flower",
+      "settings_fields": [
+        "count",
+        "attribute"
+      ]
     },
     "next": [
       "GT_Common_HubRoute"

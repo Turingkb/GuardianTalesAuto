@@ -108,6 +108,9 @@ def find_product(screen: Screen, name: str, free: bool = False) -> tuple[int, in
                 if re.fullmatch(r"每日免费商品[!！]?", text):
                     x, y = center(item)
                     column = min((394, 642, 890, 1138), key=lambda value: abs(x - value))
+                    if screen.has([column - 110, y + 20, 220, min(100, 720 - y - 20)], "售[罄馨]"):
+                        screen.log("shop_skipped", item=name, reason="already_claimed")
+                        return None
                     return column, max(195, y - 90)
                 continue
             aliases = (name, "传说觉醒石") if name == "传说中的觉醒石" else (name,)
@@ -115,7 +118,8 @@ def find_product(screen: Screen, name: str, free: bool = False) -> tuple[int, in
                 x, y = center(item)
                 # The price and sold-out label belong to the same card column.
                 column = min((394, 642, 890, 1138), key=lambda value: abs(x - value))
-                if screen.has([column - 110, y + 20, 220, min(100, 720 - y - 20)], "售罄"):
+                # The game font's final character is also recognized as 馨.
+                if screen.has([column - 110, y + 20, 220, min(100, 720 - y - 20)], "售[罄馨]"):
                     screen.log("shop_skipped", item=name, reason="sold_out")
                     return None
                 return x, y
@@ -215,7 +219,12 @@ def purchase(screen: Screen, product: Product, preview: bool) -> None:
                 cancel(screen)
                 return
         except (RuntimeError, ValueError):
-            cancel(screen)
+            # Preserve the original failure if no purchase dialog opened.
+            if screen.has([550, 65, 180, 85], "^购买$"):
+                try:
+                    cancel(screen)
+                except RuntimeError as error:
+                    screen.log("shop_cancel_failed", error=str(error))
             raise
         screen.tap(*target, 0.7)
         settle(screen)

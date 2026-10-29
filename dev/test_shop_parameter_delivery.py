@@ -11,11 +11,15 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "agent"))
 from native import Native
 import shop
+from settings import resolve_task_settings
+from update_sweep_options import update as update_sweeps
 
 
 class DeliveryTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
+        if not (ROOT / "runtimes/win-x64/native/MaaFramework.dll").is_file():
+            raise unittest.SkipTest("Bundled Windows MaaFramework runtime is not installed")
         cls.native = Native(ROOT)
         cls.create = cls.native.bind("MaaResourceCreate", ct.c_void_p)
         cls.destroy = cls.native.bind("MaaResourceDestroy", None, ct.c_void_p)
@@ -75,6 +79,27 @@ class DeliveryTests(unittest.TestCase):
         with patch.object(shop, "select_category", return_value=True), patch.object(shop, "purchase") as purchase:
             shop.shop_purchase(self, {"read_settings": True})
         self.assertEqual([call.args[1].key for call in purchase.call_args_list], ["hammer"])
+
+    def test_sweep_count_attribute_mode_and_boost_all_reach_agent(self):
+        pipeline = json.loads((ROOT / "resource/pipeline/sweep.json").read_text(encoding="utf-8"))
+        settings = update_sweeps(self.interface, pipeline)
+        self.put(settings)
+        self.deliver("EvolutionCount", {"count": 7})
+        for name, index in (("EvolutionBoost", 1), ("EvolutionAttribute", 5), ("EvolutionMode", 1)):
+            self.put(self.interface["option"][name]["cases"][index]["pipeline_override"])
+        params = resolve_task_settings(self, pipeline["GT_Sweep_Evolution"]["custom_action_param"])
+        self.assertEqual(params, {"count": 7, "boost_only": False, "attribute": "water", "mode": "selected"})
+
+    def test_flower_zero_and_attribute_survive_together(self):
+        pipeline = json.loads((ROOT / "resource/pipeline/sweep.json").read_text(encoding="utf-8"))
+        self.put(update_sweeps(self.interface, pipeline))
+        self.deliver("FlowerCount", {"count": 0})
+        self.put(self.interface["option"]["FlowerAttribute"]["cases"][4]["pipeline_override"])
+        params = resolve_task_settings(self, pipeline["GT_Sweep_Flower"]["custom_action_param"])
+        self.assertEqual(params, {"count": 0, "attribute": "fire"})
+
+    def test_parameterless_actions_accept_native_json_null(self):
+        self.assertEqual(resolve_task_settings(self, None), {})
 
 
 if __name__ == "__main__": unittest.main()

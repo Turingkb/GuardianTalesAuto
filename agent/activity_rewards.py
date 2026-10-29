@@ -17,7 +17,7 @@ def goals_ready(screen: Screen) -> bool:
 
 def claim_available(screen: Screen) -> bool:
     return (goals_ready(screen)
-            and screen.has([990, 630, 185, 65], "^一键领取$")
+            and screen.has([990, 630, 185, 65], "^一?键领取$")
             and bool(screen.recognize("ColorMatch", {
                 "method": 4, "lower": [240, 175, 0], "upper": [255, 230, 70],
                 "roi": [1000, 640, 150, 40], "count": 2500})))
@@ -53,7 +53,7 @@ def claim_goals(screen: Screen) -> int:
         screen.capture()
         if not goals_ready(screen):
             raise RuntimeError("Event goals are covered or changed")
-        if not screen.has([990, 630, 185, 65], "^一键领取$"):
+        if not screen.has([990, 630, 185, 65], "^一?键领取$"):
             raise RuntimeError("Event claim control is missing")
         if not claim_available(screen):
             if not screen.recognize("ColorMatch", {

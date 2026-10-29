@@ -47,8 +47,27 @@ class ShopGuards(unittest.TestCase):
             screen.act = lambda *args: None
             screen.pause = lambda *args: None
             screen.ocr = lambda *args: [{"text": label, "box": [835, 440, 110, 20]}]
+            screen.has = lambda *args: False
             expected = None if label.endswith("套餐") else (890, 360)
             self.assertEqual(shop.find_product(screen, "金币", free=True), expected)
+
+    def test_free_coins_already_claimed_skip_without_opening_dialog(self):
+        screen = PurchaseDialog()
+        screen.act = lambda *args: None
+        screen.pause = lambda *args: None
+        screen.ocr = lambda *args: [{"text": "每日免费商品!", "box": [590, 615, 110, 20]}]
+        screen.has = lambda roi, expected: __import__('re').search(expected, "售罄") is not None
+        self.assertIsNone(shop.find_product(screen, "金币", free=True))
+        self.assertEqual(screen.taps, [])
+
+    def test_sold_out_ocr_variant_skips_without_opening_dialog(self):
+        screen = PurchaseDialog(name="传说中的觉醒石")
+        screen.act = lambda *args: None
+        screen.pause = lambda *args: None
+        screen.ocr = lambda *args: [{"text": screen.name, "box": [1085, 570, 160, 25]}]
+        screen.has = lambda roi, expected: __import__('re').search(expected, "售馨") is not None
+        self.assertIsNone(shop.find_product(screen, screen.name))
+        self.assertEqual(screen.taps, [])
 
     def test_shop_resource_loading_waits_without_input(self):
         screen = PurchaseDialog()

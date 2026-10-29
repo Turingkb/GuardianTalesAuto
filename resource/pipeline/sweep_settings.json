@@ -1,0 +1,100 @@
+{
+  "GT_Sweep_Gold_Setting_count": {
+    "action": "Custom",
+    "custom_action": "GT_GoldResourceSweep",
+    "custom_action_param": {
+      "count": 10
+    }
+  },
+  "GT_Sweep_Gold_Setting_boost_only": {
+    "action": "Custom",
+    "custom_action": "GT_GoldResourceSweep",
+    "custom_action_param": {
+      "boost_only": true
+    }
+  },
+  "GT_Sweep_Experience_Setting_count": {
+    "action": "Custom",
+    "custom_action": "GT_ExperienceResourceSweep",
+    "custom_action_param": {
+      "count": 10
+    }
+  },
+  "GT_Sweep_Experience_Setting_boost_only": {
+    "action": "Custom",
+    "custom_action": "GT_ExperienceResourceSweep",
+    "custom_action_param": {
+      "boost_only": true
+    }
+  },
+  "GT_Sweep_Items_Setting_count": {
+    "action": "Custom",
+    "custom_action": "GT_ItemsResourceSweep",
+    "custom_action_param": {
+      "count": 10
+    }
+  },
+  "GT_Sweep_Items_Setting_boost_only": {
+    "action": "Custom",
+    "custom_action": "GT_ItemsResourceSweep",
+    "custom_action_param": {
+      "boost_only": true
+    }
+  },
+  "GT_Sweep_Evolution_Setting_count": {
+    "action": "Custom",
+    "custom_action": "GT_EvolutionSweep",
+    "custom_action_param": {
+      "count": 10
+    }
+  },
+  "GT_Sweep_Evolution_Setting_boost_only": {
+    "action": "Custom",
+    "custom_action": "GT_EvolutionSweep",
+    "custom_action_param": {
+      "boost_only": true
+    }
+  },
+  "GT_Sweep_Evolution_Setting_attribute": {
+    "action": "Custom",
+    "custom_action": "GT_EvolutionSweep",
+    "custom_action_param": {
+      "attribute": "neutral"
+    }
+  },
+  "GT_Sweep_Evolution_Setting_mode": {
+    "action": "Custom",
+    "custom_action": "GT_EvolutionSweep",
+    "custom_action_param": {
+      "mode": "auto"
+    }
+  },
+  "GT_Sweep_Red_Setting_count": {
+    "action": "Custom",
+    "custom_action": "GT_RedResourceSweep",
+    "custom_action_param": {
+      "count": 10
+    }
+  },
+  "GT_Sweep_Red_Setting_boost_only": {
+    "action": "Custom",
+    "custom_action": "GT_RedResourceSweep",
+    "custom_action_param": {
+      "boost_only": true
+    }
+  },
+  "GT_Sweep_Flower_Setting_count": {
+    "action": "Custom",
+    "custom_action": "GT_FlowerSweep",
+    "custom_action_param": {
+      "count": 10
+    }
+  },
+  "GT_Sweep_Flower_Setting_attribute": {
+    "action": "Custom",
+    "custom_action": "GT_FlowerSweep",
+    "custom_action_param": {
+      "attribute": "neutral"
+    }
+  }
+}

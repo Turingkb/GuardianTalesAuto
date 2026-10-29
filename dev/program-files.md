@@ -1,6 +1,6 @@
 # 坎公助手的程序文件
 
-主程序名为 `GTAssistant.exe`（Guardian Tales Assistant），中文界面名仍为“坎公骑冠剑助手”。
+主程序名保留 `GTAssistant.exe`，以兼容现有快捷方式与总调度；界面名称为“MGA 坎公助手”。
 双击 `GTAssistant.bat` 或原有 `run_gui.bat` 均可启动同一程序。首次导入原版运行包后，启动器会将 `MFAAvalonia.exe` 改名为 `GTAssistant.exe`。
 
 只重命名 .NET apphost EXE。`MFAAvalonia.dll`、`MFAAvalonia.deps.json` 和 `MFAAvalonia.runtimeconfig.json` 以及 `libs/`、`runtimes/` 是加载依赖，保留其原名。`MaaPiCli.exe` 保留框架命令行工具原名，仍由 `run_cli.bat` 启动。

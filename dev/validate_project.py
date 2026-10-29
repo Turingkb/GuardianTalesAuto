@@ -11,6 +11,11 @@ from actions import HANDLERS
 
 def main():
     interface = json.loads((ROOT / "interface.json").read_text(encoding="utf-8"))
+    localized = json.loads((ROOT / interface["languages"]["zh_cn"]).read_text(encoding="utf-8"))
+    assert localized["title"] == interface["title"], "Localized title/version is stale"
+    assert localized["name"] == interface["label"], "Localized project name is stale"
+    for field in ("license", "description", "contact", "welcome"):
+        assert (ROOT / interface[field]).is_file(), f"Missing GUI information page: {field}"
     nodes = {}
     for file in (ROOT / "resource/pipeline").glob("*.json"):
         content = json.loads(file.read_text(encoding="utf-8"))
@@ -46,6 +51,15 @@ def main():
             for node in case.get("pipeline_override", {}): assert node in nodes, node
         for node in option.get("pipeline_override", {}): assert node in nodes, node
     for name in interface["option"]: validate_option(name)
+    # Independent option values must not replace each other's action parameters.
+    field_targets = {}
+    for option in interface["option"].values():
+        for source in [option] + option.get("cases", []):
+            for node, override in source.get("pipeline_override", {}).items():
+                fields = override.get("custom_action_param", {}).keys()
+                field_targets.setdefault(node, set()).update(fields)
+    for node, fields in field_targets.items():
+        assert len(fields) <= 1, f"GUI action parameters overwrite each other: {node}: {fields}"
     assert (ROOT / interface["icon"]).is_file()
     print(f"Validated {len(nodes)} nodes, {len(interface['task'])} tasks, {len(HANDLERS)} Agent actions")
     return 0
