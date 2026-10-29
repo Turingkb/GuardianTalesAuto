@@ -2,6 +2,7 @@
 
 import hashlib
 import io
+import json
 import os
 from pathlib import Path
 import stat
@@ -50,6 +51,16 @@ class PortablePackage(unittest.TestCase):
     def test_personal_configuration_cannot_enter_package(self):
         (self.root / "config").mkdir()
         (self.root / "config/default.json").write_text('{"device":"private"}')
+        with self.assertRaises(ValueError):
+            package.check_package(self.root)
+
+    def test_first_launch_template_cannot_enable_tasks(self):
+        (self.root / "config").mkdir()
+        unsafe = dict(package.FIRST_LAUNCH_SETTINGS, BeforeTask="StartupScriptOnly")
+        (self.root / "config/config.template.json").write_text(json.dumps(unsafe))
+        binary = self.root / "libs/MaaAgentBinary/maatouch/universal/maatouch"
+        binary.parent.mkdir(parents=True)
+        binary.write_bytes(b"x" * 10001)
         with self.assertRaises(ValueError):
             package.check_package(self.root)
 

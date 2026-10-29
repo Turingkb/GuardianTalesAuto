@@ -23,6 +23,7 @@ FILES = {"GTAssistant.bat", "run_gui.bat", "run_cli.bat", "README.md", "LICENSE"
          "dev/repository-setup.md", "dev/public-readiness.md", "dev/portable-release.md", "interface.json"}
 PREFIXES = ("agent/", "assets/", "resource/pipeline/", "resource/image/", "licenses/")
 HOSTS = {"github.com", "codeload.github.com", "raw.githubusercontent.com", "www.python.org"}
+FIRST_LAUNCH_SETTINGS = {"BeforeTask": "None", "AfterTask": "None", "AutoConnectAfterRefresh": False}
 
 
 def digest(path: Path) -> str:
@@ -141,7 +142,7 @@ def build(ref: str, cache: Path, output: Path) -> Path:
         shutil.rmtree(backup)
     config = stage / "config"
     config.mkdir()
-    write_json(config / "config.template.json", {"AutoStart": False})
+    write_json(config / "config.template.json", FIRST_LAUNCH_SETTINGS)
     package_readme = ("# MGA 便携包 " + version + "\n\n解压全部文件，双击 `run_gui.bat` 启动。"
                       "已内置 Python、OCR 模型和框架；需要 .NET 10 x64 Runtime，启动时会检查。"
                       "首次自行选择模拟器，不包含开发者账号配置。\n\n"
@@ -184,6 +185,8 @@ def check_package(root: Path) -> None:
     actual_config = {path.name for path in (root / "config").iterdir()}
     if actual_config != {"config.template.json"}:
         raise ValueError("Package configuration must only contain the safe first-launch template")
+    if json.loads((root / "config/config.template.json").read_text(encoding="utf-8")) != FIRST_LAUNCH_SETTINGS:
+        raise ValueError("First-launch configuration must not start tasks or close the GUI automatically")
     binary = root / "libs/MaaAgentBinary/maatouch/universal/maatouch"
     if not binary.is_file() or binary.stat().st_size < 10000:
         raise ValueError("Android input component is missing or a placeholder")
