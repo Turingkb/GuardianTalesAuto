@@ -2,15 +2,18 @@
 
 import hashlib
 import io
+import os
 from pathlib import Path
 import stat
 import tempfile
 import unittest
 from unittest.mock import patch
+from types import SimpleNamespace
 import zipfile
 
 import build_portable as package
 import launch_gui
+import migrate_gui_tasks
 
 
 class PortablePackage(unittest.TestCase):
@@ -56,6 +59,15 @@ class PortablePackage(unittest.TestCase):
             problems = launch_gui.check_environment(self.root)
         self.assertTrue(any(launch_gui.DOTNET_URL in problem for problem in problems))
         run.assert_not_called()
+
+    @unittest.skipUnless(os.name == "nt", "Windows startup integration")
+    def test_gui_process_check_does_not_depend_on_powershell_in_path(self):
+        with patch.dict(os.environ, {"PATH": ""}), \
+                patch.object(migrate_gui_tasks.subprocess, "run", return_value=SimpleNamespace(returncode=0, stdout="1")) as run:
+            self.assertEqual(migrate_gui_tasks.main(), 0)
+        executable = Path(run.call_args.args[0][0])
+        self.assertTrue(executable.is_absolute())
+        self.assertTrue(executable.is_file())
 
 
 if __name__ == "__main__": unittest.main()

@@ -2,6 +2,7 @@
 
 import json
 import copy
+import os
 from pathlib import Path
 import subprocess
 
@@ -102,7 +103,10 @@ def main():
     # Process paths may be inaccessible under a restricted token. Checking names
     # conservatively prevents mistaking an unreadable path for a closed GUI.
     query = "@(Get-Process -Name GTAssistant,MFAAvalonia -ErrorAction SilentlyContinue).Count"
-    result = subprocess.run(["powershell.exe", "-NoProfile", "-Command", query],
+    powershell = Path(os.environ.get("SystemRoot", r"C:\Windows")) / "System32/WindowsPowerShell/v1.0/powershell.exe"
+    if not powershell.is_file():
+        raise RuntimeError("Windows PowerShell is required to verify the GUI process safely")
+    result = subprocess.run([str(powershell), "-NoProfile", "-Command", query],
                             capture_output=True, text=True, timeout=30,
                             creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0))
     if result.returncode or not result.stdout.strip().isdigit():
