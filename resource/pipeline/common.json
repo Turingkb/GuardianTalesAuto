@@ -39,6 +39,8 @@
       "[JumpBack]GT_Common_ClosePromo",
       "[JumpBack]GT_Common_BackKnownPage",
       "[JumpBack]GT_Common_CloseMenu",
+      "GT_StartUp_ClientUpdateRequired",
+      "[JumpBack]GT_StartUp_WaitResourceDownload",
       "[JumpBack]GT_StartUp_ConfirmDownload",
       "GT_StartUp_HubReady",
       "[JumpBack]GT_StartUp_TapStart",
@@ -410,6 +412,32 @@
               50
             ],
             "expected": "确认活动目标"
+          }
+        ]
+      },
+      {
+        "recognition": "And",
+        "all_of": [
+          {
+            "recognition": "TemplateMatch",
+            "roi": [
+              60,
+              5,
+              360,
+              60
+            ],
+            "template": "activity_title_capsule.png",
+            "threshold": 0.92
+          },
+          {
+            "recognition": "OCR",
+            "roi": [
+              1140,
+              665,
+              125,
+              40
+            ],
+            "expected": "^活动目标$"
           }
         ]
       }

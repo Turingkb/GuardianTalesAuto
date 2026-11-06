@@ -17,7 +17,7 @@ def main() -> int:
     sys.path.insert(0, str(ROOT / "agent"))
     from actions import HANDLERS
     from native import Native
-    assert len(HANDLERS) == 13
+    assert "GT_ActivityRewards" in HANDLERS and "GT_ClientUpdateRequired" in HANDLERS
     native = Native(ROOT)
     p, s, n = ct.c_void_p, ct.c_char_p, ct.c_int64
     resource = native.bind("MaaResourceCreate", p)()
@@ -49,7 +49,7 @@ def main() -> int:
             raise RuntimeError("Bundled OCR execution failed")
         if not results or not results[-1]["reco_details"].get("box"):
             raise RuntimeError("Bundled OCR did not recognize the expected game button")
-        print("Portable smoke PASS: Python " + sys.version.split()[0] + "; 13 Agent actions; native resource load; Chinese OCR")
+        print("Portable smoke PASS: Python " + sys.version.split()[0] + "; " + str(len(HANDLERS)) + " Agent actions; native resource load; Chinese OCR")
     finally:
         native.destroy_image(image)
         native.bind("MaaTaskerDestroy", None, p)(tasker)

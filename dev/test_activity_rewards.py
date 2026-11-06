@@ -79,4 +79,60 @@ class ActivityClaims(unittest.TestCase):
         self.assertEqual(screen.taps, [])
 
 
+class EventScreen:
+    def __init__(self, *, found=True, sidebar=False, covered=False):
+        self.state = "list"
+        self.found, self.sidebar, self.covered = found, sidebar, covered
+        self.taps = []
+        self.swipes = 0
+    def capture(self): return self
+    def pause(self, *args): pass
+    def log(self, *args, **kwargs): pass
+    def act(self, kind, params): self.swipes += 1
+    def has(self, roi, expected):
+        if expected == "^活动$": return self.state in ("list", "sidebar")
+        return self.state == "page" and not self.covered
+    def recognize(self, kind, params):
+        if params['template'] == "activity_title_capsule.png":
+            return {'box': [74,22,118,25]} if self.state == "page" else None
+        return {'box': [48,138,229,72]} if self.found else None
+    def tap(self, x, y, *args):
+        self.taps.append((x,y))
+        self.state = ("sidebar" if self.sidebar and len(self.taps) == 1 else "page")
+
+
+class EventNavigation(unittest.TestCase):
+    def test_selected_banner_opens_without_tapping_machine_controls(self):
+        screen = EventScreen()
+        self.assertTrue(activity.open_event(screen, activity.EVENTS[0]))
+        self.assertEqual(screen.taps, [(162,174)])
+
+    def test_sidebar_is_closed_only_after_recognizing_activity_list(self):
+        screen = EventScreen(sidebar=True)
+        self.assertTrue(activity.open_event(screen, activity.EVENTS[0]))
+        self.assertEqual(screen.taps, [(162,174), (350,365)])
+
+    def test_absent_supported_banner_makes_no_taps(self):
+        screen = EventScreen(found=False)
+        self.assertFalse(activity.open_event(screen, activity.EVENTS[0]))
+        self.assertEqual(screen.taps, [])
+        self.assertEqual(screen.swipes, 7)
+
+    def test_unknown_page_does_not_attempt_sidebar_toggle_or_claim(self):
+        screen = EventScreen(covered=True)
+        with patch.object(activity, 'wait_for', side_effect=[None, RuntimeError('unknown page')]), \
+                self.assertRaises(RuntimeError):
+            activity.open_event(screen, activity.EVENTS[0])
+        self.assertEqual(screen.taps, [(162,174)])
+
+    def test_new_event_claims_goals_and_returns_to_list_without_draw(self):
+        screen = EventScreen()
+        with patch.object(activity, 'open_event', side_effect=[True, False]), \
+                patch.object(activity, 'claim_goals', return_value=2) as claim, \
+                patch.object(activity, 'wait_for'):
+            self.assertTrue(activity.activity_rewards(screen, {}))
+        claim.assert_called_once_with(screen)
+        self.assertEqual(screen.taps, [(1195,623), (1237,43), (40,360)])
+
+
 if __name__ == '__main__': unittest.main(verbosity=2)

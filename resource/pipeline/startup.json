@@ -22,6 +22,8 @@
       "[JumpBack]GT_Common_CloseEventSignin",
       "[JumpBack]GT_Common_PromoOptOut",
       "[JumpBack]GT_Common_ClosePromo",
+      "GT_StartUp_ClientUpdateRequired",
+      "[JumpBack]GT_StartUp_WaitResourceDownload",
       "[JumpBack]GT_StartUp_ConfirmDownload",
       "GT_StartUp_HubReady",
       "[JumpBack]GT_StartUp_TapStart",
@@ -173,6 +175,77 @@
     ],
     "max_hit": 30,
     "post_delay": 3000,
+    "next": []
+  },
+  "GT_StartUp_ClientUpdateRequired": {
+    "recognition": "And",
+    "all_of": [
+      {
+        "recognition": "OCR",
+        "roi": [
+          490,
+          160,
+          300,
+          65
+        ],
+        "expected": "^发现新版本$"
+      },
+      {
+        "recognition": "OCR",
+        "roi": [
+          490,
+          540,
+          300,
+          65
+        ],
+        "expected": "^立即更新$"
+      }
+    ],
+    "action": "Custom",
+    "custom_action": "GT_ClientUpdateRequired",
+    "focus": {
+      "Node.Action.Failed": "游戏客户端需要更新，请从官方渠道完成更新后重新运行。"
+    },
+    "next": []
+  },
+  "GT_StartUp_WaitResourceDownload": {
+    "recognition": "And",
+    "all_of": [
+      {
+        "recognition": "ColorMatch",
+        "method": 4,
+        "lower": [
+          230,
+          180,
+          0
+        ],
+        "upper": [
+          255,
+          255,
+          120
+        ],
+        "roi": [
+          40,
+          669,
+          1200,
+          19
+        ],
+        "count": 500
+      },
+      {
+        "recognition": "OCR",
+        "roi": [
+          380,
+          600,
+          530,
+          120
+        ],
+        "expected": "资源加载中.*\\d+\\s*/\\s*\\d+"
+      }
+    ],
+    "action": "DoNothing",
+    "post_delay": 1000,
+    "max_hit": 600,
     "next": []
   }
 }

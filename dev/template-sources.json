@@ -531,5 +531,35 @@
       27
     ],
     "note": "游戏实机确认黄色六角货币为星片；旧英雄水晶命名有误。"
+  },
+  {
+    "template": "activity_banner_capsule.png",
+    "source": "dev/runtime/nov06/sidebar.png",
+    "box_xyxy": [
+      48,
+      138,
+      277,
+      210
+    ],
+    "size": [
+      229,
+      72
+    ],
+    "note": "2026-11-06，3.55.0巨型扭蛋机，仅领取活动目标，横幅不含剩余时间及红点。"
+  },
+  {
+    "template": "activity_title_capsule.png",
+    "source": "dev/runtime/nov06/machine.png",
+    "box_xyxy": [
+      74,
+      22,
+      192,
+      47
+    ],
+    "size": [
+      118,
+      25
+    ],
+    "note": "标题下划线影响局部OCR，使用标题模板与活动目标文字双锚点。"
   }
 ]

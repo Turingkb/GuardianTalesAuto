@@ -3,6 +3,7 @@
 import re
 import time
 from collections.abc import Callable
+from dataclasses import dataclass
 
 from native import Screen
 
@@ -90,12 +91,32 @@ def activity_list(screen: Screen) -> bool:
     return screen.has([70, 12, 110, 44], "^活动$")
 
 
-def bingo_page(screen: Screen) -> bool:
-    return (screen.has([70, 12, 350, 48], "开心宾果乐")
-            and screen.has([28, 185, 220, 50], "确认活动目标"))
+@dataclass(frozen=True)
+class Event:
+    name: str
+    template: str
+    goal_roi: tuple[int, int, int, int]
+    goal_label: str
+    goal_target: tuple[int, int]
+    title_template: str | None = None
+
+    def ready(self, screen: Screen) -> bool:
+        # The new header's underline breaks OCR in a cropped region.
+        title = (bool(screen.recognize("TemplateMatch", {
+            "template": self.title_template, "roi": [60, 5, 360, 60], "threshold": 0.92}))
+            if self.title_template else screen.has([70, 12, 350, 48], self.name))
+        return title and screen.has(list(self.goal_roi), self.goal_label)
 
 
-def activity_rewards(screen: Screen, params: dict) -> bool:
+EVENTS = (
+    Event("巨型扭蛋机", "activity_banner_capsule.png", (1140, 665, 125, 40),
+          "^活动目标$", (1195, 623), "activity_title_capsule.png"),
+    Event("开心宾果乐", "activity_banner_bingo.png", (28, 185, 220, 50),
+          "确认活动目标", (133, 214)),
+)
+
+
+def open_event(screen: Screen, event: Event) -> bool:
     wait_for(screen, activity_list, "Activity list did not open")
     screen.act("Swipe", {"begin": [285, 155], "end": [285, 640], "duration": 300})
     screen.pause(0.4)
@@ -105,28 +126,39 @@ def activity_rewards(screen: Screen, params: dict) -> bool:
         if not activity_list(screen):
             raise RuntimeError("Activity list changed while searching banners")
         banner = screen.recognize("TemplateMatch", {
-            "template": "activity_banner_bingo.png", "roi": [30, 120, 270, 560], "threshold": 0.88})
+            "template": event.template, "roi": [30, 120, 270, 560], "threshold": 0.88})
         if banner:
             break
         screen.act("Swipe", {"begin": [285, 630], "end": [285, 270], "duration": 300})
         screen.pause(0.4)
     if not banner:
-        screen.log("activity_skipped", reason="supported_event_not_available")
-        return True
+        screen.log("activity_skipped", activity=event.name, reason="supported_event_not_available")
+        return False
     x, y, w, h = banner["box"]
     screen.tap(int(x + w / 2), int(y + h / 2), 0.7)
-    screen.capture()
-    if not bingo_page(screen):
+    wait_for(screen, lambda current: event.ready(current) or activity_list(current),
+             f"Activity banner did not finish loading: {event.name}")
+    if not event.ready(screen):
         if not activity_list(screen):
             raise RuntimeError("Activity banner did not open a known page")
         # A selected banner may leave the sidebar open; toggle only in that state.
         screen.tap(350, 365, 0.7)
-    wait_for(screen, bingo_page, "Supported event panel did not open")
-    screen.tap(133, 214, 0.5)
-    gained = claim_goals(screen)
-    screen.tap(1237, 43, 0.5)
-    wait_for(screen, bingo_page, "Event goals did not close")
-    screen.tap(40, 360, 0.5)
-    wait_for(screen, activity_list, "Activity list did not return")
-    screen.log("activity_rewards_finished", gained=gained)
+    wait_for(screen, event.ready, f"Supported event panel did not open: {event.name}")
+    return True
+
+
+def activity_rewards(screen: Screen, params: dict) -> bool:
+    total = 0
+    for event in EVENTS:
+        if not open_event(screen, event):
+            continue
+        screen.tap(*event.goal_target, 0.5)
+        gained = claim_goals(screen)
+        total += gained
+        screen.tap(1237, 43, 0.5)
+        wait_for(screen, event.ready, "Event goals did not close")
+        screen.tap(40, 360, 0.5)
+        wait_for(screen, activity_list, "Activity list did not return")
+        screen.log("activity_event_finished", activity=event.name, gained=gained)
+    screen.log("activity_rewards_finished", gained=total)
     return True
