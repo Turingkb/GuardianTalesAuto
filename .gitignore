@@ -8,7 +8,6 @@ libs/
 runtimes/
 plugins/
 resource/model/
-resource/mfa_layout.json
 resource/image/_ref_*.png
 resource/image/游戏开始界面.png
 appsettings.json

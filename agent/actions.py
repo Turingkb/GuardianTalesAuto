@@ -11,6 +11,9 @@ from pass_rewards import pass_rewards
 from activity_rewards import activity_rewards
 
 
+USE_GAME_COUNT = -1
+
+
 def integer_text(text: str) -> int:
     cleaned = text.strip().replace(",", "").replace("，", "")
     if not re.fullmatch(r"\d+", cleaned):
@@ -79,8 +82,8 @@ def resource_sweep(screen: Screen, params: dict, *, kind: str | None = None) -> 
     if kind not in categories:
         raise ValueError("Unknown resource dungeon")
     requested = int(params.get("count", 10))
-    if not 0 <= requested <= 100:
-        raise ValueError("Sweep count must be between 0 and 100")
+    if not USE_GAME_COUNT <= requested <= 100:
+        raise ValueError("Sweep count must be -1 (game setting) or between 0 and 100")
     if requested == 0:
         screen.log("resource_skipped", kind=kind, reason="configured_zero")
         return True
@@ -113,15 +116,21 @@ def execute_stamina_sweep(screen: Screen, requested: int, boosted_only: bool, ki
     if not match or not 0 <= int(match.group(1)) <= 10:
         raise RuntimeError(f"Cannot determine remaining boosted entries: {allowance!r}")
     remaining = int(match.group(1))
-    wanted = min(requested, remaining) if boosted_only else requested
-    if wanted == 0:
+    if boosted_only and remaining == 0:
         screen.log("resource_skipped", kind=kind, reason="no_boosted_entries")
         screen.tap(536, 637, 0.5)
         return 0
+    use_game_count = requested == USE_GAME_COUNT
+    if use_game_count:
+        requested = counter(screen)
+        if not 1 <= requested <= 100:
+            raise RuntimeError("Game sweep count is outside 1 to 100")
+    wanted = min(requested, remaining) if boosted_only else requested
     if boosted_only and not screen.recognize("ColorMatch", {"roi": [340, 546, 29, 27], "method": 4,
                                                            "lower": [70, 180, 0], "upper": [170, 255, 120], "count": 20}):
         screen.tap(353, 559, 0.3)
-    set_counter(screen, wanted)
+    if not use_game_count or wanted != requested:
+        set_counter(screen, wanted)
     screen.capture()
     if counter(screen) != wanted:
         raise RuntimeError("Sweep count changed unexpectedly")
@@ -153,6 +162,10 @@ def execute_plain_sweep(screen: Screen, wanted: int, kind: str, *, preview_only:
         if not dialog_visible(screen):
             raise RuntimeError("Plain sweep dialog disappeared")
         current = integer_text(screen.text([330, 435, 620, 40]))
+        if wanted == USE_GAME_COUNT:
+            if not 1 <= current <= 100:
+                raise RuntimeError("Game sweep count is outside 1 to 100")
+            wanted = current
         if current == wanted:
             break
         for _ in range(min(abs(wanted - current), 5)):
@@ -182,7 +195,7 @@ def flower_sweep(screen: Screen, params: dict) -> bool:
                   "fire": ("火", 737, 642, 445, 505), "water": ("水", 1137, 642, 845, 505)}
     attribute = params.get("attribute", "neutral")
     preview = params.get("preview_only", False)
-    if type(count) is not int or not 0 <= count <= 100 or attribute not in attributes or type(preview) is not bool:
+    if type(count) is not int or not USE_GAME_COUNT <= count <= 100 or attribute not in attributes or type(preview) is not bool:
         raise ValueError("Invalid flowering-stone sweep settings")
     if not count:
         screen.log("resource_skipped", kind="flower", reason="configured_zero")
@@ -348,8 +361,8 @@ def hero_viewport(screen: Screen) -> bytes:
 
 def evolution_sweep(screen: Screen, params: dict) -> bool:
     requested = int(params.get("count", 10))
-    if not 0 <= requested <= 100:
-        raise ValueError("Evolution count must be between 0 and 100")
+    if not USE_GAME_COUNT <= requested <= 100:
+        raise ValueError("Evolution count must be -1 (game setting) or between 0 and 100")
     if not requested:
         screen.log("evolution_skipped", reason="configured_zero")
         return True
@@ -358,6 +371,8 @@ def evolution_sweep(screen: Screen, params: dict) -> bool:
     mode = params.get("mode", "auto")
     if selected not in attributes or mode not in ("auto", "selected"):
         raise ValueError("Invalid evolution attribute or target mode")
+    if mode == "auto" and requested == USE_GAME_COUNT:
+        raise ValueError("自动选英雄请填写 0 到 100 次，-1 仅适用于沿用游戏设置")
     boosted_only = params.get("boost_only", True)
     if not isinstance(boosted_only, bool):
         raise ValueError("boost_only must be a boolean")
@@ -371,17 +386,20 @@ def evolution_sweep(screen: Screen, params: dict) -> bool:
         index = attributes.index(attribute)
         gear = (404 + (index % 3) * 400, 333 if index < 3 else 578)
         button = (337 + (index % 3) * 400, 395 if index < 3 else 642)
-        while completed < requested:
+        while requested == USE_GAME_COUNT or completed < requested:
             if mode == "auto" and not choose_evolution_hero(screen, gear):
                 break
             screen.tap(*button, 0.6)
             screen.capture()
             # One run at a time allows a completed hero to be replaced immediately.
-            count = execute_stamina_sweep(screen, 1 if mode == "auto" else requested - completed,
-                                          boosted_only, "evolution")
+            batch = 1 if mode == "auto" else requested - completed
+            count = execute_stamina_sweep(screen, batch, boosted_only, "evolution")
             if not count:
                 return True
             completed += count
+            if requested == USE_GAME_COUNT:
+                screen.log("evolution_progress", attribute=attribute, completed=completed, count_source="game")
+                return True
             screen.log("evolution_progress", attribute=attribute, completed=completed, requested=requested)
         if completed >= requested:
             return True

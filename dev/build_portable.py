@@ -20,7 +20,8 @@ FILES = {"GTAssistant.bat", "run_gui.bat", "run_cli.bat", "README.md", "LICENSE"
          "CONTACT.md", "WELCOME.md", "THIRD_PARTY_NOTICES.md", "logo-v2.ico",
          "dev/launch_gui.py", "dev/migrate_gui_tasks.py", "dev/set_exe_icon.py",
          "dev/validate_project.py", "dev/smoke_portable.py", "dev/release.lock.json",
-         "dev/repository-setup.md", "dev/public-readiness.md", "dev/portable-release.md", "interface.json"}
+         "dev/repository-setup.md", "dev/public-readiness.md", "dev/portable-release.md", "interface.json",
+         "resource/mfa_layout.json"}
 PREFIXES = ("agent/", "assets/", "resource/pipeline/", "resource/image/", "licenses/")
 HOSTS = {"github.com", "codeload.github.com", "raw.githubusercontent.com", "www.python.org"}
 FIRST_LAUNCH_SETTINGS = {"BeforeTask": "None", "AfterTask": "None", "AutoConnectAfterRefresh": False}

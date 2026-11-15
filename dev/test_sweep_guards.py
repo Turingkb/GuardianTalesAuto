@@ -92,6 +92,35 @@ class Guards(unittest.TestCase):
             actions.execute_stamina_sweep(screen, 1, True, "items")
         self.assertEqual(screen.taps, [])
 
+    def test_game_count_submits_the_whole_batch_without_adjusting_counter(self):
+        screen = Dialog()
+        screen.values[(330, 385, 620, 40)] = "4"
+        screen.values[(623, 493, 121, 38)] = "42(-40)"
+        with patch.object(actions, "finish_sweep") as finish:
+            self.assertEqual(actions.execute_stamina_sweep(screen, -1, True, "gold"), 4)
+        self.assertEqual(screen.taps, [(744, 637)])
+        finish.assert_called_once_with(screen, 4, "gold")
+
+    def test_game_count_cannot_exceed_boost_allowance_in_boost_only_mode(self):
+        screen = Dialog(allowance="2/10")
+        screen.values[(330, 385, 620, 40)] = "4"
+        screen.values[(623, 493, 121, 38)] = "42(-20)"
+        with patch.object(actions, "set_counter", side_effect=lambda screen, count:
+                          screen.values.update({(330, 385, 620, 40): str(count)})) as set_count, \
+                patch.object(actions, "finish_sweep") as finish:
+            self.assertEqual(actions.execute_stamina_sweep(screen, -1, True, "gold"), 2)
+        set_count.assert_called_once_with(screen, 2)
+        finish.assert_called_once_with(screen, 2, "gold")
+
+    def test_game_count_in_plain_dialog_uses_game_batch(self):
+        screen = Dialog()
+        screen.values.update({(330, 435, 620, 40): "3", (623, 539, 121, 38): "42(-30)",
+                              (808, 539, 134, 38): "2965"})
+        with patch.object(actions, "finish_sweep") as finish:
+            self.assertEqual(actions.execute_plain_sweep(screen, -1, "flower"), 3)
+        self.assertEqual(screen.taps, [(744, 637)])
+        finish.assert_called_once_with(screen, 3, "flower")
+
     def test_zero_configuration_never_inputs(self):
         screen = Dialog()
         self.assertTrue(actions.resource_sweep(screen, {"kind": "gold", "count": 0}))
@@ -99,7 +128,7 @@ class Guards(unittest.TestCase):
         self.assertEqual(screen.taps, [])
 
     def test_invalid_configuration_never_inputs(self):
-        for params in [{"kind": "gold", "count": -1}, {"kind": "gold", "count": 101},
+        for params in [{"kind": "gold", "count": -2}, {"kind": "gold", "count": 101},
                        {"kind": "gold", "boost_only": "false"}, {"kind": "summon"}]:
             screen = Dialog()
             with self.assertRaises(ValueError): actions.resource_sweep(screen, params)
@@ -132,6 +161,15 @@ class Guards(unittest.TestCase):
         choose.assert_not_called()
         self.assertEqual(screen.taps, [(1137, 642)])
         sweep.assert_called_once_with(screen, 2, True, "evolution")
+
+    def test_manual_evolution_uses_game_count_for_one_submission(self):
+        screen = Dialog()
+        with patch.object(actions, "choose_evolution_hero") as choose, \
+                patch.object(actions, "execute_stamina_sweep", return_value=4) as sweep:
+            self.assertTrue(actions.evolution_sweep(screen, {"count": -1, "mode": "selected"}))
+        choose.assert_not_called()
+        self.assertEqual(screen.taps, [(337, 395)])
+        sweep.assert_called_once_with(screen, -1, True, "evolution")
 
 
 if __name__ == "__main__": unittest.main(verbosity=2)

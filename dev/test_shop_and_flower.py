@@ -110,7 +110,7 @@ class FeatureTests(unittest.TestCase):
     def test_flower_zero_or_invalid_settings_never_tap(self):
         screen = FlowerScreen()
         self.assertTrue(actions.flower_sweep(screen, {"count": 0}))
-        for params in [{"count": -1}, {"count": True}, {"attribute": "invalid"}]:
+        for params in [{"count": -2}, {"count": True}, {"attribute": "invalid"}]:
             with self.assertRaises(ValueError): actions.flower_sweep(screen, params)
         self.assertEqual(screen.taps, [])
 

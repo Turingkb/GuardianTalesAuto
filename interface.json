@@ -233,11 +233,11 @@
       "inputs": [
         {
           "name": "count",
-          "label": "次数（0为跳过）",
+          "label": "扫荡次数",
           "default": "10",
           "pipeline_type": "int",
-          "verify": "^(?:[0-9]|[1-9][0-9]|100)$",
-          "pattern_msg": "请输入0到100的整数"
+          "verify": "^(?:-1|[0-9]|[1-9][0-9]|100)$",
+          "pattern_msg": "请输入 -1 或 0 到 100 的整数"
         }
       ],
       "pipeline_override": {
@@ -246,7 +246,8 @@
             "count": "{count}"
           }
         }
-      }
+      },
+      "description": "-1 沿用游戏扫荡弹窗中的次数，0 跳过，1～100 指定次数。 -1 仅用于“沿用游戏设置”，自动选英雄请填 0～100。"
     },
     "EvolutionBoost": {
       "type": "switch",
@@ -283,11 +284,11 @@
       "inputs": [
         {
           "name": "count",
-          "label": "次数（0为跳过）",
+          "label": "扫荡次数",
           "default": "10",
           "pipeline_type": "int",
-          "verify": "^(?:[0-9]|[1-9][0-9]|100)$",
-          "pattern_msg": "请输入0到100的整数"
+          "verify": "^(?:-1|[0-9]|[1-9][0-9]|100)$",
+          "pattern_msg": "请输入 -1 或 0 到 100 的整数"
         }
       ],
       "pipeline_override": {
@@ -296,7 +297,8 @@
             "count": "{count}"
           }
         }
-      }
+      },
+      "description": "-1 沿用游戏扫荡弹窗中的次数，0 跳过，1～100 指定次数。"
     },
     "GoldBoost": {
       "type": "switch",
@@ -333,11 +335,11 @@
       "inputs": [
         {
           "name": "count",
-          "label": "次数（0为跳过）",
+          "label": "扫荡次数",
           "default": "10",
           "pipeline_type": "int",
-          "verify": "^(?:[0-9]|[1-9][0-9]|100)$",
-          "pattern_msg": "请输入0到100的整数"
+          "verify": "^(?:-1|[0-9]|[1-9][0-9]|100)$",
+          "pattern_msg": "请输入 -1 或 0 到 100 的整数"
         }
       ],
       "pipeline_override": {
@@ -346,7 +348,8 @@
             "count": "{count}"
           }
         }
-      }
+      },
+      "description": "-1 沿用游戏扫荡弹窗中的次数，0 跳过，1～100 指定次数。"
     },
     "ExperienceBoost": {
       "type": "switch",
@@ -383,11 +386,11 @@
       "inputs": [
         {
           "name": "count",
-          "label": "次数（0为跳过）",
+          "label": "扫荡次数",
           "default": "10",
           "pipeline_type": "int",
-          "verify": "^(?:[0-9]|[1-9][0-9]|100)$",
-          "pattern_msg": "请输入0到100的整数"
+          "verify": "^(?:-1|[0-9]|[1-9][0-9]|100)$",
+          "pattern_msg": "请输入 -1 或 0 到 100 的整数"
         }
       ],
       "pipeline_override": {
@@ -396,7 +399,8 @@
             "count": "{count}"
           }
         }
-      }
+      },
+      "description": "-1 沿用游戏扫荡弹窗中的次数，0 跳过，1～100 指定次数。"
     },
     "ItemsBoost": {
       "type": "switch",
@@ -906,11 +910,11 @@
       "inputs": [
         {
           "name": "count",
-          "label": "次数（0为跳过）",
+          "label": "扫荡次数",
           "default": "10",
           "pipeline_type": "int",
-          "verify": "^(?:[0-9]|[1-9][0-9]|100)$",
-          "pattern_msg": "请输入0到100的整数"
+          "verify": "^(?:-1|[0-9]|[1-9][0-9]|100)$",
+          "pattern_msg": "请输入 -1 或 0 到 100 的整数"
         }
       ],
       "pipeline_override": {
@@ -919,7 +923,8 @@
             "count": "{count}"
           }
         }
-      }
+      },
+      "description": "-1 沿用游戏扫荡弹窗中的次数，0 跳过，1～100 指定次数。"
     },
     "RedBoost": {
       "type": "switch",
@@ -1388,11 +1393,11 @@
       "inputs": [
         {
           "name": "count",
-          "label": "次数（0为跳过）",
+          "label": "扫荡次数",
           "default": "10",
           "pipeline_type": "int",
-          "verify": "^(?:[0-9]|[1-9][0-9]|100)$",
-          "pattern_msg": "请输入0到100的整数"
+          "verify": "^(?:-1|[0-9]|[1-9][0-9]|100)$",
+          "pattern_msg": "请输入 -1 或 0 到 100 的整数"
         }
       ],
       "pipeline_override": {
@@ -1401,7 +1406,8 @@
             "count": "{count}"
           }
         }
-      }
+      },
+      "description": "-1 沿用游戏扫荡弹窗中的次数，0 跳过，1～100 指定次数。"
     },
     "FlowerAttribute": {
       "type": "select",
