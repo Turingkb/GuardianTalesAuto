@@ -83,6 +83,14 @@ class PortablePackage(unittest.TestCase):
             "AdbControlScreenCapType": "None", "AfterTask": "CloseMFA",
             "UI.LiveView.EnableLiveView": True, "UseSeparateScreenshotTasker": False})
 
+    def test_preview_repair_startup_guard_preserves_global_settings(self):
+        path = self.root / "config/config.json"
+        path.parent.mkdir(parents=True)
+        path.write_text('{"GlobalStartEnabled":"True"}', encoding="utf-8")
+        migrate_gui_tasks.skip_next_gui_autostart(self.root)
+        self.assertEqual(json.loads(path.read_bytes()), {
+            "GlobalStartEnabled": "True", "NoAutoStart": "True"})
+
     @unittest.skipUnless(os.name == "nt", "Windows startup integration")
     def test_gui_process_check_does_not_depend_on_powershell_in_path(self):
         with patch.dict(os.environ, {"PATH": ""}), \

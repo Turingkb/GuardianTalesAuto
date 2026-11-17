@@ -117,6 +117,16 @@ def repair_default_live_view(root: Path) -> None:
     temporary.replace(path)
 
 
+def skip_next_gui_autostart(root: Path) -> None:
+    path = root / "config/config.json"
+    config = json.loads(path.read_text(encoding="utf-8-sig")) if path.is_file() else {}
+    # MFA consumes this flag on startup, leaving the profile's launch policy intact.
+    config["NoAutoStart"] = "True"
+    temporary = path.with_suffix(".json.live-view.tmp")
+    temporary.write_text(json.dumps(config, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    temporary.replace(path)
+
+
 def main(*, repair_live_view: bool = False):
     # Process paths may be inaccessible under a restricted token. Checking names
     # conservatively prevents mistaking an unreadable path for a closed GUI.
@@ -152,6 +162,8 @@ def main(*, repair_live_view: bool = False):
         temporary = path.with_suffix(".json.tmp")
         temporary.write_text(updated, encoding="utf-8")
         temporary.replace(path)
+    if repair_live_view:
+        skip_next_gui_autostart(ROOT)
     return 0
 
 
