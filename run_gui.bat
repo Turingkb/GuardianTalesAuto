@@ -1,4 +1,4 @@
 @echo off
 chcp 65001 >nul
-call "%~dp0GTAssistant.bat"
+call "%~dp0GTAssistant.bat" %*
 exit /b %errorlevel%

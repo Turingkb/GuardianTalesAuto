@@ -63,7 +63,11 @@ def check_environment(root: Path) -> list[str]:
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--check", action="store_true", help="Check without opening the GUI or connecting a device")
+    parser.add_argument("--repair-live-view", action="store_true",
+                        help="Use the main controller for preview on the default profile")
     args = parser.parse_args()
+    if args.check and args.repair_live_view:
+        parser.error("--check and --repair-live-view cannot be combined")
     problems = check_environment(ROOT)
     if problems:
         for problem in problems:
@@ -81,7 +85,7 @@ def main() -> int:
             print("[MGA] 便携包的 Agent Python 路径不正确，请重新解压完整运行包。")
             return 1
     from migrate_gui_tasks import main as migrate
-    if migrate():
+    if migrate(repair_live_view=args.repair_live_view):
         return 1
     subprocess.Popen([str(ROOT / "GTAssistant.exe")], cwd=ROOT,
                      creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0))

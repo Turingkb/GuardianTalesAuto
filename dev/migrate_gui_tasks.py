@@ -99,7 +99,25 @@ def migrate(config: dict, tasks: list[dict], option_definitions: dict | None = N
     return config
 
 
-def main():
+def repair_default_live_view(root: Path) -> None:
+    path = root / "config/instances/default.json"
+    original = path.read_bytes()
+    config = json.loads(original.decode("utf-8-sig"))
+    if (config.get("UI.LiveView.EnableLiveView") is True
+            and config.get("UseSeparateScreenshotTasker") is False):
+        return
+    backup = root / "backup/live-view/default.json"
+    backup.parent.mkdir(parents=True, exist_ok=True)
+    if not backup.exists():
+        backup.write_bytes(original)
+    config["UI.LiveView.EnableLiveView"] = True
+    config["UseSeparateScreenshotTasker"] = False
+    temporary = path.with_suffix(".json.live-view.tmp")
+    temporary.write_text(json.dumps(config, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    temporary.replace(path)
+
+
+def main(*, repair_live_view: bool = False):
     # Process paths may be inaccessible under a restricted token. Checking names
     # conservatively prevents mistaking an unreadable path for a closed GUI.
     query = "@(Get-Process -Name GTAssistant,MFAAvalonia -ErrorAction SilentlyContinue).Count"
@@ -112,8 +130,13 @@ def main():
     if result.returncode or not result.stdout.strip().isdigit():
         raise RuntimeError("Cannot verify GUI state before refreshing its task cache")
     if int(result.stdout.strip()):
+        if repair_live_view:
+            print("[MGA] 请先退出助手，再应用实时视图修复。")
+            return 1
         print("GUI is open; task cache refresh deferred until next launch")
         return 0
+    if repair_live_view:
+        repair_default_live_view(ROOT)
     interface = json.loads((ROOT / "interface.json").read_text(encoding="utf-8"))
     tasks = interface["task"]
     for path in (ROOT / "config/instances").glob("*.json"):

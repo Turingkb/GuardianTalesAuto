@@ -71,6 +71,18 @@ class PortablePackage(unittest.TestCase):
         self.assertTrue(any(launch_gui.DOTNET_URL in problem for problem in problems))
         run.assert_not_called()
 
+    def test_preview_repair_preserves_other_settings_and_original_backup(self):
+        path = self.root / "config/instances/default.json"
+        path.parent.mkdir(parents=True)
+        original = b'{"AdbControlScreenCapType":"None","AfterTask":"CloseMFA"}'
+        path.write_bytes(original)
+        migrate_gui_tasks.repair_default_live_view(self.root)
+        migrate_gui_tasks.repair_default_live_view(self.root)
+        self.assertEqual((self.root / "backup/live-view/default.json").read_bytes(), original)
+        self.assertEqual(json.loads(path.read_bytes()), {
+            "AdbControlScreenCapType": "None", "AfterTask": "CloseMFA",
+            "UI.LiveView.EnableLiveView": True, "UseSeparateScreenshotTasker": False})
+
     @unittest.skipUnless(os.name == "nt", "Windows startup integration")
     def test_gui_process_check_does_not_depend_on_powershell_in_path(self):
         with patch.dict(os.environ, {"PATH": ""}), \
