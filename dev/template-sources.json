@@ -561,5 +561,48 @@
       25
     ],
     "note": "标题下划线影响局部OCR，使用标题模板与活动目标文字双锚点。"
+  },
+  {
+    "template": "event_signin_footer_nov19.png",
+    "source": "dev/runtime/nov19/initial.png",
+    "box_xyxy": [
+      789,
+      510,
+      1075,
+      532
+    ],
+    "size": [
+      286,
+      22
+    ],
+    "note": "2026-11-19 无故缺席，视同放弃，新活动签到页底部固定文字。"
+  },
+  {
+    "template": "activity_banner_monopoly.png",
+    "source": "dev/runtime/nov19/activity2.png",
+    "box_xyxy": [
+      48,
+      138,
+      277,
+      210
+    ],
+    "size": [
+      229,
+      72
+    ]
+  },
+  {
+    "template": "activity_title_monopoly.png",
+    "source": "dev/runtime/nov19/monopoly.png",
+    "box_xyxy": [
+      76,
+      23,
+      202,
+      47
+    ],
+    "size": [
+      126,
+      24
+    ]
   }
 ]

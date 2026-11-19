@@ -19,6 +19,8 @@
       "[JumpBack]GT_Common_DismissReward",
       "[JumpBack]GT_Common_CloseNotice",
       "[JumpBack]GT_Common_CloseSignin",
+      "[JumpBack]GT_EventSignin_Nov19_Claim",
+      "[JumpBack]GT_EventSignin_Nov19_Close",
       "[JumpBack]GT_Common_CloseEventSignin",
       "[JumpBack]GT_Common_PromoOptOut",
       "[JumpBack]GT_Common_ClosePromo",

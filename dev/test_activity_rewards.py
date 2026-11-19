@@ -127,12 +127,23 @@ class EventNavigation(unittest.TestCase):
 
     def test_new_event_claims_goals_and_returns_to_list_without_draw(self):
         screen = EventScreen()
-        with patch.object(activity, 'open_event', side_effect=[True, False]), \
+        with patch.object(activity, 'open_event', side_effect=[True] + [False] * (len(activity.EVENTS) - 1)), \
                 patch.object(activity, 'claim_goals', return_value=2) as claim, \
                 patch.object(activity, 'wait_for'):
             self.assertTrue(activity.activity_rewards(screen, {}))
         claim.assert_called_once_with(screen)
         self.assertEqual(screen.taps, [(1195,623), (1237,43), (40,360)])
+
+    def test_monopoly_only_enters_goals_and_returns_to_list(self):
+        screen = EventScreen()
+        found = [event.name == "浮游城大富翁" for event in activity.EVENTS]
+        self.assertEqual(sum(found), 1)
+        with patch.object(activity, 'open_event', side_effect=found), \
+                patch.object(activity, 'claim_goals', return_value=100) as claim, \
+                patch.object(activity, 'wait_for'):
+            self.assertTrue(activity.activity_rewards(screen, {}))
+        claim.assert_called_once_with(screen)
+        self.assertEqual(screen.taps, [(128,213), (1237,43), (40,360)])
 
 
 if __name__ == '__main__': unittest.main(verbosity=2)

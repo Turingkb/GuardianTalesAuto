@@ -1,0 +1,70 @@
+{
+  "GT_EventSignin_Nov19_Claim": {
+    "recognition": "And",
+    "all_of": [
+      {
+        "recognition": "TemplateMatch",
+        "template": "event_signin_footer_nov19.png",
+        "roi": [
+          770,
+          495,
+          325,
+          55
+        ],
+        "threshold": 0.9
+      },
+      {
+        "recognition": "ColorMatch",
+        "roi": [
+          518,
+          283,
+          568,
+          210
+        ],
+        "method": 4,
+        "lower": [
+          25,
+          160,
+          245
+        ],
+        "upper": [
+          45,
+          185,
+          255
+        ],
+        "count": 1800,
+        "connected": true
+      }
+    ],
+    "box_index": 1,
+    "action": "LongPress",
+    "duration": 50,
+    "target_offset": [
+      20,
+      20,
+      -40,
+      -40
+    ],
+    "post_delay": 600,
+    "max_hit": 1
+  },
+  "GT_EventSignin_Nov19_Close": {
+    "recognition": "TemplateMatch",
+    "template": "event_signin_footer_nov19.png",
+    "roi": [
+      770,
+      495,
+      325,
+      55
+    ],
+    "threshold": 0.9,
+    "action": "LongPress",
+    "duration": 50,
+    "target": [
+      1237,
+      42
+    ],
+    "post_delay": 650,
+    "max_hit": 4
+  }
+}

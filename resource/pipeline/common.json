@@ -34,6 +34,8 @@
       "[JumpBack]GT_Common_CancelPurchase",
       "[JumpBack]GT_Common_CloseNotice",
       "[JumpBack]GT_Common_CloseSignin",
+      "[JumpBack]GT_EventSignin_Nov19_Claim",
+      "[JumpBack]GT_EventSignin_Nov19_Close",
       "[JumpBack]GT_Common_CloseEventSignin",
       "[JumpBack]GT_Common_PromoOptOut",
       "[JumpBack]GT_Common_ClosePromo",
@@ -438,6 +440,32 @@
               40
             ],
             "expected": "^活动目标$"
+          }
+        ]
+      },
+      {
+        "recognition": "And",
+        "all_of": [
+          {
+            "recognition": "TemplateMatch",
+            "template": "activity_title_monopoly.png",
+            "roi": [
+              60,
+              5,
+              360,
+              60
+            ],
+            "threshold": 0.92
+          },
+          {
+            "recognition": "OCR",
+            "roi": [
+              10,
+              185,
+              220,
+              50
+            ],
+            "expected": "确认活动目标"
           }
         ]
       }

@@ -64,12 +64,121 @@
         "next": ["GT_Mail_NotificationRoute"]
     },
     "GT_Mail_NotificationRoute": {
-        "next": ["[JumpBack]GT_Mail_ConfirmClaim", "[JumpBack]GT_Common_DismissReward", "[JumpBack]GT_Mail_ClaimAll", "GT_Mail_NotificationEmpty"],
+        "next": ["[JumpBack]GT_Mail_ConfirmClaim", "[JumpBack]GT_Mail_ReceiveNotification", "[JumpBack]GT_Common_DismissReward", "[JumpBack]GT_Mail_ClaimAll", "GT_Mail_NotificationEmpty", "[JumpBack]GT_Mail_OpenNotification"],
         "timeout": 15000
     },
     "GT_Mail_NotificationEmpty": {
         "recognition": "And", "all_of": ["GT_Mail_Empty"],
         "action": "Click", "target": [35, 25, 20, 20], "post_delay": 700,
         "next": ["GT_StartUp_HubReady"]
+    },
+    "GT_Mail_ReceiveNotification": {
+        "recognition": "And",
+        "all_of": [
+            {
+                "recognition": "OCR",
+                "expected": "^邮箱$",
+                "roi": [
+                    570,
+                    65,
+                    140,
+                    45
+                ]
+            },
+            {
+                "recognition": "OCR",
+                "expected": "^接收$",
+                "roi": [
+                    530,
+                    580,
+                    220,
+                    60
+                ]
+            },
+            {
+                "recognition": "ColorMatch",
+                "method": 4,
+                "lower": [
+                    240,
+                    175,
+                    0
+                ],
+                "upper": [
+                    255,
+                    225,
+                    60
+                ],
+                "roi": [
+                    540,
+                    590,
+                    200,
+                    40
+                ],
+                "count": 4000
+            }
+        ],
+        "action": "LongPress",
+        "duration": 50,
+        "target": [
+            640,
+            611
+        ],
+        "post_delay": 1000,
+        "max_hit": 20
+    },
+    "GT_Mail_OpenNotification": {
+        "recognition": "And",
+        "all_of": [
+            "GT_Mail_PageReady",
+            {
+                "recognition": "OCR",
+                "expected": "^通知邮件$",
+                "roi": [
+                    165,
+                    150,
+                    140,
+                    60
+                ]
+            },
+            {
+                "recognition": "ColorMatch",
+                "method": 4,
+                "lower": [
+                    10,
+                    30,
+                    70
+                ],
+                "upper": [
+                    90,
+                    190,
+                    255
+                ],
+                "roi": [
+                    20,
+                    155,
+                    280,
+                    45
+                ],
+                "count": 6000
+            },
+            {
+                "recognition": "OCR",
+                "expected": "^[1-9][0-9]*$",
+                "roi": [
+                    930,
+                    630,
+                    150,
+                    80
+                ]
+            }
+        ],
+        "action": "LongPress",
+        "duration": 50,
+        "target": [
+            700,
+            140
+        ],
+        "post_delay": 650,
+        "max_hit": 20
     }
 }

@@ -113,6 +113,8 @@ EVENTS = (
           "^活动目标$", (1195, 623), "activity_title_capsule.png"),
     Event("开心宾果乐", "activity_banner_bingo.png", (28, 185, 220, 50),
           "确认活动目标", (133, 214)),
+    Event("浮游城大富翁", "activity_banner_monopoly.png", (10, 185, 220, 50),
+          "确认活动目标", (128, 213), "activity_title_monopoly.png"),
 )
 
 
